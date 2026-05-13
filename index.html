@@ -504,8 +504,12 @@
 
 <!-- HERO -->
 <section id="hero">
-  <video class="hero-video-bg" autoplay loop muted playsinline src="hero-video.mp4"></video>
-  <video class="hero-video" autoplay loop muted playsinline src="hero-video.mp4"></video>
+  <video class="hero-video-bg" autoplay loop muted playsinline preload="auto">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
+  <video class="hero-video" autoplay loop muted playsinline preload="auto">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Fort Myers & Southwest Florida</p>
@@ -749,25 +753,43 @@
   function forcePlay(video) {
     if (!video) return;
     video.muted = true;
-    var p = video.play();
-    if (p !== undefined) {
-      p.catch(function() {
-        document.addEventListener('touchstart', function handler() {
-          video.play();
-          document.removeEventListener('touchstart', handler);
-        }, { once: true });
-        document.addEventListener('click', function handler() {
-          video.play();
-          document.removeEventListener('click', handler);
-        }, { once: true });
-      });
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.defaultMuted = true;
+    video.playsInline = true;
+    if (video.paused) {
+      var p = video.play();
+      if (p !== undefined) {
+        p.catch(function() {
+          document.addEventListener('touchstart', function() { video.play(); }, { once: true });
+          document.addEventListener('click', function() { video.play(); }, { once: true });
+          document.addEventListener('scroll', function() { video.play(); }, { once: true });
+        });
+      }
     }
   }
 
-  mainVid.addEventListener('loadeddata', function() { forcePlay(mainVid); });
-  bgVid.addEventListener('loadeddata', function() { forcePlay(bgVid); });
-  forcePlay(mainVid);
-  forcePlay(bgVid);
+  function initVideo(video) {
+    if (!video) return;
+    video.load();
+    ['loadeddata', 'canplay', 'canplaythrough', 'loadedmetadata'].forEach(function(evt) {
+      video.addEventListener(evt, function() { forcePlay(video); });
+    });
+    forcePlay(video);
+    setTimeout(function() { forcePlay(video); }, 500);
+    setTimeout(function() { forcePlay(video); }, 1500);
+    setTimeout(function() { forcePlay(video); }, 3000);
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initVideo(mainVid);
+    initVideo(bgVid);
+  } else {
+    document.addEventListener('DOMContentLoaded', function() {
+      initVideo(mainVid);
+      initVideo(bgVid);
+    });
+  }
 
   // Sync blurred background video with main video
   mainVid.addEventListener('seeked', () => { bgVid.currentTime = mainVid.currentTime; });
