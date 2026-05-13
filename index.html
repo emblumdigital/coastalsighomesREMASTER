@@ -81,14 +81,35 @@
     position: relative;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
+    background: var(--charcoal);
   }
-  .hero-bg {
+  .hero-video-bg {
+    position: absolute; inset: -20px;
+    width: calc(100% + 40px); height: calc(100% + 40px);
+    object-fit: cover;
+    object-position: center center;
+    filter: blur(30px) brightness(0.6);
+    z-index: 0;
+  }
+  .hero-video {
     position: absolute; inset: 0;
-    background:
-      linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%),
-      url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1800&q=80') center/cover no-repeat;
-    transform: scale(1.04);
-    animation: heroZoom 18s ease-in-out infinite alternate;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    z-index: 0;
+    background: transparent;
+  }
+  /* Hide native play button / controls on all browsers */
+  .hero-video::-webkit-media-controls,
+  .hero-video-bg::-webkit-media-controls { display: none !important; }
+  .hero-video::-webkit-media-controls-start-playback-button,
+  .hero-video-bg::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
+  .hero-video::-webkit-media-controls-panel,
+  .hero-video-bg::-webkit-media-controls-panel { display: none !important; }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.75) 100%);
+    z-index: 1;
   }
   @keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1.0); } }
 
@@ -97,6 +118,7 @@
     text-align: center; color: var(--warm-white);
     padding: 0 2rem;
     animation: fadeUp 1.2s ease both;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5);
   }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(32px); }
@@ -106,6 +128,7 @@
     font-size: 0.65rem; letter-spacing: 0.28em;
     text-transform: uppercase; color: var(--gold-light);
     margin-bottom: 1.6rem; font-family: var(--sans); font-weight: 500;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5);
   }
   .hero-h1 {
     font-family: var(--serif);
@@ -114,12 +137,14 @@
     line-height: 1.1;
     margin-bottom: 1.4rem;
     letter-spacing: -0.01em;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.6);
   }
   .hero-h1 em { font-style: italic; color: var(--gold-light); }
   .hero-sub {
     font-size: 0.7rem; letter-spacing: 0.22em;
-    text-transform: uppercase; color: rgba(245,242,237,0.7);
+    text-transform: uppercase; color: rgba(245,242,237,0.85);
     margin-bottom: 2.8rem; font-weight: 400;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
   }
   .hero-sub span { margin: 0 0.8rem; color: var(--gold); }
   .btn-primary {
@@ -134,10 +159,11 @@
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.35s, color 0.35s;
-    background: transparent;
+    transition: background 0.35s, color 0.35s, box-shadow 0.35s;
+    background: rgba(0,0,0,0.3);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
   }
-  .btn-primary:hover { background: var(--gold); color: var(--black); }
+  .btn-primary:hover { background: var(--gold); color: var(--black); box-shadow: 0 4px 20px rgba(184,150,90,0.4); }
   .hero-scroll {
     position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
@@ -229,7 +255,7 @@
     gap: 0; padding: 0;
   }
   .about-image {
-    background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80') center/cover no-repeat;
+    background: url('https://www.coastalsignaturehomes.net/images/white-oak-kitchen.jpeg') center/cover no-repeat;
     min-height: 680px;
   }
   .about-content {
@@ -373,7 +399,7 @@
     position: absolute; inset: 0;
     background:
       linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%),
-      url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1800&q=80') center/cover no-repeat;
+      url('https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg') center/cover no-repeat;
   }
   .cta-content {
     position: relative; z-index: 2;
@@ -449,6 +475,7 @@
     .project-card.tall { grid-row: span 1; }
     .project-card.tall img { min-height: 380px; }
     #about { grid-template-columns: 1fr; }
+    .hero-video { object-fit: contain; background: transparent; }
     .about-image { min-height: 320px; }
     .about-content { padding: 4rem 2rem; }
     .services-grid { grid-template-columns: 1fr; }
@@ -471,20 +498,22 @@
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#process">Process</a></li>
-    <li><a href="#cta" class="nav-cta">Consultation</a></li>
+    <li><a href="tel:2395447400" class="nav-cta">Call Now</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
+  <video class="hero-video-bg" autoplay loop muted playsinline src="hero-video.mp4"></video>
+  <video class="hero-video" autoplay loop muted playsinline src="hero-video.mp4"></video>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Southwest Florida's Premier Luxury Builder</p>
-    <h1 class="hero-h1">Luxury Waterfront Homes<br><em>Crafted for Modern</em><br>Coastal Living</h1>
+    <p class="hero-eyebrow">Fort Myers & Southwest Florida</p>
+    <h1 class="hero-h1">Your Dream Home<br><em>Starts Here</em></h1>
     <p class="hero-sub">
-      Custom Homes <span>•</span> Luxury Renovations <span>•</span> Waterfront Living
+      New Construction <span>•</span> Remodeling <span>•</span> 20+ Years Experience
     </p>
-    <a href="#projects" class="btn-primary">Explore Our Work</a>
+    <a href="#projects" class="btn-primary">View Our Projects</a>
   </div>
   <div class="hero-scroll">Scroll</div>
 </section>
@@ -498,32 +527,32 @@
   </div>
   <div class="projects-grid">
     <div class="project-card tall reveal">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Modern Waterfront Retreat">
+      <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg" alt="New Construction">
       <div class="project-overlay">
         <div class="project-info">
           <p class="project-location">Fort Myers, FL</p>
-          <h3 class="project-name">Modern Waterfront Retreat</h3>
-          <p class="project-desc">A seamless fusion of indoor-outdoor living on deep-water canal access.</p>
+          <h3 class="project-name">New Construction</h3>
+          <p class="project-desc">Custom-built homes designed with precision and the highest quality standards.</p>
         </div>
       </div>
     </div>
     <div class="project-card reveal reveal-delay-1">
-      <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Gulf Coast Custom Estate">
+      <img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg" alt="Kitchen Remodel">
       <div class="project-overlay">
         <div class="project-info">
-          <p class="project-location">Naples, FL</p>
-          <h3 class="project-name">Gulf Coast Custom Estate</h3>
-          <p class="project-desc">Contemporary architecture designed for the discerning coastal lifestyle.</p>
+          <p class="project-location">Southwest Florida</p>
+          <h3 class="project-name">Kitchen Remodel</h3>
+          <p class="project-desc">Elevated kitchen designs featuring marble islands and premium finishes.</p>
         </div>
       </div>
     </div>
     <div class="project-card reveal reveal-delay-2">
-      <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80" alt="Coastal Contemporary Renovation">
+      <img src="https://www.coastalsignaturehomes.net/images/master-bath-transformation.jpeg" alt="Bathroom Transformation">
       <div class="project-overlay">
         <div class="project-info">
-          <p class="project-location">Sanibel Island, FL</p>
-          <h3 class="project-name">Coastal Contemporary Renovation</h3>
-          <p class="project-desc">A transformative renovation reimagining a classic waterfront residence.</p>
+          <p class="project-location">Cape Coral, FL</p>
+          <h3 class="project-name">Bathroom Transformation</h3>
+          <p class="project-desc">Complete bathroom renovations delivering the "wow" factor our clients dream of.</p>
         </div>
       </div>
     </div>
@@ -535,30 +564,30 @@
   <div class="about-image"></div>
   <div class="about-content">
     <p class="section-label reveal">Our Story</p>
-    <h2 class="section-title reveal reveal-delay-1">Built on <em>Craftsmanship.</em><br>Defined by Detail.</h2>
+    <h2 class="section-title reveal reveal-delay-1">Built on <em>Craftsmanship.</em><br>Driven by Quality.</h2>
     <div class="divider reveal reveal-delay-2"></div>
     <p class="about-body reveal reveal-delay-2">
-      Coastal Signature Homes was founded on a singular conviction: that luxury construction demands more than skilled trades — it demands vision, discipline, and an unwavering commitment to the client experience. Based in Southwest Florida, we specialize in custom waterfront homes and luxury renovations that reflect the unique beauty of coastal living.
+      With over 20 years active in the construction industry, Coastal Signature Homes brings extensive expertise in residential building, home remodeling, and project management. Based in Fort Myers and serving all of Southwest Florida including Cape Coral, we strive for perfection so that excellence is always attained.
     </p>
     <p class="about-body reveal reveal-delay-3" style="margin-top: 1rem;">
-      From initial consultation through final delivery, our concierge approach ensures every decision is made with intention, every material selected with purpose, and every detail executed with precision. The result is not simply a home — it is a legacy.
+      From new construction to full home remodels, our team delivers precision, efficiency, and the highest quality standards on every project. Whether it's a kitchen remodel, bathroom transformation, or complete new build, we approach every project with the same commitment to outstanding craftsmanship and client satisfaction.
     </p>
     <div class="about-stats reveal reveal-delay-3">
       <div>
-        <div class="stat-num">150+</div>
-        <div class="stat-label">Luxury Homes Delivered</div>
-      </div>
-      <div>
         <div class="stat-num">20+</div>
-        <div class="stat-label">Years of Excellence</div>
+        <div class="stat-label">Years of Experience</div>
       </div>
       <div>
         <div class="stat-num">100%</div>
         <div class="stat-label">Client Satisfaction</div>
       </div>
       <div>
-        <div class="stat-num">$2M+</div>
-        <div class="stat-label">Average Project Value</div>
+        <div class="stat-num">5★</div>
+        <div class="stat-label">Client Reviews</div>
+      </div>
+      <div>
+        <div class="stat-num">SWFL</div>
+        <div class="stat-label">Service Area</div>
       </div>
     </div>
   </div>
@@ -568,32 +597,32 @@
 <section id="services">
   <div class="services-intro">
     <p class="section-label reveal">What We Build</p>
-    <h2 class="section-title reveal reveal-delay-1">Three Pillars of<br><em>Coastal Excellence</em></h2>
+    <h2 class="section-title reveal reveal-delay-1">We Do Remodeling<br><em>Your Way</em></h2>
     <div class="divider center reveal reveal-delay-2"></div>
   </div>
   <div class="services-grid">
     <div class="service-card reveal">
-      <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=700&q=80" alt="Custom Homes">
+      <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg" alt="New Construction">
       <div class="service-overlay">
         <div class="service-num">01</div>
-        <h3 class="service-name">Custom Homes</h3>
-        <p class="service-text">From architectural vision to final walkthrough, we craft fully bespoke residences tailored to the way you live — designed for the Southwest Florida waterfront lifestyle.</p>
+        <h3 class="service-name">New Construction</h3>
+        <p class="service-text">Custom-built homes from the ground up. We manage every phase of construction with precision, efficiency, and the highest quality standards throughout Southwest Florida.</p>
       </div>
     </div>
     <div class="service-card reveal reveal-delay-1">
-      <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=700&q=80" alt="Luxury Renovations">
+      <img src="https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg" alt="Kitchen & Bath Remodeling">
       <div class="service-overlay">
         <div class="service-num">02</div>
-        <h3 class="service-name">Luxury Renovations</h3>
-        <p class="service-text">Transform your existing residence into the home you've always envisioned. We approach every renovation with the same meticulous care as a ground-up custom build.</p>
+        <h3 class="service-name">Kitchen & Bath Remodeling</h3>
+        <p class="service-text">Transform your kitchen and bathrooms with premium cabinets, countertops, tile work, and fixtures. From concept to completion, we deliver spaces that inspire.</p>
       </div>
     </div>
     <div class="service-card reveal reveal-delay-2">
-      <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=700&q=80" alt="Waterfront Transformations">
+      <img src="https://www.coastalsignaturehomes.net/images/two-story-living-room.jpeg" alt="Full Home Remodeling">
       <div class="service-overlay">
         <div class="service-num">03</div>
-        <h3 class="service-name">Waterfront Transformations</h3>
-        <p class="service-text">Maximize your connection to the water. We specialize in designing homes that dissolve the boundary between interior comfort and the natural coastal landscape.</p>
+        <h3 class="service-name">Full Home Remodeling</h3>
+        <p class="service-text">Complete home renovations including windows, flooring, living spaces, and more. We handle every detail so your existing home becomes the dream home you've always wanted.</p>
       </div>
     </div>
   </div>
@@ -644,19 +673,19 @@
   </div>
   <div class="testimonials-grid">
     <div class="testimonial-card reveal">
-      <p class="testimonial-quote">Working with Coastal Signature Homes was unlike any building experience we had imagined. They treated our home as if it were their own, and the result exceeded every expectation.</p>
-      <p class="testimonial-author">— Robert & Claire Hartwell</p>
-      <p class="testimonial-home">Custom Waterfront Estate · Fort Myers</p>
+      <p class="testimonial-quote">Scott brought a high level of creativity and elevated the design of our condo remodel. He stayed on schedule and kept the project within budget without compromising quality.</p>
+      <p class="testimonial-author">— Missy</p>
+      <p class="testimonial-home">Condo Remodel · Southwest Florida</p>
     </div>
     <div class="testimonial-card reveal reveal-delay-1">
-      <p class="testimonial-quote">The communication and attention to detail throughout our renovation was extraordinary. We always knew exactly where the project stood, and the finished product is simply stunning.</p>
-      <p class="testimonial-author">— James Thornton</p>
-      <p class="testimonial-home">Luxury Renovation · Naples</p>
+      <p class="testimonial-quote">Top quality workmanship. It was a dream come true to have "the wow" factor in our three bathroom renovation. We couldn't be happier with the results.</p>
+      <p class="testimonial-author">— Ripperton & Lillian</p>
+      <p class="testimonial-home">Three Bathroom Renovation · Fort Myers</p>
     </div>
     <div class="testimonial-card reveal reveal-delay-2">
-      <p class="testimonial-quote">We've built homes before, but nothing comes close to this experience. Coastal Signature Homes delivered a masterpiece — and made the entire process feel effortless.</p>
-      <p class="testimonial-author">— Patricia & David Weston</p>
-      <p class="testimonial-home">Waterfront Transformation · Sanibel Island</p>
+      <p class="testimonial-quote">Professional, fair pricing, outstanding quality, and timely responses. We have been working with Coastal Signature Homes for over 4 years on both personal and business projects.</p>
+      <p class="testimonial-author">— Carol</p>
+      <p class="testimonial-home">Personal & Business Projects · 4+ Years</p>
     </div>
   </div>
 </section>
@@ -668,8 +697,8 @@
     <p class="section-label reveal" style="color: var(--gold-light);">Begin Your Journey</p>
     <h2 class="section-title reveal reveal-delay-1">Build Your<br><em>Coastal Legacy</em></h2>
     <div class="divider center reveal reveal-delay-2"></div>
-    <p class="cta-sub reveal reveal-delay-2">Luxury Homes Built Without Compromise</p>
-    <a href="#" class="btn-primary reveal reveal-delay-3">Schedule a Consultation</a>
+    <p class="cta-sub reveal reveal-delay-2">We Strive for Perfection So That Excellence Is Always Attained</p>
+    <a href="tel:2395447400" class="btn-primary reveal reveal-delay-3">Call (239) 544-7400</a>
   </div>
 </section>
 
@@ -678,14 +707,14 @@
   <div class="footer-top">
     <div class="footer-brand">
       <a href="#" class="nav-logo">Coastal <span>Signature</span> Homes</a>
-      <p class="footer-tagline">"Luxury waterfront homes and renovations crafted for modern coastal living."</p>
+      <p class="footer-tagline">"We strive for perfection so that excellence is always attained."</p>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
       <ul>
-        <li><a href="#">Custom Homes</a></li>
-        <li><a href="#">Luxury Renovations</a></li>
-        <li><a href="#">Waterfront Transformations</a></li>
+        <li><a href="#">New Construction</a></li>
+        <li><a href="#">Kitchen & Bath Remodeling</a></li>
+        <li><a href="#">Full Home Remodeling</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -701,18 +730,50 @@
       <h4>Contact</h4>
       <ul>
         <li><a href="#">Fort Myers, FL</a></li>
-        <li><a href="#">(239) 555-0180</a></li>
-        <li><a href="#">info@coastalsignaturehomes.com</a></li>
+        <li><a href="tel:2395447400">(239) 544-7400</a></li>
+        <li><a href="mailto:scott@coastalsignaturehomes.net">scott@coastalsignaturehomes.net</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 Coastal Signature Homes. All rights reserved.</span>
+    <span>© 2026 Coastal Signature Homes. All rights reserved.</span>
     <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
   </div>
 </footer>
 
 <script>
+  // Force autoplay on both hero videos
+  const mainVid = document.querySelector('.hero-video');
+  const bgVid = document.querySelector('.hero-video-bg');
+
+  function forcePlay(video) {
+    if (!video) return;
+    video.muted = true;
+    var p = video.play();
+    if (p !== undefined) {
+      p.catch(function() {
+        document.addEventListener('touchstart', function handler() {
+          video.play();
+          document.removeEventListener('touchstart', handler);
+        }, { once: true });
+        document.addEventListener('click', function handler() {
+          video.play();
+          document.removeEventListener('click', handler);
+        }, { once: true });
+      });
+    }
+  }
+
+  mainVid.addEventListener('loadeddata', function() { forcePlay(mainVid); });
+  bgVid.addEventListener('loadeddata', function() { forcePlay(bgVid); });
+  forcePlay(mainVid);
+  forcePlay(bgVid);
+
+  // Sync blurred background video with main video
+  mainVid.addEventListener('seeked', () => { bgVid.currentTime = mainVid.currentTime; });
+  mainVid.addEventListener('play', () => { bgVid.play(); });
+  mainVid.addEventListener('pause', () => { bgVid.pause(); });
+
   // Scrolled nav
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
