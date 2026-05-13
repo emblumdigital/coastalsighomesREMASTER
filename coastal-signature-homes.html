@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coastal Signature Homes — Luxury Waterfront Living</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0e0e0d;
+    --charcoal: #1c1c1a;
+    --warm-white: #f5f2ed;
+    --soft-sand: #e8e0d3;
+    --sand-mid: #c9bfaf;
+    --gold: #b8965a;
+    --gold-light: #d4ad72;
+    --text-muted: #8a8278;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Montserrat', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--black);
+    font-family: var(--sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(14,14,13,0.94);
+    backdrop-filter: blur(12px);
+    padding: 1rem 4rem;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--warm-white);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold-light); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: rgba(245,242,237,0.78);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-light) !important;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.16em;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    height: 100vh; min-height: 700px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%),
+      url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1800&q=80') center/cover no-repeat;
+    transform: scale(1.04);
+    animation: heroZoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1.0); } }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; color: var(--warm-white);
+    padding: 0 2rem;
+    animation: fadeUp 1.2s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--gold-light);
+    margin-bottom: 1.6rem; font-family: var(--sans); font-weight: 500;
+  }
+  .hero-h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.4rem;
+    letter-spacing: -0.01em;
+  }
+  .hero-h1 em { font-style: italic; color: var(--gold-light); }
+  .hero-sub {
+    font-size: 0.7rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: rgba(245,242,237,0.7);
+    margin-bottom: 2.8rem; font-weight: 400;
+  }
+  .hero-sub span { margin: 0 0.8rem; color: var(--gold); }
+  .btn-primary {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--warm-white);
+    padding: 1rem 2.6rem;
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.35s, color 0.35s;
+    background: transparent;
+  }
+  .btn-primary:hover { background: var(--gold); color: var(--black); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    color: rgba(245,242,237,0.5); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase; z-index: 2;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .hero-scroll::after {
+    content: ''; display: block;
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, rgba(184,150,90,0.8), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 300; line-height: 1.15;
+    color: var(--charcoal);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .divider {
+    width: 48px; height: 1px;
+    background: var(--gold); margin: 1.8rem 0;
+  }
+  .divider.center { margin: 1.8rem auto; }
+
+  /* ── FEATURED PROJECTS ── */
+  #projects { background: var(--charcoal); padding: 7rem 0; }
+  #projects .inner { padding: 0 4rem; }
+  #projects .section-title { color: var(--warm-white); }
+  #projects .section-label { color: var(--gold-light); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 4rem;
+  }
+  .project-card {
+    position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .project-card.tall { grid-row: span 2; }
+  .project-card img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+    min-height: 380px;
+  }
+  .project-card.tall img { min-height: 760px; }
+  .project-card:hover img { transform: scale(1.05); }
+  .project-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+    display: flex; align-items: flex-end;
+    padding: 2.5rem;
+    transition: opacity 0.3s;
+  }
+  .project-info { color: var(--warm-white); }
+  .project-location {
+    font-size: 0.6rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold-light);
+    margin-bottom: 0.4rem;
+  }
+  .project-name {
+    font-family: var(--serif);
+    font-size: 1.55rem; font-weight: 300;
+    line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 0.7rem; color: rgba(245,242,237,0.65);
+    margin-top: 0.5rem; font-weight: 300; letter-spacing: 0.04em;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0; padding: 0;
+  }
+  .about-image {
+    background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80') center/cover no-repeat;
+    min-height: 680px;
+  }
+  .about-content {
+    background: var(--soft-sand);
+    padding: 7rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .about-body {
+    font-size: 0.88rem; line-height: 1.95;
+    color: #4a4640; margin-top: 1.2rem; font-weight: 300;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; margin-top: 3rem;
+  }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.8rem; font-weight: 300;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.65rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-top: 0.4rem;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--warm-white); }
+  .services-intro { text-align: center; max-width: 560px; margin: 0 auto 5rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    position: relative; overflow: hidden;
+    height: 520px; cursor: pointer;
+  }
+  .service-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .service-card:hover img { transform: scale(1.06); }
+  .service-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.1) 60%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 2.5rem;
+  }
+  .service-num {
+    font-family: var(--serif); font-size: 3rem;
+    font-weight: 300; color: rgba(184,150,90,0.35);
+    line-height: 1; margin-bottom: 1rem;
+  }
+  .service-name {
+    font-family: var(--serif);
+    font-size: 1.7rem; font-weight: 300;
+    color: var(--warm-white); line-height: 1.2;
+    margin-bottom: 0.7rem;
+  }
+  .service-text {
+    font-size: 0.72rem; color: rgba(245,242,237,0.62);
+    line-height: 1.7; font-weight: 300;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.4s;
+    opacity: 0;
+  }
+  .service-card:hover .service-text { max-height: 120px; opacity: 1; }
+
+  /* ── PROCESS ── */
+  #process { background: var(--charcoal); }
+  .process-header { text-align: center; margin-bottom: 5rem; }
+  .process-header .section-title { color: var(--warm-white); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0; position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 2.2rem; left: 10%; right: 10%;
+    height: 1px; background: linear-gradient(to right, transparent, var(--gold), var(--gold), transparent);
+  }
+  .process-step { text-align: center; padding: 0 1.5rem; position: relative; }
+  .step-num {
+    width: 4.4rem; height: 4.4rem;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.8rem;
+    font-family: var(--serif); font-size: 1.2rem;
+    color: var(--gold); background: var(--charcoal);
+    position: relative; z-index: 1;
+  }
+  .step-title {
+    font-family: var(--serif); font-size: 1.15rem;
+    font-weight: 400; color: var(--warm-white);
+    margin-bottom: 0.6rem;
+  }
+  .step-text {
+    font-size: 0.7rem; color: rgba(245,242,237,0.5);
+    line-height: 1.7; font-weight: 300;
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: var(--soft-sand); }
+  .testimonials-header { text-align: center; margin-bottom: 4rem; }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .testimonial-card {
+    background: var(--warm-white);
+    padding: 2.5rem;
+    border-left: 2px solid var(--gold);
+  }
+  .testimonial-quote {
+    font-family: var(--serif); font-size: 1.1rem;
+    font-style: italic; font-weight: 300;
+    line-height: 1.7; color: var(--charcoal);
+    margin-bottom: 1.6rem;
+  }
+  .testimonial-quote::before {
+    content: '"';
+    font-size: 3rem; color: var(--gold); line-height: 0.5;
+    display: block; margin-bottom: 0.8rem;
+    font-family: var(--serif);
+  }
+  .testimonial-author { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); }
+  .testimonial-home { font-size: 0.62rem; color: var(--gold); letter-spacing: 0.1em; margin-top: 0.3rem; }
+
+  /* ── CTA SECTION ── */
+  #cta {
+    height: 60vh; min-height: 500px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%),
+      url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1800&q=80') center/cover no-repeat;
+  }
+  .cta-content {
+    position: relative; z-index: 2;
+    text-align: center; color: var(--warm-white);
+    padding: 0 2rem;
+  }
+  .cta-content .section-title {
+    color: var(--warm-white); font-size: clamp(2.4rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+  .cta-sub {
+    font-size: 0.75rem; letter-spacing: 0.18em;
+    color: rgba(245,242,237,0.65); margin-bottom: 2.8rem;
+    text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0a0a09;
+    padding: 5rem 4rem 2.5rem;
+    color: rgba(245,242,237,0.5);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 4rem;
+  }
+  .footer-brand .nav-logo { font-size: 1.5rem; display: block; margin-bottom: 1rem; }
+  .footer-tagline {
+    font-family: var(--serif); font-style: italic;
+    font-size: 1rem; color: rgba(245,242,237,0.4);
+    line-height: 1.6;
+  }
+  .footer-col h4 {
+    font-size: 0.6rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.2rem; font-weight: 500;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul a {
+    color: rgba(245,242,237,0.45); text-decoration: none;
+    font-size: 0.75rem; transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 2rem;
+    display: flex; justify-content: space-between;
+    font-size: 0.65rem; letter-spacing: 0.08em;
+  }
+  .footer-bottom a { color: rgba(245,242,237,0.35); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.22s; }
+  .reveal-delay-3 { transition-delay: 0.34s; }
+  .reveal-delay-4 { transition-delay: 0.46s; }
+  .reveal-delay-5 { transition-delay: 0.58s; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav.scrolled { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.tall { grid-row: span 1; }
+    .project-card.tall img { min-height: 380px; }
+    #about { grid-template-columns: 1fr; }
+    .about-image { min-height: 320px; }
+    .about-content { padding: 4rem 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { height: 400px; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .process-steps::before { display: none; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { flex-direction: column; gap: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Coastal <span>Signature</span> Homes</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#cta" class="nav-cta">Consultation</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Southwest Florida's Premier Luxury Builder</p>
+    <h1 class="hero-h1">Luxury Waterfront Homes<br><em>Crafted for Modern</em><br>Coastal Living</h1>
+    <p class="hero-sub">
+      Custom Homes <span>•</span> Luxury Renovations <span>•</span> Waterfront Living
+    </p>
+    <a href="#projects" class="btn-primary">Explore Our Work</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<section id="projects">
+  <div class="inner">
+    <p class="section-label reveal">Featured Work</p>
+    <h2 class="section-title reveal reveal-delay-1">Exceptional Homes,<br><em>Exceptional Locations</em></h2>
+    <div class="divider reveal reveal-delay-2"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card tall reveal">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Modern Waterfront Retreat">
+      <div class="project-overlay">
+        <div class="project-info">
+          <p class="project-location">Fort Myers, FL</p>
+          <h3 class="project-name">Modern Waterfront Retreat</h3>
+          <p class="project-desc">A seamless fusion of indoor-outdoor living on deep-water canal access.</p>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal reveal-delay-1">
+      <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="Gulf Coast Custom Estate">
+      <div class="project-overlay">
+        <div class="project-info">
+          <p class="project-location">Naples, FL</p>
+          <h3 class="project-name">Gulf Coast Custom Estate</h3>
+          <p class="project-desc">Contemporary architecture designed for the discerning coastal lifestyle.</p>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal reveal-delay-2">
+      <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80" alt="Coastal Contemporary Renovation">
+      <div class="project-overlay">
+        <div class="project-info">
+          <p class="project-location">Sanibel Island, FL</p>
+          <h3 class="project-name">Coastal Contemporary Renovation</h3>
+          <p class="project-desc">A transformative renovation reimagining a classic waterfront residence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-image"></div>
+  <div class="about-content">
+    <p class="section-label reveal">Our Story</p>
+    <h2 class="section-title reveal reveal-delay-1">Built on <em>Craftsmanship.</em><br>Defined by Detail.</h2>
+    <div class="divider reveal reveal-delay-2"></div>
+    <p class="about-body reveal reveal-delay-2">
+      Coastal Signature Homes was founded on a singular conviction: that luxury construction demands more than skilled trades — it demands vision, discipline, and an unwavering commitment to the client experience. Based in Southwest Florida, we specialize in custom waterfront homes and luxury renovations that reflect the unique beauty of coastal living.
+    </p>
+    <p class="about-body reveal reveal-delay-3" style="margin-top: 1rem;">
+      From initial consultation through final delivery, our concierge approach ensures every decision is made with intention, every material selected with purpose, and every detail executed with precision. The result is not simply a home — it is a legacy.
+    </p>
+    <div class="about-stats reveal reveal-delay-3">
+      <div>
+        <div class="stat-num">150+</div>
+        <div class="stat-label">Luxury Homes Delivered</div>
+      </div>
+      <div>
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years of Excellence</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+      <div>
+        <div class="stat-num">$2M+</div>
+        <div class="stat-label">Average Project Value</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro">
+    <p class="section-label reveal">What We Build</p>
+    <h2 class="section-title reveal reveal-delay-1">Three Pillars of<br><em>Coastal Excellence</em></h2>
+    <div class="divider center reveal reveal-delay-2"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=700&q=80" alt="Custom Homes">
+      <div class="service-overlay">
+        <div class="service-num">01</div>
+        <h3 class="service-name">Custom Homes</h3>
+        <p class="service-text">From architectural vision to final walkthrough, we craft fully bespoke residences tailored to the way you live — designed for the Southwest Florida waterfront lifestyle.</p>
+      </div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=700&q=80" alt="Luxury Renovations">
+      <div class="service-overlay">
+        <div class="service-num">02</div>
+        <h3 class="service-name">Luxury Renovations</h3>
+        <p class="service-text">Transform your existing residence into the home you've always envisioned. We approach every renovation with the same meticulous care as a ground-up custom build.</p>
+      </div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=700&q=80" alt="Waterfront Transformations">
+      <div class="service-overlay">
+        <div class="service-num">03</div>
+        <h3 class="service-name">Waterfront Transformations</h3>
+        <p class="service-text">Maximize your connection to the water. We specialize in designing homes that dissolve the boundary between interior comfort and the natural coastal landscape.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-header">
+    <p class="section-label reveal">How We Work</p>
+    <h2 class="section-title reveal reveal-delay-1">A White-Glove<br><em>Experience</em></h2>
+    <div class="divider center reveal reveal-delay-2"></div>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">I</div>
+      <h4 class="step-title">Consultation</h4>
+      <p class="step-text">A private meeting to understand your vision, lifestyle, and aspirations for your new home.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-num">II</div>
+      <h4 class="step-title">Design Collaboration</h4>
+      <p class="step-text">Working alongside your architect and our design team to finalize every detail before ground is broken.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-num">III</div>
+      <h4 class="step-title">Pre-Construction</h4>
+      <p class="step-text">Permitting, material selection, and scheduling — handled with precision so your project begins seamlessly.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-num">IV</div>
+      <h4 class="step-title">Construction</h4>
+      <p class="step-text">Transparent progress updates, dedicated project management, and uncompromising quality control throughout.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-4">
+      <div class="step-num">V</div>
+      <h4 class="step-title">Final Delivery</h4>
+      <p class="step-text">A meticulous walkthrough and complete handover — because the final impression matters as much as the first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <p class="section-label reveal">Client Stories</p>
+    <h2 class="section-title reveal reveal-delay-1">Built on <em>Trust</em></h2>
+    <div class="divider center reveal reveal-delay-2"></div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <p class="testimonial-quote">Working with Coastal Signature Homes was unlike any building experience we had imagined. They treated our home as if it were their own, and the result exceeded every expectation.</p>
+      <p class="testimonial-author">— Robert & Claire Hartwell</p>
+      <p class="testimonial-home">Custom Waterfront Estate · Fort Myers</p>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-1">
+      <p class="testimonial-quote">The communication and attention to detail throughout our renovation was extraordinary. We always knew exactly where the project stood, and the finished product is simply stunning.</p>
+      <p class="testimonial-author">— James Thornton</p>
+      <p class="testimonial-home">Luxury Renovation · Naples</p>
+    </div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <p class="testimonial-quote">We've built homes before, but nothing comes close to this experience. Coastal Signature Homes delivered a masterpiece — and made the entire process feel effortless.</p>
+      <p class="testimonial-author">— Patricia & David Weston</p>
+      <p class="testimonial-home">Waterfront Transformation · Sanibel Island</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <p class="section-label reveal" style="color: var(--gold-light);">Begin Your Journey</p>
+    <h2 class="section-title reveal reveal-delay-1">Build Your<br><em>Coastal Legacy</em></h2>
+    <div class="divider center reveal reveal-delay-2"></div>
+    <p class="cta-sub reveal reveal-delay-2">Luxury Homes Built Without Compromise</p>
+    <a href="#" class="btn-primary reveal reveal-delay-3">Schedule a Consultation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">Coastal <span>Signature</span> Homes</a>
+      <p class="footer-tagline">"Luxury waterfront homes and renovations crafted for modern coastal living."</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Custom Homes</a></li>
+        <li><a href="#">Luxury Renovations</a></li>
+        <li><a href="#">Waterfront Transformations</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Our Process</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Fort Myers, FL</a></li>
+        <li><a href="#">(239) 555-0180</a></li>
+        <li><a href="#">info@coastalsignaturehomes.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Coastal Signature Homes. All rights reserved.</span>
+    <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
+  </div>
+</footer>
+
+<script>
+  // Scrolled nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
