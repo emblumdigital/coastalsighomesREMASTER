@@ -753,6 +753,7 @@
   function forcePlay(video) {
     if (!video) return;
     video.muted = true;
+    video.volume = 0;
     video.setAttribute('muted', '');
     video.setAttribute('playsinline', '');
     video.defaultMuted = true;
