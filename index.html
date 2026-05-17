@@ -1,814 +1,1105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coastal Signature Homes — Luxury Waterfront Living</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Coastal Signature Homes — Luxury Home Builder · Fort Myers, FL</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        gold:       '#b8965a',
+        'gold-lt':  '#d4ad72',
+        'gold-pale':'#f0ddb0',
+        charcoal:   '#1c1c1a',
+        'ch2':      '#252523',
+        ink:        '#0a0a09',
+        ivory:      '#f5f2ed',
+        sand:       '#e8e0d3',
+        'sand-mid': '#c9bfaf',
+        muted:      '#8a8278',
+      },
+      fontFamily: {
+        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+        sans:  ['Montserrat', 'system-ui', 'sans-serif'],
+      },
+      letterSpacing: {
+        tight3: '-0.03em',
+        wide18: '0.18em',
+        wide24: '0.24em',
+        wide32: '0.32em',
+      },
+      lineHeight: {
+        body: '1.75',
+      },
+      transitionTimingFunction: {
+        'spring': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'gold':   'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      },
+      boxShadow: {
+        'card':    '0 1px 2px rgba(184,150,90,0.05), 0 4px 16px rgba(0,0,0,0.08), 0 12px 40px rgba(0,0,0,0.06)',
+        'elevated':'0 2px 4px rgba(184,150,90,0.07), 0 8px 24px rgba(0,0,0,0.12), 0 24px 64px rgba(0,0,0,0.10)',
+        'glow':    '0 0 0 1px rgba(184,150,90,0.4), 0 4px 20px rgba(184,150,90,0.2)',
+        'glow-lg': '0 0 0 1px rgba(212,173,114,0.35), 0 8px 40px rgba(184,150,90,0.25)',
+        'dark':    '0 2px 8px rgba(0,0,0,0.35), 0 12px 40px rgba(0,0,0,0.28)',
+      },
+    }
+  }
+}
+</script>
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --black: #0e0e0d;
-    --charcoal: #1c1c1a;
-    --warm-white: #f5f2ed;
-    --soft-sand: #e8e0d3;
-    --sand-mid: #c9bfaf;
-    --gold: #b8965a;
-    --gold-light: #d4ad72;
-    --text-muted: #8a8278;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'Montserrat', sans-serif;
+  /* ── GRAIN TEXTURE (SVG noise) ── */
+  .grain::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    mix-blend-mode: overlay;
   }
 
-  html { scroll-behavior: smooth; }
+  /* ── DEPTH SYSTEM ── */
+  /* z-0: base, z-10: elevated, z-20: overlay, z-50: floating, z-100: fixed */
 
-  body {
-    background: var(--warm-white);
-    color: var(--black);
-    font-family: var(--sans);
-    font-weight: 300;
-    overflow-x: hidden;
+  /* ── CUSTOM CURSOR ── */
+  body { cursor: none; }
+  @media (pointer: coarse) { body { cursor: auto; } #cursor-dot, #cursor-ring { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    body { cursor: auto; }
+    #cursor-dot, #cursor-ring { display: none !important; }
+  }
+  #cursor-dot {
+    position: fixed; z-index: 9999; pointer-events: none;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #b8965a;
+    transform: translate(-50%,-50%);
+    transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  }
+  #cursor-ring {
+    position: fixed; z-index: 9998; pointer-events: none;
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(184,150,90,0.45);
+    transform: translate(-50%,-50%);
+    transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
+                height 0.35s cubic-bezier(0.16,1,0.3,1),
+                border-color 0.2s ease,
+                opacity 0.2s ease;
+  }
+  body.c-hover #cursor-dot { width: 10px; height: 10px; background: #d4ad72; }
+  body.c-hover #cursor-ring { width: 54px; height: 54px; border-color: rgba(212,173,114,0.35); }
+  body.c-click #cursor-dot { width: 4px; height: 4px; }
+  body.c-click #cursor-ring { width: 22px; height: 22px; }
+
+  /* ── FONT FACES (applied globally) ── */
+  * { font-family: 'Montserrat', system-ui, sans-serif; }
+  .font-serif, h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif !important; }
+
+  /* ── SCROLL PROGRESS ── */
+  #prog {
+    position: fixed; top: 0; left: 0; z-index: 200;
+    height: 2px; width: 0%;
+    background: linear-gradient(90deg, #b8965a, #d4ad72);
+    transition: width 0.1s linear;
   }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 4rem;
-    transition: background 0.4s, padding 0.4s;
-  }
+  /* ── NAV GLASS ── */
   nav.scrolled {
-    background: rgba(14,14,13,0.94);
-    backdrop-filter: blur(12px);
-    padding: 1rem 4rem;
+    background: rgba(10,10,9,0.86) !important;
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border-bottom: 1px solid rgba(184,150,90,0.1);
   }
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: var(--warm-white);
-    letter-spacing: 0.04em;
-    text-decoration: none;
+
+  /* ── NAV LINK underline animation ── */
+  .nav-lnk { position: relative; }
+  .nav-lnk::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+    height: 1px; background: #d4ad72;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
   }
-  .nav-logo span { color: var(--gold-light); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    color: rgba(245,242,237,0.78);
-    text-decoration: none;
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: color 0.2s;
+  .nav-lnk:hover::after, .nav-lnk.active::after { transform: scaleX(1); }
+
+  /* ── HAMBURGER ── */
+  .hbr span {
+    display: block; width: 24px; height: 1.5px;
+    background: #f5f2ed;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                opacity 0.3s ease,
+                width 0.3s ease;
+    transform-origin: center;
   }
-  .nav-links a:hover { color: var(--gold-light); }
-  .nav-cta {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold-light) !important;
-    padding: 0.55rem 1.4rem;
-    font-size: 0.65rem !important;
-    letter-spacing: 0.16em;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s !important;
+  .hbr.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hbr.open span:nth-child(2) { opacity: 0; width: 0; }
+  .hbr.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ── MOBILE MENU ── */
+  #mob-menu {
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1);
   }
-  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+  #mob-menu.open { opacity: 1; pointer-events: all; }
+  #mob-menu a {
+    transform: translateY(20px); opacity: 0;
+    transition: color 0.2s ease,
+                transform 0.5s cubic-bezier(0.16,1,0.3,1),
+                opacity 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  #mob-menu.open a { transform: translateY(0); opacity: 1; }
+  #mob-menu.open a:nth-child(1) { transition-delay: 0.05s; }
+  #mob-menu.open a:nth-child(2) { transition-delay: 0.10s; }
+  #mob-menu.open a:nth-child(3) { transition-delay: 0.15s; }
+  #mob-menu.open a:nth-child(4) { transition-delay: 0.20s; }
+  #mob-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+
+  /* ── BTN WIPE ── */
+  .btn-wipe { position: relative; overflow: hidden; }
+  .btn-wipe::before {
+    content: ''; position: absolute; inset: 0;
+    background: #b8965a;
+    transform: translateX(-101%);
+    transition: transform 0.42s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .btn-wipe:hover::before { transform: translateX(0); }
+  .btn-wipe > span { position: relative; z-index: 1; }
+  .btn-wipe:hover { color: #0a0a09; }
+  .btn-wipe:active { opacity: 0.85; transform: scale(0.99); }
+  .btn-wipe:focus-visible { outline: 2px solid #d4ad72; outline-offset: 3px; }
 
   /* ── HERO ── */
-  #hero {
-    height: 100vh; min-height: 700px;
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-    background: var(--charcoal);
+  .hero-scroll-line {
+    width: 1px; height: 56px;
+    background: linear-gradient(to bottom, #b8965a, transparent);
+    animation: scrollPulse 2.4s ease-in-out infinite;
   }
-  .hero-video-bg {
-    position: absolute; inset: -20px;
-    width: calc(100% + 40px); height: calc(100% + 40px);
-    object-fit: cover;
-    object-position: center center;
-    filter: blur(30px) brightness(0.6);
-    z-index: 0;
-  }
-  .hero-video {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: contain;
-    object-position: center center;
-    z-index: 0;
-    background: transparent;
-  }
-  /* Hide native play button / controls on all browsers */
-  .hero-video::-webkit-media-controls,
-  .hero-video-bg::-webkit-media-controls { display: none !important; }
-  .hero-video::-webkit-media-controls-start-playback-button,
-  .hero-video-bg::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
-  .hero-video::-webkit-media-controls-panel,
-  .hero-video-bg::-webkit-media-controls-panel { display: none !important; }
-  .hero-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.75) 100%);
-    z-index: 1;
-  }
-  @keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1.0); } }
-
-  .hero-content {
-    position: relative; z-index: 2;
-    text-align: center; color: var(--warm-white);
-    padding: 0 2rem;
-    animation: fadeUp 1.2s ease both;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5);
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.55; transform: scaleY(1); }
+    50%      { opacity: 1;    transform: scaleY(1.12); }
   }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(32px); }
+    from { opacity: 0; transform: translateY(36px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .hero-eyebrow {
-    font-size: 0.65rem; letter-spacing: 0.28em;
-    text-transform: uppercase; color: var(--gold-light);
-    margin-bottom: 1.6rem; font-family: var(--sans); font-weight: 500;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.5);
+  .hero-line-1 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
+  .hero-line-2 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.22s both; }
+  .hero-line-3 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.34s both; }
+  .hero-line-4 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.46s both; }
+
+  /* ── RADIAL GRADIENT ACCENTS ── */
+  .radial-gold-tl {
+    background:
+      radial-gradient(ellipse 60% 50% at 10% 0%, rgba(184,150,90,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 90% 100%, rgba(184,150,90,0.05) 0%, transparent 70%);
   }
-  .hero-h1 {
-    font-family: var(--serif);
-    font-size: clamp(2.8rem, 6vw, 5.2rem);
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 1.4rem;
-    letter-spacing: -0.01em;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.6);
-  }
-  .hero-h1 em { font-style: italic; color: var(--gold-light); }
-  .hero-sub {
-    font-size: 0.7rem; letter-spacing: 0.22em;
-    text-transform: uppercase; color: rgba(245,242,237,0.85);
-    margin-bottom: 2.8rem; font-weight: 400;
-    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
-  }
-  .hero-sub span { margin: 0 0.8rem; color: var(--gold); }
-  .btn-primary {
-    display: inline-block;
-    border: 1px solid var(--gold);
-    color: var(--warm-white);
-    padding: 1rem 2.6rem;
-    font-family: var(--sans);
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.35s, color 0.35s, box-shadow 0.35s;
-    background: rgba(0,0,0,0.3);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-  }
-  .btn-primary:hover { background: var(--gold); color: var(--black); box-shadow: 0 4px 20px rgba(184,150,90,0.4); }
-  .hero-scroll {
-    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-    color: rgba(245,242,237,0.5); font-size: 0.6rem; letter-spacing: 0.2em;
-    text-transform: uppercase; z-index: 2;
-    animation: bounce 2s ease-in-out infinite;
-  }
-  .hero-scroll::after {
-    content: ''; display: block;
-    width: 1px; height: 48px;
-    background: linear-gradient(to bottom, rgba(184,150,90,0.8), transparent);
-  }
-  @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(6px); }
+  .radial-dark-tl {
+    background:
+      radial-gradient(ellipse 70% 60% at 5% 5%, rgba(184,150,90,0.06) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 70% at 95% 95%, rgba(212,173,114,0.04) 0%, transparent 65%),
+      #1c1c1a;
   }
 
-  /* ── SECTIONS SHARED ── */
-  section { padding: 7rem 4rem; }
-  .section-label {
-    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+  /* ── PROJECT CARD ── */
+  .proj-card { cursor: none; }
+  .proj-desc { max-height: 0; overflow: hidden; color: transparent;
+    transition: max-height 0.52s cubic-bezier(0.16,1,0.3,1),
+                color 0.4s ease; }
+  .proj-card:hover .proj-desc { max-height: 90px; color: rgba(245,242,237,0.72); }
+  .proj-arrow {
+    opacity: 0; transform: translateX(-10px);
+    transition: opacity 0.38s ease 0.06s,
+                transform 0.38s cubic-bezier(0.16,1,0.3,1) 0.06s;
   }
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 3.4rem);
-    font-weight: 300; line-height: 1.15;
-    color: var(--charcoal);
+  .proj-card:hover .proj-arrow { opacity: 1; transform: translateX(0); }
+  .proj-card img {
+    transition: transform 0.95s cubic-bezier(0.25,0.46,0.45,0.94);
   }
-  .section-title em { font-style: italic; color: var(--gold); }
-  .divider {
-    width: 48px; height: 1px;
-    background: var(--gold); margin: 1.8rem 0;
-  }
-  .divider.center { margin: 1.8rem auto; }
+  .proj-card:hover img { transform: scale(1.06); }
+  .proj-card:focus-visible { outline: 2px solid #d4ad72; outline-offset: -2px; }
 
-  /* ── FEATURED PROJECTS ── */
-  #projects { background: var(--charcoal); padding: 7rem 0; }
-  #projects .inner { padding: 0 4rem; }
-  #projects .section-title { color: var(--warm-white); }
-  #projects .section-label { color: var(--gold-light); }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    margin-top: 4rem;
-  }
-  .project-card {
-    position: relative; overflow: hidden;
-    cursor: pointer;
-  }
-  .project-card.tall { grid-row: span 2; }
-  .project-card img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
-    min-height: 380px;
-  }
-  .project-card.tall img { min-height: 760px; }
-  .project-card:hover img { transform: scale(1.05); }
-  .project-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
-    display: flex; align-items: flex-end;
-    padding: 2.5rem;
-    transition: opacity 0.3s;
-  }
-  .project-info { color: var(--warm-white); }
-  .project-location {
-    font-size: 0.6rem; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--gold-light);
-    margin-bottom: 0.4rem;
-  }
-  .project-name {
-    font-family: var(--serif);
-    font-size: 1.55rem; font-weight: 300;
-    line-height: 1.2;
-  }
-  .project-desc {
-    font-size: 0.7rem; color: rgba(245,242,237,0.65);
-    margin-top: 0.5rem; font-weight: 300; letter-spacing: 0.04em;
+  /* image mix-blend-multiply color treatment */
+  .img-treatment::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: rgba(184,150,90,0.07);
+    mix-blend-mode: multiply;
+    pointer-events: none;
   }
 
-  /* ── ABOUT ── */
-  #about {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0; padding: 0;
+  /* ── SERVICE CARD ── */
+  .svc-card { cursor: none; }
+  .svc-text { max-height: 0; overflow: hidden; color: transparent;
+    transition: max-height 0.55s cubic-bezier(0.16,1,0.3,1),
+                color 0.4s ease 0.05s; }
+  .svc-card:hover .svc-text { max-height: 140px; color: rgba(245,242,237,0.7); }
+  .svc-line {
+    width: 0; height: 1px; background: #b8965a; margin-bottom: 1rem;
+    transition: width 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
   }
-  .about-image {
-    background: url('https://www.coastalsignaturehomes.net/images/white-oak-kitchen.jpeg') center/cover no-repeat;
-    min-height: 680px;
+  .svc-card:hover .svc-line { width: 44px; }
+  .svc-card img {
+    transition: transform 0.82s cubic-bezier(0.25,0.46,0.45,0.94);
   }
-  .about-content {
-    background: var(--soft-sand);
-    padding: 7rem 5rem;
-    display: flex; flex-direction: column; justify-content: center;
-  }
-  .about-body {
-    font-size: 0.88rem; line-height: 1.95;
-    color: #4a4640; margin-top: 1.2rem; font-weight: 300;
-  }
-  .about-stats {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 2rem; margin-top: 3rem;
-  }
-  .stat-num {
-    font-family: var(--serif);
-    font-size: 2.8rem; font-weight: 300;
-    color: var(--gold); line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.65rem; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--text-muted);
-    margin-top: 0.4rem;
-  }
+  .svc-card:hover img { transform: scale(1.07); }
+  .svc-card:focus-visible { outline: 2px solid #d4ad72; outline-offset: -2px; }
 
-  /* ── SERVICES ── */
-  #services { background: var(--warm-white); }
-  .services-intro { text-align: center; max-width: 560px; margin: 0 auto 5rem; }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+  /* ── GALLERY EXPAND ── */
+  .gal-item {
+    flex: 1; overflow: hidden; position: relative; cursor: none;
+    transition: flex 0.72s cubic-bezier(0.16,1,0.3,1);
   }
-  .service-card {
-    position: relative; overflow: hidden;
-    height: 520px; cursor: pointer;
-  }
-  .service-card img {
+  .gal-item:hover { flex: 2.6; }
+  .gal-item img {
     width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.7s ease;
+    filter: brightness(0.68) saturate(0.85);
+    transition: transform 0.72s cubic-bezier(0.16,1,0.3,1),
+                filter 0.55s ease;
   }
-  .service-card:hover img { transform: scale(1.06); }
-  .service-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.1) 60%);
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 2.5rem;
+  .gal-item:hover img { transform: scale(1.04); filter: brightness(0.88) saturate(1); }
+  .gal-lbl {
+    opacity: 0; transform: translateY(5px);
+    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.16,1,0.3,1);
   }
-  .service-num {
-    font-family: var(--serif); font-size: 3rem;
-    font-weight: 300; color: rgba(184,150,90,0.35);
-    line-height: 1; margin-bottom: 1rem;
-  }
-  .service-name {
-    font-family: var(--serif);
-    font-size: 1.7rem; font-weight: 300;
-    color: var(--warm-white); line-height: 1.2;
-    margin-bottom: 0.7rem;
-  }
-  .service-text {
-    font-size: 0.72rem; color: rgba(245,242,237,0.62);
-    line-height: 1.7; font-weight: 300;
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.5s ease, opacity 0.4s;
-    opacity: 0;
-  }
-  .service-card:hover .service-text { max-height: 120px; opacity: 1; }
+  .gal-item:hover .gal-lbl { opacity: 1; transform: translateY(0); }
+  .gal-item:focus-visible { outline: 2px solid #d4ad72; }
 
-  /* ── PROCESS ── */
-  #process { background: var(--charcoal); }
-  .process-header { text-align: center; margin-bottom: 5rem; }
-  .process-header .section-title { color: var(--warm-white); }
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0; position: relative;
+  /* ── PROCESS LINE ── */
+  #proc-fill {
+    height: 1px; width: 0%;
+    background: linear-gradient(90deg, #b8965a, #d4ad72);
+    transition: width 1.9s cubic-bezier(0.25,0.46,0.45,0.94);
   }
-  .process-steps::before {
-    content: '';
-    position: absolute; top: 2.2rem; left: 10%; right: 10%;
-    height: 1px; background: linear-gradient(to right, transparent, var(--gold), var(--gold), transparent);
+  .step-circle {
+    transition: border-color 0.38s ease,
+                color 0.38s ease,
+                background 0.38s ease,
+                box-shadow 0.38s ease;
   }
-  .process-step { text-align: center; padding: 0 1.5rem; position: relative; }
-  .step-num {
-    width: 4.4rem; height: 4.4rem;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.8rem;
-    font-family: var(--serif); font-size: 1.2rem;
-    color: var(--gold); background: var(--charcoal);
-    position: relative; z-index: 1;
+  .process-step:hover .step-circle {
+    border-color: #b8965a; color: #b8965a;
+    background: rgba(184,150,90,0.07);
+    box-shadow: 0 0 0 1px rgba(184,150,90,0.35), 0 4px 20px rgba(184,150,90,0.15);
   }
   .step-title {
-    font-family: var(--serif); font-size: 1.15rem;
-    font-weight: 400; color: var(--warm-white);
-    margin-bottom: 0.6rem;
+    transition: color 0.3s ease;
   }
-  .step-text {
-    font-size: 0.7rem; color: rgba(245,242,237,0.5);
-    line-height: 1.7; font-weight: 300;
-  }
+  .process-step:hover .step-title { color: #d4ad72 !important; }
 
   /* ── TESTIMONIALS ── */
-  #testimonials { background: var(--soft-sand); }
-  .testimonials-header { text-align: center; margin-bottom: 4rem; }
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+  .t-card {
+    transition: box-shadow 0.32s ease, transform 0.32s cubic-bezier(0.16,1,0.3,1);
   }
-  .testimonial-card {
-    background: var(--warm-white);
-    padding: 2.5rem;
-    border-left: 2px solid var(--gold);
-  }
-  .testimonial-quote {
-    font-family: var(--serif); font-size: 1.1rem;
-    font-style: italic; font-weight: 300;
-    line-height: 1.7; color: var(--charcoal);
-    margin-bottom: 1.6rem;
-  }
-  .testimonial-quote::before {
-    content: '"';
-    font-size: 3rem; color: var(--gold); line-height: 0.5;
-    display: block; margin-bottom: 0.8rem;
-    font-family: var(--serif);
-  }
-  .testimonial-author { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); }
-  .testimonial-home { font-size: 0.62rem; color: var(--gold); letter-spacing: 0.1em; margin-top: 0.3rem; }
-
-  /* ── CTA SECTION ── */
-  #cta {
-    height: 60vh; min-height: 500px;
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .cta-bg {
-    position: absolute; inset: 0;
-    background:
-      linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%),
-      url('https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg') center/cover no-repeat;
-  }
-  .cta-content {
-    position: relative; z-index: 2;
-    text-align: center; color: var(--warm-white);
-    padding: 0 2rem;
-  }
-  .cta-content .section-title {
-    color: var(--warm-white); font-size: clamp(2.4rem, 5vw, 4rem);
-    margin-bottom: 1rem;
-  }
-  .cta-sub {
-    font-size: 0.75rem; letter-spacing: 0.18em;
-    color: rgba(245,242,237,0.65); margin-bottom: 2.8rem;
-    text-transform: uppercase;
+  .t-card:hover {
+    box-shadow: 0 2px 4px rgba(184,150,90,0.06), 0 8px 32px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
   }
 
-  /* ── FOOTER ── */
-  footer {
-    background: #0a0a09;
-    padding: 5rem 4rem 2.5rem;
-    color: rgba(245,242,237,0.5);
+  /* ── FORM ── */
+  .field {
+    border: none; border-bottom: 1px solid rgba(184,150,90,0.28);
+    background: transparent;
+    padding: 0.75rem 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem; font-weight: 300; color: #1c1c1a;
+    outline: none; width: 100%;
+    transition: border-color 0.28s ease;
+    cursor: none;
+    -webkit-appearance: none;
   }
-  .footer-top {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem; margin-bottom: 4rem;
-  }
-  .footer-brand .nav-logo { font-size: 1.5rem; display: block; margin-bottom: 1rem; }
-  .footer-tagline {
-    font-family: var(--serif); font-style: italic;
-    font-size: 1rem; color: rgba(245,242,237,0.4);
-    line-height: 1.6;
-  }
-  .footer-col h4 {
-    font-size: 0.6rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--gold);
-    margin-bottom: 1.2rem; font-weight: 500;
-  }
-  .footer-col ul { list-style: none; }
-  .footer-col ul li { margin-bottom: 0.6rem; }
-  .footer-col ul a {
-    color: rgba(245,242,237,0.45); text-decoration: none;
-    font-size: 0.75rem; transition: color 0.2s;
-  }
-  .footer-col ul a:hover { color: var(--gold-light); }
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.07);
-    padding-top: 2rem;
-    display: flex; justify-content: space-between;
-    font-size: 0.65rem; letter-spacing: 0.08em;
-  }
-  .footer-bottom a { color: rgba(245,242,237,0.35); text-decoration: none; }
+  .field::placeholder { color: #c9bfaf; }
+  .field:focus { border-color: #b8965a; }
+  .field:focus-visible { outline: none; }
 
-  /* ── ANIMATIONS ── */
+  /* ── STAT BAND ── */
+  .stat-item::before {
+    content: ''; position: absolute; top: 50%; left: 0;
+    height: 1px; width: 0; background: #b8965a;
+    transition: width 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
+    transform: translateY(-50%);
+  }
+  .stat-item.in-view::before { width: 100%; }
+
+  /* ── REVEAL ── */
   .reveal {
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0; transform: translateY(26px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+                transform 0.9s cubic-bezier(0.16,1,0.3,1);
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.22s; }
-  .reveal-delay-3 { transition-delay: 0.34s; }
-  .reveal-delay-4 { transition-delay: 0.46s; }
-  .reveal-delay-5 { transition-delay: 0.58s; }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.22s; }
+  .delay-3 { transition-delay: 0.34s; }
+  .delay-4 { transition-delay: 0.46s; }
+  .delay-5 { transition-delay: 0.58s; }
 
-  /* ── MOBILE ── */
-  @media (max-width: 900px) {
-    nav { padding: 1.2rem 1.5rem; }
-    nav.scrolled { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    section { padding: 5rem 1.5rem; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-card.tall { grid-row: span 1; }
-    .project-card.tall img { min-height: 380px; }
-    #about { grid-template-columns: 1fr; }
-    .hero-video { object-fit: contain; background: transparent; }
-    .about-image { min-height: 320px; }
-    .about-content { padding: 4rem 2rem; }
-    .services-grid { grid-template-columns: 1fr; }
-    .service-card { height: 400px; }
-    .process-steps { grid-template-columns: 1fr 1fr; gap: 3rem; }
-    .process-steps::before { display: none; }
-    .testimonials-grid { grid-template-columns: 1fr; }
-    .footer-top { grid-template-columns: 1fr 1fr; }
-    .footer-bottom { flex-direction: column; gap: 0.8rem; }
+  /* ── CTA PARALLAX ── */
+  #cta-bg { will-change: transform; }
+
+  /* contact hover */
+  .contact-link {
+    transition: color 0.22s ease;
+    cursor: none;
   }
+  .contact-link:hover { color: #b8965a; }
+  .contact-link:focus-visible { outline: 2px solid #d4ad72; outline-offset: 2px; }
+
+  /* footer links */
+  .ft-lnk {
+    transition: color 0.22s ease;
+    cursor: none;
+  }
+  .ft-lnk:hover { color: #d4ad72 !important; }
+  .ft-lnk:focus-visible { outline: 2px solid #d4ad72; outline-offset: 2px; }
+  .ft-social {
+    transition: border-color 0.25s ease, background 0.25s ease;
+    cursor: none;
+  }
+  .ft-social:hover { border-color: #b8965a !important; background: rgba(184,150,90,0.08); }
+  .ft-social:focus-visible { outline: 2px solid #d4ad72; outline-offset: 2px; }
 </style>
 </head>
-<body>
+<body class="bg-ivory text-ink overflow-x-hidden">
+
+<!-- CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="prog"></div>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu" class="fixed inset-0 z-[105] flex flex-col items-center justify-center gap-9"
+     style="background: rgba(10,10,9,0.97); backdrop-filter: blur(24px);"
+     role="dialog" aria-label="Navigation">
+  <a href="#projects" onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">Portfolio</a>
+  <a href="#about"    onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">About</a>
+  <a href="#services" onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">Services</a>
+  <a href="#process"  onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">Process</a>
+  <a href="#contact"  onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">Contact</a>
+  <a href="tel:2395447400" class="text-gold text-xs tracking-[0.28em] uppercase mt-2" style="text-decoration:none;">(239) 544-7400</a>
+</div>
 
 <!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo">Coastal <span>Signature</span> Homes</a>
-  <ul class="nav-links">
-    <li><a href="#projects">Portfolio</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="tel:2395447400" class="nav-cta">Call Now</a></li>
+<nav id="nav" class="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center px-16 py-7 transition-[background,padding,border-color] duration-500"
+     style="transition: background 0.5s ease, padding 0.4s ease, border-color 0.5s ease;">
+  <a href="#" class="font-serif text-ivory text-[1.3rem] font-normal tracking-[0.05em] no-underline cursor-none"
+     style="text-decoration:none;">Coastal <span class="text-gold-lt">Signature</span> Homes</a>
+
+  <ul class="hidden md:flex gap-10 list-none items-center m-0 p-0">
+    <li><a href="#projects" class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">Portfolio</a></li>
+    <li><a href="#about"    class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">About</a></li>
+    <li><a href="#services" class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">Services</a></li>
+    <li><a href="#process"  class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">Process</a></li>
+    <li><a href="#contact"  class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">Contact</a></li>
+    <li>
+      <a href="tel:2395447400"
+         class="btn-wipe border border-gold text-gold-lt text-[0.62rem] tracking-[0.18em] uppercase px-5 py-[0.6rem] inline-block no-underline cursor-none"
+         style="text-decoration:none; transition: color 0.38s ease;">
+        <span>Call Now</span>
+      </a>
+    </li>
   </ul>
+
+  <button id="hbr" class="hbr md:hidden flex flex-col gap-[5px] bg-transparent border-0 p-1 z-[110] cursor-none"
+          aria-label="Open navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <video class="hero-video-bg" autoplay loop muted playsinline preload="auto">
+<!-- ═══════════════════════════════════════════════════ HERO ═══ -->
+<section id="hero" class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-charcoal grain">
+  <!-- blurred bg video -->
+  <video class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+         style="inset:-20px; width:calc(100% + 40px); height:calc(100% + 40px); filter: blur(30px) brightness(0.55);"
+         autoplay loop muted playsinline preload="auto" aria-hidden="true">
     <source src="hero-video.mp4" type="video/mp4">
   </video>
-  <video class="hero-video" autoplay loop muted playsinline preload="auto">
+  <!-- main video -->
+  <video class="absolute inset-0 w-full h-full object-contain z-0 pointer-events-none"
+         autoplay loop muted playsinline preload="auto" aria-hidden="true">
     <source src="hero-video.mp4" type="video/mp4">
   </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Fort Myers & Southwest Florida</p>
-    <h1 class="hero-h1">Your Dream Home<br><em>Starts Here</em></h1>
-    <p class="hero-sub">
-      New Construction <span>•</span> Remodeling <span>•</span> 20+ Years Experience
+  <!-- layered gradient overlay -->
+  <div class="absolute inset-0 z-10 pointer-events-none"
+       style="background: linear-gradient(155deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.42) 45%, rgba(0,0,0,0.76) 100%);"></div>
+  <!-- color treatment mix-blend -->
+  <div class="absolute inset-0 z-10 pointer-events-none"
+       style="background: rgba(184,150,90,0.04); mix-blend-mode: multiply;"></div>
+
+  <div class="relative z-20 text-center text-ivory px-8 max-w-5xl mx-auto">
+    <p class="hero-line-1 text-gold-lt text-[0.62rem] tracking-[0.34em] uppercase font-semibold mb-7"
+       style="text-shadow: 0 1px 8px rgba(0,0,0,0.6);">
+      Fort Myers &amp; Southwest Florida
     </p>
-    <a href="#projects" class="btn-primary">View Our Projects</a>
+    <h1 class="hero-line-2 font-serif font-light leading-[1.04] mb-6"
+        style="font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -0.03em; text-shadow: 0 4px 40px rgba(0,0,0,0.65);">
+      Where Vision<br>Becomes <em class="text-gold-lt not-italic">Home</em>
+    </h1>
+    <p class="hero-line-3 text-ivory/78 text-[0.68rem] tracking-[0.26em] uppercase mb-10 font-normal"
+       style="text-shadow: 0 1px 6px rgba(0,0,0,0.5);">
+      New Construction <span class="mx-3 text-gold/70">·</span> Remodeling <span class="mx-3 text-gold/70">·</span> 20+ Years
+    </p>
+    <a href="#projects"
+       class="hero-line-4 btn-wipe border border-gold text-ivory text-[0.62rem] tracking-[0.24em] uppercase font-semibold px-10 py-4 inline-block no-underline cursor-none"
+       style="background: rgba(0,0,0,0.25); text-decoration:none; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: color 0.42s ease, box-shadow 0.38s ease, transform 0.3s ease;">
+      <span>View Our Work</span>
+    </a>
   </div>
-  <div class="hero-scroll">Scroll</div>
+
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none" aria-hidden="true">
+    <span class="text-ivory/40 text-[0.56rem] tracking-[0.26em] uppercase">Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
 </section>
 
-<!-- FEATURED PROJECTS -->
-<section id="projects">
-  <div class="inner">
-    <p class="section-label reveal">Featured Work</p>
-    <h2 class="section-title reveal reveal-delay-1">Exceptional Homes,<br><em>Exceptional Locations</em></h2>
-    <div class="divider reveal reveal-delay-2"></div>
+<!-- ═══════════════════════════════════════════════════ STATS ═══ -->
+<div id="stats" class="radial-dark-tl grid grid-cols-2 md:grid-cols-4 border-y border-gold/10">
+  <div class="stat-item relative text-center py-10 px-6 border-r border-gold/[0.08] reveal">
+    <span class="font-serif text-gold-lt block leading-none mb-2" style="font-size: clamp(2.2rem,4vw,3.4rem); font-weight:300;"
+          data-target="20" data-suffix="+">0</span>
+    <span class="text-ivory/40 text-[0.58rem] tracking-[0.22em] uppercase block">Years of Experience</span>
   </div>
-  <div class="projects-grid">
-    <div class="project-card tall reveal">
-      <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg" alt="New Construction">
-      <div class="project-overlay">
-        <div class="project-info">
-          <p class="project-location">Fort Myers, FL</p>
-          <h3 class="project-name">New Construction</h3>
-          <p class="project-desc">Custom-built homes designed with precision and the highest quality standards.</p>
+  <div class="stat-item relative text-center py-10 px-6 border-r border-gold/[0.08] reveal delay-1">
+    <span class="font-serif text-gold-lt block leading-none mb-2" style="font-size: clamp(2.2rem,4vw,3.4rem); font-weight:300;"
+          data-target="100" data-suffix="%">0</span>
+    <span class="text-ivory/40 text-[0.58rem] tracking-[0.22em] uppercase block">Client Satisfaction</span>
+  </div>
+  <div class="stat-item relative text-center py-10 px-6 border-r border-gold/[0.08] reveal delay-2">
+    <span class="font-serif text-gold-lt block leading-none mb-2" style="font-size: clamp(2.2rem,4vw,3.4rem); font-weight:300;"
+          data-target="5" data-suffix="★">0</span>
+    <span class="text-ivory/40 text-[0.58rem] tracking-[0.22em] uppercase block">Star Reviews</span>
+  </div>
+  <div class="stat-item relative text-center py-10 px-6 reveal delay-3">
+    <span class="font-serif text-gold-lt block leading-none mb-2" style="font-size: clamp(2.2rem,4vw,3.4rem); font-weight:300;"
+          data-text="SWFL">—</span>
+    <span class="text-ivory/40 text-[0.58rem] tracking-[0.22em] uppercase block">Service Coverage</span>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════════ PROJECTS ═══ -->
+<section id="projects" class="radial-dark-tl pt-28 pb-0">
+  <div class="px-16 mb-16">
+    <p class="text-gold-lt text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">Featured Work</p>
+    <h2 class="font-serif font-light text-ivory reveal delay-1"
+        style="font-size: clamp(2.2rem,4.5vw,3.8rem); letter-spacing:-0.03em; line-height:1.1;">
+      Exceptional Homes,<br><em class="text-gold">Exceptional Craft</em>
+    </h2>
+    <div class="w-11 h-px mt-8 reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 3px;">
+    <!-- tall card -->
+    <div class="proj-card img-treatment relative overflow-hidden" style="grid-row: span 2;" tabindex="0" role="article">
+      <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg"
+           alt="Custom pivot door entry — new construction home, Fort Myers FL"
+           class="w-full h-full object-cover block" style="min-height:763px;" loading="lazy">
+      <!-- gradient overlay -->
+      <div class="absolute inset-0 z-10 pointer-events-none"
+           style="background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, transparent 52%);"></div>
+      <div class="absolute inset-0 z-20 flex items-end p-10">
+        <div class="text-ivory">
+          <p class="text-gold-lt text-[0.58rem] tracking-[0.26em] uppercase mb-2">Fort Myers, FL</p>
+          <h3 class="font-serif font-light text-[1.75rem] leading-tight mb-2">New Construction</h3>
+          <p class="proj-desc text-[0.7rem] leading-relaxed font-light">
+            Custom-built from foundation to finish — managed with precision and the highest quality standards throughout Southwest Florida.
+          </p>
+          <span class="proj-arrow flex items-center gap-2 text-gold text-[0.6rem] tracking-[0.22em] uppercase mt-4">
+            View Project
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
         </div>
       </div>
     </div>
-    <div class="project-card reveal reveal-delay-1">
-      <img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg" alt="Kitchen Remodel">
-      <div class="project-overlay">
-        <div class="project-info">
-          <p class="project-location">Southwest Florida</p>
-          <h3 class="project-name">Kitchen Remodel</h3>
-          <p class="project-desc">Elevated kitchen designs featuring marble islands and premium finishes.</p>
+    <!-- card 2 -->
+    <div class="proj-card img-treatment relative overflow-hidden" tabindex="0" role="article">
+      <img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg"
+           alt="Marble kitchen island remodel, Southwest Florida"
+           class="w-full h-full object-cover block" style="min-height:380px;" loading="lazy">
+      <div class="absolute inset-0 z-10 pointer-events-none"
+           style="background: linear-gradient(to top, rgba(0,0,0,0.84) 0%, transparent 55%);"></div>
+      <div class="absolute inset-0 z-20 flex items-end p-8">
+        <div class="text-ivory">
+          <p class="text-gold-lt text-[0.58rem] tracking-[0.26em] uppercase mb-2">Southwest Florida</p>
+          <h3 class="font-serif font-light text-[1.65rem] leading-tight mb-2">Kitchen Remodel</h3>
+          <p class="proj-desc text-[0.7rem] leading-relaxed font-light">
+            Marble islands, premium cabinetry, and fixtures that make every morning feel like a luxury.
+          </p>
+          <span class="proj-arrow flex items-center gap-2 text-gold text-[0.6rem] tracking-[0.22em] uppercase mt-4">
+            View Project
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
         </div>
       </div>
     </div>
-    <div class="project-card reveal reveal-delay-2">
-      <img src="https://www.coastalsignaturehomes.net/images/master-bath-transformation.jpeg" alt="Bathroom Transformation">
-      <div class="project-overlay">
-        <div class="project-info">
-          <p class="project-location">Cape Coral, FL</p>
-          <h3 class="project-name">Bathroom Transformation</h3>
-          <p class="project-desc">Complete bathroom renovations delivering the "wow" factor our clients dream of.</p>
+    <!-- card 3 -->
+    <div class="proj-card img-treatment relative overflow-hidden" tabindex="0" role="article">
+      <img src="https://www.coastalsignaturehomes.net/images/master-bath-transformation.jpeg"
+           alt="Master bathroom transformation, Cape Coral FL"
+           class="w-full h-full object-cover block" style="min-height:380px;" loading="lazy">
+      <div class="absolute inset-0 z-10 pointer-events-none"
+           style="background: linear-gradient(to top, rgba(0,0,0,0.84) 0%, transparent 55%);"></div>
+      <div class="absolute inset-0 z-20 flex items-end p-8">
+        <div class="text-ivory">
+          <p class="text-gold-lt text-[0.58rem] tracking-[0.26em] uppercase mb-2">Cape Coral, FL</p>
+          <h3 class="font-serif font-light text-[1.65rem] leading-tight mb-2">Bathroom Transformation</h3>
+          <p class="proj-desc text-[0.7rem] leading-relaxed font-light">
+            Spa-level finishes and lasting craftsmanship — the "wow factor" our clients always dreamed of.
+          </p>
+          <span class="proj-arrow flex items-center gap-2 text-gold text-[0.6rem] tracking-[0.22em] uppercase mt-4">
+            View Project
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-image"></div>
-  <div class="about-content">
-    <p class="section-label reveal">Our Story</p>
-    <h2 class="section-title reveal reveal-delay-1">Built on <em>Craftsmanship.</em><br>Driven by Quality.</h2>
-    <div class="divider reveal reveal-delay-2"></div>
-    <p class="about-body reveal reveal-delay-2">
-      With over 20 years active in the construction industry, Coastal Signature Homes brings extensive expertise in residential building, home remodeling, and project management. Based in Fort Myers and serving all of Southwest Florida including Cape Coral, we strive for perfection so that excellence is always attained.
+<!-- ════════════════════════════════════════════════ ABOUT ═══ -->
+<section id="about" class="grid grid-cols-1 md:grid-cols-2 p-0">
+  <div class="img-treatment relative overflow-hidden" style="min-height: 680px;">
+    <img src="https://www.coastalsignaturehomes.net/images/white-oak-kitchen.jpeg"
+         alt="White oak kitchen crafted by Coastal Signature Homes"
+         class="w-full h-full object-cover block"
+         style="transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94);"
+         loading="lazy">
+    <div class="absolute inset-0 z-10 pointer-events-none"
+         style="background: linear-gradient(135deg, rgba(184,150,90,0.1) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
+  </div>
+  <div class="radial-gold-tl bg-sand flex flex-col justify-center px-16 py-28">
+    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">Our Story</p>
+    <h2 class="font-serif font-light text-charcoal reveal delay-1"
+        style="font-size: clamp(2rem,4vw,3.4rem); letter-spacing:-0.03em; line-height:1.12;">
+      Built on <em class="text-gold">Craft.</em><br>Proven by Time.
+    </h2>
+    <div class="w-11 h-px my-8 reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
+    <p class="text-[#4a4640] text-[0.87rem] leading-[1.95] font-light reveal delay-2">
+      With over 20 years in the construction industry, Coastal Signature Homes brings deep expertise in residential building, remodeling, and project management across Fort Myers, Cape Coral, and all of Southwest Florida.
     </p>
-    <p class="about-body reveal reveal-delay-3" style="margin-top: 1rem;">
-      From new construction to full home remodels, our team delivers precision, efficiency, and the highest quality standards on every project. Whether it's a kitchen remodel, bathroom transformation, or complete new build, we approach every project with the same commitment to outstanding craftsmanship and client satisfaction.
+    <p class="text-[#4a4640] text-[0.87rem] leading-[1.95] font-light mt-4 reveal delay-3">
+      From custom new builds to complete home remodels, we approach every project with the same commitment: precision, efficiency, and the highest quality standards — because the homes we build outlast trends.
     </p>
-    <div class="about-stats reveal reveal-delay-3">
+    <div class="grid grid-cols-2 gap-8 mt-12 reveal delay-3">
       <div>
-        <div class="stat-num">20+</div>
-        <div class="stat-label">Years of Experience</div>
-      </div>
-      <div>
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Client Satisfaction</div>
+        <div class="font-serif font-light text-gold leading-none mb-2" style="font-size:2.8rem;">20+</div>
+        <div class="text-muted text-[0.6rem] tracking-[0.2em] uppercase">Years Active</div>
       </div>
       <div>
-        <div class="stat-num">5★</div>
-        <div class="stat-label">Client Reviews</div>
+        <div class="font-serif font-light text-gold leading-none mb-2" style="font-size:2.8rem;">100%</div>
+        <div class="text-muted text-[0.6rem] tracking-[0.2em] uppercase">Satisfaction</div>
       </div>
       <div>
-        <div class="stat-num">SWFL</div>
-        <div class="stat-label">Service Area</div>
+        <div class="font-serif font-light text-gold leading-none mb-2" style="font-size:2.8rem;">5★</div>
+        <div class="text-muted text-[0.6rem] tracking-[0.2em] uppercase">Rated Reviews</div>
+      </div>
+      <div>
+        <div class="font-serif font-light text-gold leading-none mb-2" style="font-size:2.8rem;">SWFL</div>
+        <div class="text-muted text-[0.6rem] tracking-[0.2em] uppercase">Service Area</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="services-intro">
-    <p class="section-label reveal">What We Build</p>
-    <h2 class="section-title reveal reveal-delay-1">We Do Remodeling<br><em>Your Way</em></h2>
-    <div class="divider center reveal reveal-delay-2"></div>
+<!-- ═══════════════════════════════════════════ SERVICES ═══ -->
+<section id="services" class="bg-ivory pt-28 pb-0">
+  <div class="text-center max-w-md mx-auto mb-16 px-6">
+    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">What We Build</p>
+    <h2 class="font-serif font-light text-charcoal reveal delay-1"
+        style="font-size: clamp(2rem,4vw,3.4rem); letter-spacing:-0.03em; line-height:1.12;">
+      Done Right.<br><em class="text-gold">Every Time.</em>
+    </h2>
+    <div class="w-11 h-px my-8 mx-auto reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
   </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg" alt="New Construction">
-      <div class="service-overlay">
-        <div class="service-num">01</div>
-        <h3 class="service-name">New Construction</h3>
-        <p class="service-text">Custom-built homes from the ground up. We manage every phase of construction with precision, efficiency, and the highest quality standards throughout Southwest Florida.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3" style="gap: 3px;">
+    <div class="svc-card img-treatment relative overflow-hidden" style="height: 560px;" tabindex="0">
+      <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg"
+           alt="New construction service" class="w-full h-full object-cover block" loading="lazy">
+      <div class="absolute inset-0 z-10 pointer-events-none"
+           style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.06) 60%);"></div>
+      <div class="absolute inset-0 z-20 flex flex-col justify-end p-10">
+        <div class="font-serif text-[3rem] font-light leading-none mb-4" style="color: rgba(184,150,90,0.28);">01</div>
+        <div class="svc-line"></div>
+        <h3 class="font-serif font-light text-ivory leading-tight mb-2" style="font-size:1.85rem;">New Construction</h3>
+        <p class="svc-text text-[0.72rem] leading-[1.75] font-light">
+          Custom homes built from the ground up. Every phase managed with precision — from land prep to final walkthrough — throughout Southwest Florida.
+        </p>
       </div>
     </div>
-    <div class="service-card reveal reveal-delay-1">
-      <img src="https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg" alt="Kitchen & Bath Remodeling">
-      <div class="service-overlay">
-        <div class="service-num">02</div>
-        <h3 class="service-name">Kitchen & Bath Remodeling</h3>
-        <p class="service-text">Transform your kitchen and bathrooms with premium cabinets, countertops, tile work, and fixtures. From concept to completion, we deliver spaces that inspire.</p>
+    <div class="svc-card img-treatment relative overflow-hidden" style="height: 560px;" tabindex="0">
+      <img src="https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg"
+           alt="Kitchen and bath remodeling" class="w-full h-full object-cover block" loading="lazy">
+      <div class="absolute inset-0 z-10 pointer-events-none"
+           style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.06) 60%);"></div>
+      <div class="absolute inset-0 z-20 flex flex-col justify-end p-10">
+        <div class="font-serif text-[3rem] font-light leading-none mb-4" style="color: rgba(184,150,90,0.28);">02</div>
+        <div class="svc-line"></div>
+        <h3 class="font-serif font-light text-ivory leading-tight mb-2" style="font-size:1.85rem;">Kitchen &amp; Bath</h3>
+        <p class="svc-text text-[0.72rem] leading-[1.75] font-light">
+          Transform your most-used spaces with premium cabinets, countertops, tile work, and fixtures — from concept to completion, spaces you love.
+        </p>
       </div>
     </div>
-    <div class="service-card reveal reveal-delay-2">
-      <img src="https://www.coastalsignaturehomes.net/images/two-story-living-room.jpeg" alt="Full Home Remodeling">
-      <div class="service-overlay">
-        <div class="service-num">03</div>
-        <h3 class="service-name">Full Home Remodeling</h3>
-        <p class="service-text">Complete home renovations including windows, flooring, living spaces, and more. We handle every detail so your existing home becomes the dream home you've always wanted.</p>
+    <div class="svc-card img-treatment relative overflow-hidden" style="height: 560px;" tabindex="0">
+      <img src="https://www.coastalsignaturehomes.net/images/two-story-living-room.jpeg"
+           alt="Full home remodeling" class="w-full h-full object-cover block" loading="lazy">
+      <div class="absolute inset-0 z-10 pointer-events-none"
+           style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.06) 60%);"></div>
+      <div class="absolute inset-0 z-20 flex flex-col justify-end p-10">
+        <div class="font-serif text-[3rem] font-light leading-none mb-4" style="color: rgba(184,150,90,0.28);">03</div>
+        <div class="svc-line"></div>
+        <h3 class="font-serif font-light text-ivory leading-tight mb-2" style="font-size:1.85rem;">Full Home Remodel</h3>
+        <p class="svc-text text-[0.72rem] leading-[1.75] font-light">
+          Windows, flooring, living spaces — complete renovations handled with care so your existing home becomes the dream home you always wanted.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section id="process">
-  <div class="process-header">
-    <p class="section-label reveal">How We Work</p>
-    <h2 class="section-title reveal reveal-delay-1">A White-Glove<br><em>Experience</em></h2>
-    <div class="divider center reveal reveal-delay-2"></div>
+<!-- ═══════════════════════════════════════ GALLERY STRIP ═══ -->
+<div id="gallery" class="flex overflow-hidden" style="height: clamp(240px, 34vw, 480px);" role="list" aria-label="Project gallery">
+  <div class="gal-item" role="listitem" tabindex="0" aria-label="Marble kitchen">
+    <img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg" alt="Marble kitchen island detail" loading="lazy">
+    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
+    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">Marble Kitchen</div>
   </div>
-  <div class="process-steps">
-    <div class="process-step reveal">
-      <div class="step-num">I</div>
-      <h4 class="step-title">Consultation</h4>
-      <p class="step-text">A private meeting to understand your vision, lifestyle, and aspirations for your new home.</p>
+  <div class="gal-item" role="listitem" tabindex="0" aria-label="Pivot door entry">
+    <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg" alt="Custom pivot door entry" loading="lazy">
+    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
+    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">Pivot Door Entry</div>
+  </div>
+  <div class="gal-item" role="listitem" tabindex="0" aria-label="Master bath">
+    <img src="https://www.coastalsignaturehomes.net/images/master-bath-transformation.jpeg" alt="Master bath renovation" loading="lazy">
+    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
+    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">Master Bath</div>
+  </div>
+  <div class="gal-item" role="listitem" tabindex="0" aria-label="White oak kitchen">
+    <img src="https://www.coastalsignaturehomes.net/images/white-oak-kitchen.jpeg" alt="White oak kitchen design" loading="lazy">
+    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
+    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">White Oak Kitchen</div>
+  </div>
+  <div class="gal-item" role="listitem" tabindex="0" aria-label="Two-story living room">
+    <img src="https://www.coastalsignaturehomes.net/images/two-story-living-room.jpeg" alt="Two-story living room" loading="lazy">
+    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
+    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">Two-Story Living</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ PROCESS ═══ -->
+<section id="process" class="radial-dark-tl py-28 px-16">
+  <div class="text-center mb-20">
+    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">How We Work</p>
+    <h2 class="font-serif font-light text-ivory reveal delay-1"
+        style="font-size: clamp(2rem,4.5vw,3.8rem); letter-spacing:-0.03em; line-height:1.12;">
+      A White-Glove<br><em class="text-gold">Experience</em>
+    </h2>
+    <div class="w-11 h-px my-8 mx-auto reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
+  </div>
+
+  <div id="proc-wrap" class="relative grid grid-cols-2 md:grid-cols-5 gap-14">
+    <!-- connecting line (desktop) -->
+    <div class="hidden md:block absolute top-[2.75rem] left-[10%] right-[10%] overflow-hidden" style="height:1px; background:rgba(184,150,90,0.12);">
+      <div id="proc-fill"></div>
     </div>
-    <div class="process-step reveal reveal-delay-1">
-      <div class="step-num">II</div>
-      <h4 class="step-title">Design Collaboration</h4>
-      <p class="step-text">Working alongside your architect and our design team to finalize every detail before ground is broken.</p>
+
+    <div class="process-step text-center reveal">
+      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">I</div>
+      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Consultation</h4>
+      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">A private meeting to understand your vision, lifestyle, and goals.</p>
     </div>
-    <div class="process-step reveal reveal-delay-2">
-      <div class="step-num">III</div>
-      <h4 class="step-title">Pre-Construction</h4>
-      <p class="step-text">Permitting, material selection, and scheduling — handled with precision so your project begins seamlessly.</p>
+    <div class="process-step text-center reveal delay-1">
+      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">II</div>
+      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Design Collaboration</h4>
+      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">Working with your architect and our team to finalize every detail.</p>
     </div>
-    <div class="process-step reveal reveal-delay-3">
-      <div class="step-num">IV</div>
-      <h4 class="step-title">Construction</h4>
-      <p class="step-text">Transparent progress updates, dedicated project management, and uncompromising quality control throughout.</p>
+    <div class="process-step text-center reveal delay-2">
+      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">III</div>
+      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Pre-Construction</h4>
+      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">Permitting, materials, and scheduling — handled with precision.</p>
     </div>
-    <div class="process-step reveal reveal-delay-4">
-      <div class="step-num">V</div>
-      <h4 class="step-title">Final Delivery</h4>
-      <p class="step-text">A meticulous walkthrough and complete handover — because the final impression matters as much as the first.</p>
+    <div class="process-step text-center reveal delay-3">
+      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">IV</div>
+      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Construction</h4>
+      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">Transparent updates, dedicated management, uncompromising quality.</p>
+    </div>
+    <div class="process-step text-center reveal delay-4">
+      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">V</div>
+      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Final Delivery</h4>
+      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">A meticulous walkthrough — because the last impression matters most.</p>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="testimonials-header">
-    <p class="section-label reveal">Client Stories</p>
-    <h2 class="section-title reveal reveal-delay-1">Built on <em>Trust</em></h2>
-    <div class="divider center reveal reveal-delay-2"></div>
+<!-- ═══════════════════════════════════ TESTIMONIALS ═══ -->
+<section id="testimonials" class="bg-sand py-20 px-16">
+  <div class="text-center mb-12">
+    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">Client Stories</p>
+    <h2 class="font-serif font-light text-charcoal reveal delay-1"
+        style="font-size: clamp(2rem,4vw,3.4rem); letter-spacing:-0.03em; line-height:1.12;">
+      Built on <em class="text-gold">Trust</em>
+    </h2>
+    <div class="w-11 h-px my-7 mx-auto reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
   </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal">
-      <p class="testimonial-quote">Scott brought a high level of creativity and elevated the design of our condo remodel. He stayed on schedule and kept the project within budget without compromising quality.</p>
-      <p class="testimonial-author">— Missy</p>
-      <p class="testimonial-home">Condo Remodel · Southwest Florida</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div class="t-card bg-ivory px-7 py-8 reveal" style="border-left: 2px solid #b8965a;">
+      <span class="font-serif text-gold text-4xl leading-none block mb-3" style="opacity:0.5;" aria-hidden="true">&ldquo;</span>
+      <p class="font-serif italic font-light text-charcoal leading-[1.65] text-[0.95rem] mb-5">
+        Scott brought a high level of creativity and elevated the design of our condo remodel. He stayed on schedule and kept the project within budget without compromising quality.
+      </p>
+      <p class="text-muted text-[0.6rem] tracking-[0.2em] uppercase font-semibold">— Missy</p>
+      <p class="text-gold text-[0.58rem] tracking-[0.1em] mt-1">Condo Remodel &middot; Southwest Florida</p>
     </div>
-    <div class="testimonial-card reveal reveal-delay-1">
-      <p class="testimonial-quote">Top quality workmanship. It was a dream come true to have "the wow" factor in our three bathroom renovation. We couldn't be happier with the results.</p>
-      <p class="testimonial-author">— Ripperton & Lillian</p>
-      <p class="testimonial-home">Three Bathroom Renovation · Fort Myers</p>
+    <div class="t-card bg-ivory px-7 py-8 reveal delay-1" style="border-left: 2px solid #b8965a;">
+      <span class="font-serif text-gold text-4xl leading-none block mb-3" style="opacity:0.5;" aria-hidden="true">&ldquo;</span>
+      <p class="font-serif italic font-light text-charcoal leading-[1.65] text-[0.95rem] mb-5">
+        Top quality workmanship. It was a dream come true to have "the wow" factor in our three bathroom renovation. We couldn't be happier with the results.
+      </p>
+      <p class="text-muted text-[0.6rem] tracking-[0.2em] uppercase font-semibold">— Ripperton &amp; Lillian</p>
+      <p class="text-gold text-[0.58rem] tracking-[0.1em] mt-1">Three Bathroom Renovation &middot; Fort Myers</p>
     </div>
-    <div class="testimonial-card reveal reveal-delay-2">
-      <p class="testimonial-quote">Professional, fair pricing, outstanding quality, and timely responses. We have been working with Coastal Signature Homes for over 4 years on both personal and business projects.</p>
-      <p class="testimonial-author">— Carol</p>
-      <p class="testimonial-home">Personal & Business Projects · 4+ Years</p>
+    <div class="t-card bg-ivory px-7 py-8 reveal delay-2" style="border-left: 2px solid #b8965a;">
+      <span class="font-serif text-gold text-4xl leading-none block mb-3" style="opacity:0.5;" aria-hidden="true">&ldquo;</span>
+      <p class="font-serif italic font-light text-charcoal leading-[1.65] text-[0.95rem] mb-5">
+        Professional, fair pricing, outstanding quality, and timely responses. We have been working with Coastal Signature Homes for over 4 years on personal and business projects.
+      </p>
+      <p class="text-muted text-[0.6rem] tracking-[0.2em] uppercase font-semibold">— Carol</p>
+      <p class="text-gold text-[0.58rem] tracking-[0.1em] mt-1">Personal &amp; Business Projects &middot; 4+ Years</p>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section id="cta">
-  <div class="cta-bg"></div>
-  <div class="cta-content">
-    <p class="section-label reveal" style="color: var(--gold-light);">Begin Your Journey</p>
-    <h2 class="section-title reveal reveal-delay-1">Build Your<br><em>Coastal Legacy</em></h2>
-    <div class="divider center reveal reveal-delay-2"></div>
-    <p class="cta-sub reveal reveal-delay-2">We Strive for Perfection So That Excellence Is Always Attained</p>
-    <a href="tel:2395447400" class="btn-primary reveal reveal-delay-3">Call (239) 544-7400</a>
+<!-- ════════════════════════════════════════════ CONTACT ═══ -->
+<section id="contact" class="radial-gold-tl bg-ivory py-28 px-16 grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
+  <div>
+    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">Get In Touch</p>
+    <h2 class="font-serif font-light text-charcoal reveal delay-1"
+        style="font-size: clamp(2rem,4vw,3.4rem); letter-spacing:-0.03em; line-height:1.12;">
+      Start Your<br><em class="text-gold">Project Today</em>
+    </h2>
+    <div class="w-11 h-px my-8 reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
+    <div class="flex flex-col gap-8 reveal delay-2">
+      <div class="flex gap-5 items-start">
+        <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center border border-gold/30 mt-0.5">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b8965a" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.2 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        </div>
+        <div>
+          <p class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold mb-1">Phone</p>
+          <a href="tel:2395447400" class="contact-link font-serif text-charcoal font-light text-[1.05rem] no-underline" style="text-decoration:none;">(239) 544-7400</a>
+        </div>
+      </div>
+      <div class="flex gap-5 items-start">
+        <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center border border-gold/30 mt-0.5">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b8965a" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <p class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold mb-1">Email</p>
+          <a href="mailto:scott@coastalsignaturehomes.net" class="contact-link font-serif text-charcoal font-light text-[1.05rem] no-underline" style="text-decoration:none;">scott@coastalsignaturehomes.net</a>
+        </div>
+      </div>
+      <div class="flex gap-5 items-start">
+        <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center border border-gold/30 mt-0.5">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b8965a" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <p class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold mb-1">Service Area</p>
+          <p class="font-serif text-charcoal font-light text-[1.05rem]">Fort Myers · Cape Coral · SW Florida</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal delay-1">
+    <form id="contactForm" class="flex flex-col gap-6" novalidate>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex flex-col gap-2">
+          <label for="fname" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">First Name</label>
+          <input type="text" id="fname" name="fname" placeholder="Scott" required autocomplete="given-name" class="field">
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="lname" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Last Name</label>
+          <input type="text" id="lname" name="lname" placeholder="Johnson" required autocomplete="family-name" class="field">
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex flex-col gap-2">
+          <label for="email" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" class="field">
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="phone" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="(239) 000-0000" autocomplete="tel" class="field">
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="ptype" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Project Type</label>
+        <select id="ptype" name="ptype" class="field">
+          <option value="">Select a service...</option>
+          <option value="new-construction">New Construction</option>
+          <option value="kitchen-bath">Kitchen &amp; Bath Remodel</option>
+          <option value="full-remodel">Full Home Remodel</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="msg" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Tell Us About Your Project</label>
+        <textarea id="msg" name="msg" placeholder="Share your vision, timeline, and details..." class="field" style="resize:none; height:96px;"></textarea>
+      </div>
+      <button type="submit"
+              class="btn-wipe border border-charcoal bg-charcoal text-ivory text-[0.62rem] tracking-[0.22em] uppercase font-semibold px-8 py-4 inline-flex items-center gap-3 self-start cursor-none"
+              style="transition: color 0.38s ease, border-color 0.38s ease;">
+        <span>Send Message</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"
+             style="position:relative;z-index:1; transition: transform 0.3s ease;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+    <div id="form-success" class="hidden text-center py-10 font-serif italic text-gold text-xl">
+      Thank you — we'll be in touch shortly.
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <a href="#" class="nav-logo">Coastal <span>Signature</span> Homes</a>
-      <p class="footer-tagline">"We strive for perfection so that excellence is always attained."</p>
+<!-- ══════════════════════════════════════════════════ CTA ═══ -->
+<section id="cta" class="relative flex items-center justify-center overflow-hidden grain" style="height: 65vh; min-height: 500px;">
+  <div id="cta-bg" class="absolute inset-0"
+       style="background: linear-gradient(115deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.42) 100%),
+              url('https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg') center/cover no-repeat;
+              will-change: transform;">
+  </div>
+  <!-- gold color treatment -->
+  <div class="absolute inset-0 pointer-events-none" style="background: rgba(184,150,90,0.05); mix-blend-mode: multiply;"></div>
+  <div class="relative z-20 text-center text-ivory px-8 max-w-3xl mx-auto">
+    <p class="text-gold-lt text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-4 reveal">Begin Your Journey</p>
+    <h2 class="font-serif font-light text-ivory reveal delay-1"
+        style="font-size: clamp(2.6rem,5.5vw,4.6rem); letter-spacing:-0.03em; line-height:1.08; text-shadow:0 4px 40px rgba(0,0,0,0.6);">
+      Build Your<br><em class="text-gold-lt">Coastal Legacy</em>
+    </h2>
+    <div class="w-11 h-px my-8 mx-auto reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
+    <p class="text-ivory/52 text-[0.75rem] tracking-[0.2em] mb-10 font-serif italic reveal delay-2">
+      "We strive for perfection so that excellence is always attained."
+    </p>
+    <a href="tel:2395447400"
+       class="btn-wipe border border-gold text-ivory text-[0.62rem] tracking-[0.24em] uppercase font-semibold px-10 py-4 inline-block no-underline reveal delay-3 cursor-none"
+       style="background: rgba(0,0,0,0.28); text-decoration:none; box-shadow: 0 4px 20px rgba(0,0,0,0.35); transition: color 0.42s ease, box-shadow 0.38s ease, transform 0.3s ease;">
+      <span>Call (239) 544-7400</span>
+    </a>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ FOOTER ═══ -->
+<footer class="bg-ink pt-24 pb-10 px-16">
+  <div class="grid grid-cols-2 md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-12 mb-16">
+    <div>
+      <a href="#" class="font-serif text-ivory text-[1.35rem] font-normal tracking-[0.05em] block mb-4 no-underline cursor-none ft-lnk" style="text-decoration:none;">
+        Coastal <span class="text-gold-lt">Signature</span> Homes
+      </a>
+      <p class="font-serif italic text-ivory/28 text-[0.9rem] leading-[1.7] max-w-[260px]">
+        "We strive for perfection so that excellence is always attained."
+      </p>
+      <div class="w-8 h-px my-5" style="background:#b8965a; opacity:0.45;"></div>
+      <div class="flex gap-2">
+        <a href="#" aria-label="Facebook" class="ft-social w-9 h-9 border border-gold/18 flex items-center justify-center no-underline" style="text-decoration:none;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,242,237,0.45)" stroke-width="1.5" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram" class="ft-social w-9 h-9 border border-gold/18 flex items-center justify-center no-underline" style="text-decoration:none;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,242,237,0.45)" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" aria-label="Houzz" class="ft-social w-9 h-9 border border-gold/18 flex items-center justify-center no-underline" style="text-decoration:none;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,242,237,0.45)" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7v10l10 5 10-5V7z"/></svg>
+        </a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul>
-        <li><a href="#">New Construction</a></li>
-        <li><a href="#">Kitchen & Bath Remodeling</a></li>
-        <li><a href="#">Full Home Remodeling</a></li>
+    <div>
+      <h4 class="text-gold text-[0.58rem] tracking-[0.28em] uppercase font-semibold mb-5">Services</h4>
+      <ul class="list-none flex flex-col gap-3">
+        <li><a href="#services" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">New Construction</a></li>
+        <li><a href="#services" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Kitchen &amp; Bath</a></li>
+        <li><a href="#services" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Full Home Remodel</a></li>
       </ul>
     </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Our Process</a></li>
-        <li><a href="#">Contact</a></li>
+    <div>
+      <h4 class="text-gold text-[0.58rem] tracking-[0.28em] uppercase font-semibold mb-5">Company</h4>
+      <ul class="list-none flex flex-col gap-3">
+        <li><a href="#about"    class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">About Us</a></li>
+        <li><a href="#projects" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Portfolio</a></li>
+        <li><a href="#process"  class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Our Process</a></li>
+        <li><a href="#contact"  class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Contact</a></li>
       </ul>
     </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="#">Fort Myers, FL</a></li>
-        <li><a href="tel:2395447400">(239) 544-7400</a></li>
-        <li><a href="mailto:scott@coastalsignaturehomes.net">scott@coastalsignaturehomes.net</a></li>
+    <div>
+      <h4 class="text-gold text-[0.58rem] tracking-[0.28em] uppercase font-semibold mb-5">Contact</h4>
+      <ul class="list-none flex flex-col gap-3">
+        <li><a href="#"                  class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Fort Myers, FL</a></li>
+        <li><a href="tel:2395447400"     class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">(239) 544-7400</a></li>
+        <li><a href="mailto:scott@coastalsignaturehomes.net" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none; word-break:break-all;">scott@coastalsig&shy;naturehomes.net</a></li>
+        <li><span class="text-ivory/35 text-[0.75rem]">Licensed &amp; Insured</span></li>
       </ul>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2026 Coastal Signature Homes. All rights reserved.</span>
-    <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
+  <div class="border-t border-white/[0.05] pt-7 flex flex-col md:flex-row justify-between items-start gap-3">
+    <div>
+      <span class="text-ivory/25 text-[0.62rem] tracking-[0.08em]">© 2026 Coastal Signature Homes. All rights reserved.</span>
+      <div class="text-ivory/15 text-[0.58rem] tracking-[0.12em] mt-1">CGC · Licensed General Contractor · Southwest Florida</div>
+    </div>
+    <span class="text-ivory/22 text-[0.62rem]">
+      <a href="#" class="ft-lnk" style="text-decoration:none;">Privacy Policy</a>
+      <span class="mx-2 opacity-50">·</span>
+      <a href="#" class="ft-lnk" style="text-decoration:none;">Terms</a>
+    </span>
   </div>
 </footer>
 
 <script>
-  // Force autoplay on both hero videos
-  const mainVid = document.querySelector('.hero-video');
-  const bgVid = document.querySelector('.hero-video-bg');
+(function() {
+  'use strict';
 
-  function forcePlay(video) {
-    if (!video) return;
-    video.muted = true;
-    video.volume = 0;
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
-    video.defaultMuted = true;
-    video.playsInline = true;
-    if (video.paused) {
-      var p = video.play();
-      if (p !== undefined) {
-        p.catch(function() {
-          document.addEventListener('touchstart', function() { video.play(); }, { once: true });
-          document.addEventListener('click', function() { video.play(); }, { once: true });
-          document.addEventListener('scroll', function() { video.play(); }, { once: true });
-        });
-      }
-    }
-  }
+  /* ── CURSOR ── */
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx = -200, my = -200, rx = -200, ry = -200;
 
-  function initVideo(video) {
-    if (!video) return;
-    video.load();
-    ['loadeddata', 'canplay', 'canplaythrough', 'loadedmetadata'].forEach(function(evt) {
-      video.addEventListener(evt, function() { forcePlay(video); });
-    });
-    forcePlay(video);
-    setTimeout(function() { forcePlay(video); }, 500);
-    setTimeout(function() { forcePlay(video); }, 1500);
-    setTimeout(function() { forcePlay(video); }, 3000);
-  }
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initVideo(mainVid);
-    initVideo(bgVid);
-  } else {
-    document.addEventListener('DOMContentLoaded', function() {
-      initVideo(mainVid);
-      initVideo(bgVid);
-    });
-  }
+  (function tick() {
+    dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
+    rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(tick);
+  })();
 
-  // Sync blurred background video with main video
-  mainVid.addEventListener('seeked', () => { bgVid.currentTime = mainVid.currentTime; });
-  mainVid.addEventListener('play', () => { bgVid.play(); });
-  mainVid.addEventListener('pause', () => { bgVid.pause(); });
+  document.addEventListener('mousedown', () => document.body.classList.add('c-click'));
+  document.addEventListener('mouseup',   () => document.body.classList.remove('c-click'));
 
-  // Scrolled nav
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
+  document.querySelectorAll('a,button,.proj-card,.svc-card,.gal-item,.t-dot,input,select,textarea').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('c-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('c-hover'));
   });
 
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
+  /* ── SCROLL PROGRESS ── */
+  const prog = document.getElementById('prog');
+  function onScroll() {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    prog.style.width = pct + '%';
+    /* nav */
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+    /* active link */
+    let cur = '';
+    document.querySelectorAll('section[id],#stats').forEach(s => {
+      if (window.scrollY >= s.offsetTop - 180) cur = s.id;
+    });
+    document.querySelectorAll('.nav-lnk').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── NAV ── */
+  const nav = document.getElementById('nav');
+
+  /* ── MOBILE MENU ── */
+  const hbr  = document.getElementById('hbr');
+  const mob  = document.getElementById('mob-menu');
+  hbr.addEventListener('click', () => {
+    const o = mob.classList.toggle('open');
+    hbr.classList.toggle('open', o);
+    hbr.setAttribute('aria-expanded', o);
+    document.body.style.overflow = o ? 'hidden' : '';
+  });
+  window.closeMob = function () {
+    mob.classList.remove('open'); hbr.classList.remove('open');
+    hbr.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  /* ── REVEAL ── */
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+  /* ── ANIMATED COUNTERS ── */
+  function countUp(el) {
+    if (el.dataset.text) { el.textContent = el.dataset.text; return; }
+    const target = +el.dataset.target, suffix = el.dataset.suffix || '';
+    const t0 = performance.now();
+    const dur = 1900;
+    (function step(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(e * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  const cntObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); cntObs.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target],[data-text]').forEach(el => cntObs.observe(el));
+
+  /* ── PROCESS LINE ── */
+  const fill = document.getElementById('proc-fill');
+  const wrap = document.getElementById('proc-wrap');
+  if (fill && wrap) {
+    new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { fill.style.width = '100%'; } });
+    }, { threshold: 0.4 }).observe(wrap);
+  }
+
+  /* testimonials are a static grid — no slider JS needed */
+
+  /* ── CTA PARALLAX ── */
+  const ctaBg = document.getElementById('cta-bg');
+  if (ctaBg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    window.addEventListener('scroll', () => {
+      const r = ctaBg.parentElement.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        const offset = (r.top / window.innerHeight) * 18;
+        ctaBg.style.transform = 'translateY(' + offset + 'px)';
+      }
+    }, { passive: true });
+  }
+
+  /* ── CONTACT FORM ── */
+  const form = document.getElementById('contactForm');
+  const succ = document.getElementById('form-success');
+  form?.addEventListener('submit', e => {
+    e.preventDefault();
+    form.style.display = 'none';
+    succ.classList.remove('hidden');
+  });
+
+  /* ── VIDEO AUTOPLAY ── */
+  function forcePlay(v) {
+    if (!v) return;
+    v.muted = true; v.volume = 0; v.defaultMuted = true; v.playsInline = true;
+    v.setAttribute('muted',''); v.setAttribute('playsinline','');
+    if (v.paused) {
+      const p = v.play();
+      if (p) p.catch(() =>
+        ['touchstart','click','scroll'].forEach(ev =>
+          document.addEventListener(ev, () => v.play(), { once: true })));
+    }
+  }
+  function initVid(v) {
+    if (!v) return;
+    v.load();
+    ['loadeddata','canplay','canplaythrough'].forEach(ev => v.addEventListener(ev, () => forcePlay(v)));
+    forcePlay(v);
+    [500,1500,3000].forEach(t => setTimeout(() => forcePlay(v), t));
+  }
+  const mv = document.querySelector('.hero-video');
+  const bv = document.querySelector('.hero-video-bg');
+  const doInit = () => { initVid(mv); initVid(bv); };
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', doInit) : doInit();
+  if (mv && bv) {
+    mv.addEventListener('seeked', () => { bv.currentTime = mv.currentTime; });
+    mv.addEventListener('play',  () => bv.play());
+    mv.addEventListener('pause', () => bv.pause());
+  }
+
+})();
 </script>
 </body>
 </html>
