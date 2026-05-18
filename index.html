@@ -1,1104 +1,659 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Coastal Signature Homes — luxury custom home builder and remodeler serving Fort Myers, Cape Coral, Naples, and all of Southwest Florida. Founded by Scott, with 20+ years of building experience." />
 <title>Coastal Signature Homes — Luxury Home Builder · Fort Myers, FL</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        gold:       '#b8965a',
-        'gold-lt':  '#d4ad72',
-        'gold-pale':'#f0ddb0',
-        charcoal:   '#1c1c1a',
-        'ch2':      '#252523',
-        ink:        '#0a0a09',
-        ivory:      '#f5f2ed',
-        sand:       '#e8e0d3',
-        'sand-mid': '#c9bfaf',
-        muted:      '#8a8278',
-      },
-      fontFamily: {
-        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
-        sans:  ['Montserrat', 'system-ui', 'sans-serif'],
-      },
-      letterSpacing: {
-        tight3: '-0.03em',
-        wide18: '0.18em',
-        wide24: '0.24em',
-        wide32: '0.32em',
-      },
-      lineHeight: {
-        body: '1.75',
-      },
-      transitionTimingFunction: {
-        'spring': 'cubic-bezier(0.16, 1, 0.3, 1)',
-        'gold':   'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      },
-      boxShadow: {
-        'card':    '0 1px 2px rgba(184,150,90,0.05), 0 4px 16px rgba(0,0,0,0.08), 0 12px 40px rgba(0,0,0,0.06)',
-        'elevated':'0 2px 4px rgba(184,150,90,0.07), 0 8px 24px rgba(0,0,0,0.12), 0 24px 64px rgba(0,0,0,0.10)',
-        'glow':    '0 0 0 1px rgba(184,150,90,0.4), 0 4px 20px rgba(184,150,90,0.2)',
-        'glow-lg': '0 0 0 1px rgba(212,173,114,0.35), 0 8px 40px rgba(184,150,90,0.25)',
-        'dark':    '0 2px 8px rgba(0,0,0,0.35), 0 12px 40px rgba(0,0,0,0.28)',
-      },
-    }
-  }
-}
-</script>
+
 <style>
-  /* ── GRAIN TEXTURE (SVG noise) ── */
-  .grain::before {
-    content: '';
-    position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    mix-blend-mode: overlay;
-  }
+/* ========== TOKENS ========== */
+:root {
+  --csh-gold:#A16207; --csh-gold-lt:#d4ad72; --csh-gold-pale:#f0ddb0;
+  --csh-charcoal:#1C1917; --csh-ink:#0C0A09; --csh-surface:#44403C;
+  --csh-ivory:#FAFAF9; --csh-sand:#e8e0d3; --csh-sand-mid:#c9bfaf;
+  --csh-border:#D6D3D1; --csh-muted:#64748B; --csh-text-dim:#4a4640;
+  --font-display:'Cormorant Garamond', Georgia, serif;
+  --font-body:'Montserrat', system-ui, -apple-system, sans-serif;
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-gold:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --grad-gold-rule: linear-gradient(90deg, #A16207, #d4ad72);
+  --grad-radial-dark:
+    radial-gradient(ellipse 70% 60% at 5% 5%,  rgba(161,98,7,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 70% at 95% 95%, rgba(212,173,114,0.04) 0%, transparent 65%),
+    #1C1917;
+  --grad-radial-light:
+    radial-gradient(ellipse 60% 50% at 10% 0%, rgba(161,98,7,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 90% 100%, rgba(161,98,7,0.05) 0%, transparent 70%);
+  --grain-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
 
-  /* ── DEPTH SYSTEM ── */
-  /* z-0: base, z-10: elevated, z-20: overlay, z-50: floating, z-100: fixed */
+/* ========== BASE ========== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: hidden; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body); font-weight: 300; color: var(--csh-ink);
+  background: var(--csh-ivory); cursor: none;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+@media (pointer: coarse) { body { cursor: auto; } #csh-cursor-dot, #csh-cursor-ring { display:none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  .csh-reveal { opacity:1 !important; transform:none !important; }
+  body { cursor: auto; } #csh-cursor-dot, #csh-cursor-ring { display:none !important; }
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 300; letter-spacing: -0.03em; line-height: 1.12; color: var(--csh-charcoal); margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
 
-  /* ── CUSTOM CURSOR ── */
-  body { cursor: none; }
-  @media (pointer: coarse) { body { cursor: auto; } #cursor-dot, #cursor-ring { display: none !important; } }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    .reveal { opacity: 1 !important; transform: none !important; }
-    body { cursor: auto; }
-    #cursor-dot, #cursor-ring { display: none !important; }
-  }
-  #cursor-dot {
-    position: fixed; z-index: 9999; pointer-events: none;
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #b8965a;
-    transform: translate(-50%,-50%);
-    transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
-  }
-  #cursor-ring {
-    position: fixed; z-index: 9998; pointer-events: none;
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1px solid rgba(184,150,90,0.45);
-    transform: translate(-50%,-50%);
-    transition: width 0.35s cubic-bezier(0.16,1,0.3,1),
-                height 0.35s cubic-bezier(0.16,1,0.3,1),
-                border-color 0.2s ease,
-                opacity 0.2s ease;
-  }
-  body.c-hover #cursor-dot { width: 10px; height: 10px; background: #d4ad72; }
-  body.c-hover #cursor-ring { width: 54px; height: 54px; border-color: rgba(212,173,114,0.35); }
-  body.c-click #cursor-dot { width: 4px; height: 4px; }
-  body.c-click #cursor-ring { width: 22px; height: 22px; }
+/* ========== CURSOR ========== */
+#csh-cursor-dot, #csh-cursor-ring { position: fixed; left:0; top:0; pointer-events:none; transform: translate(-50%,-50%); }
+#csh-cursor-dot { z-index:9999; width:6px; height:6px; border-radius:50%; background:var(--csh-gold); transition: width .2s, height .2s, background .2s; }
+#csh-cursor-ring { z-index:9998; width:36px; height:36px; border-radius:50%; border:1px solid rgba(161,98,7,0.45); transition: width .35s var(--ease-spring), height .35s var(--ease-spring), border-color .2s, opacity .2s; }
+body.c-hover #csh-cursor-dot { width:10px; height:10px; background: var(--csh-gold-lt); }
+body.c-hover #csh-cursor-ring { width:54px; height:54px; border-color: rgba(212,173,114,0.35); }
+body.c-click #csh-cursor-dot { width:4px; height:4px; }
+body.c-click #csh-cursor-ring { width:22px; height:22px; }
 
-  /* ── FONT FACES (applied globally) ── */
-  * { font-family: 'Montserrat', system-ui, sans-serif; }
-  .font-serif, h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif !important; }
+/* ========== GRAIN + SURFACES ========== */
+.csh-grain { position: relative; }
+.csh-grain::before { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background-image: var(--grain-svg); background-repeat: repeat; mix-blend-mode: overlay; }
+.csh-radial-dark  { background: var(--grad-radial-dark); }
+.csh-radial-light { background: var(--grad-radial-light); }
 
-  /* ── SCROLL PROGRESS ── */
-  #prog {
-    position: fixed; top: 0; left: 0; z-index: 200;
-    height: 2px; width: 0%;
-    background: linear-gradient(90deg, #b8965a, #d4ad72);
-    transition: width 0.1s linear;
-  }
+/* ========== IMAGE TREATMENT ========== */
+.csh-img-wrap { position: relative; overflow: hidden; }
+.csh-img-wrap::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background: rgba(161,98,7,0.07); mix-blend-mode: multiply; }
+.csh-img-wrap > img { width:100%; height:100%; object-fit: cover; display:block; transition: transform .82s var(--ease-gold); }
 
-  /* ── NAV GLASS ── */
-  nav.scrolled {
-    background: rgba(10,10,9,0.86) !important;
-    backdrop-filter: blur(22px) saturate(180%);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
-    border-bottom: 1px solid rgba(184,150,90,0.1);
-  }
+/* ========== EYEBROW + RULE ========== */
+.csh-eyebrow { display:inline-block; font-family: var(--font-body); font-weight: 600; font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--csh-gold); }
+.csh-eyebrow.on-dark { color: var(--csh-gold-lt); }
+.csh-rule { display: block; width: 44px; height: 1px; background: var(--grad-gold-rule); border: 0; margin: 32px 0; }
+.csh-rule.center { margin-left:auto; margin-right:auto; }
+em.gold { font-style: italic; color: var(--csh-gold); font-weight: inherit; }
+em.gold.on-dark { color: var(--csh-gold-lt); }
 
-  /* ── NAV LINK underline animation ── */
-  .nav-lnk { position: relative; }
-  .nav-lnk::after {
-    content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
-    height: 1px; background: #d4ad72;
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
-  .nav-lnk:hover::after, .nav-lnk.active::after { transform: scaleX(1); }
+/* ========== BUTTON WIPE ========== */
+.btn-wipe { position: relative; overflow: hidden; cursor: none; display: inline-block; text-decoration: none; font-family: var(--font-body); font-weight: 600; }
+.btn-wipe::before { content:''; position:absolute; inset:0; background: var(--csh-gold); transform: translateX(-101%); transition: transform .42s var(--ease-gold); z-index:0; }
+.btn-wipe:hover::before { transform: translateX(0); }
+.btn-wipe > span { position: relative; z-index: 1; transition: color .38s ease; display:inline-flex; align-items:center; gap:12px; }
+.btn-wipe:hover > span { color: var(--csh-ink); }
+.btn-wipe:active { opacity:.85; transform: scale(.99); }
+.btn-wipe:focus-visible { outline: 2px solid var(--csh-gold-lt); outline-offset: 3px; }
+.btn-hero { border: 1px solid var(--csh-gold); color: var(--csh-gold-lt); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 16px 40px; }
+.btn-dark { border: 1px solid var(--csh-charcoal); background: var(--csh-charcoal); color: var(--csh-ivory); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 16px 32px; }
+.btn-nav  { border: 1px solid var(--csh-gold); color: var(--csh-gold-lt); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 9.6px 20px; }
 
-  /* ── HAMBURGER ── */
-  .hbr span {
-    display: block; width: 24px; height: 1.5px;
-    background: #f5f2ed;
-    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
-                opacity 0.3s ease,
-                width 0.3s ease;
-    transform-origin: center;
-  }
-  .hbr.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .hbr.open span:nth-child(2) { opacity: 0; width: 0; }
-  .hbr.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+/* ========== REVEAL ========== */
+.csh-reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease-spring), transform .9s var(--ease-spring); }
+.csh-reveal.visible { opacity: 1; transform: translateY(0); }
+.csh-delay-1 { transition-delay: .1s; } .csh-delay-2 { transition-delay: .22s; }
+.csh-delay-3 { transition-delay: .34s; } .csh-delay-4 { transition-delay: .46s; }
+.csh-delay-5 { transition-delay: .58s; }
 
-  /* ── MOBILE MENU ── */
-  #mob-menu {
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1);
-  }
-  #mob-menu.open { opacity: 1; pointer-events: all; }
-  #mob-menu a {
-    transform: translateY(20px); opacity: 0;
-    transition: color 0.2s ease,
-                transform 0.5s cubic-bezier(0.16,1,0.3,1),
-                opacity 0.5s cubic-bezier(0.16,1,0.3,1);
-  }
-  #mob-menu.open a { transform: translateY(0); opacity: 1; }
-  #mob-menu.open a:nth-child(1) { transition-delay: 0.05s; }
-  #mob-menu.open a:nth-child(2) { transition-delay: 0.10s; }
-  #mob-menu.open a:nth-child(3) { transition-delay: 0.15s; }
-  #mob-menu.open a:nth-child(4) { transition-delay: 0.20s; }
-  #mob-menu.open a:nth-child(5) { transition-delay: 0.25s; }
+/* ========== NAV ========== */
+.csh-nav { position: fixed; top:0; left:0; right:0; z-index: 100; display:flex; justify-content: space-between; align-items: center; padding: 28px 64px; transition: background .5s ease, padding .4s ease, border-color .5s ease; }
+.csh-nav.scrolled { background: rgba(10,10,9,0.86); backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%); border-bottom: 1px solid rgba(161,98,7,0.1); padding-top: 18px; padding-bottom: 18px; }
+.csh-nav-brand { font-family: var(--font-display); font-weight: 400; font-size: 1.3rem; letter-spacing: 0.05em; color: var(--csh-ivory); text-decoration: none; cursor: none; }
+.csh-nav-brand em { color: var(--csh-gold-lt); font-style: normal; }
+.csh-nav-list { display:flex; gap: 40px; list-style:none; margin:0; padding:0; align-items:center; }
+.csh-nav-lnk { position: relative; color: rgba(245,242,237,0.7); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; text-decoration:none; cursor:none; transition: color .2s; }
+.csh-nav-lnk::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px; background: var(--csh-gold-lt); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease-gold); }
+.csh-nav-lnk:hover { color: var(--csh-gold-lt); }
+.csh-nav-lnk:hover::after { transform: scaleX(1); }
+.hbr { display:none; flex-direction: column; gap: 5px; background: transparent; border: 0; padding: 4px; cursor: none; }
+.hbr span { display:block; width:24px; height: 1.5px; background: var(--csh-ivory); transition: transform .4s var(--ease-spring), opacity .3s, width .3s; transform-origin: center; }
+.hbr.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hbr.open span:nth-child(2) { opacity: 0; width: 0; }
+.hbr.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mob-menu { position: fixed; inset: 0; z-index: 105; display:flex; flex-direction: column; align-items:center; justify-content:center; gap: 36px; background: rgba(10,10,9,0.97); backdrop-filter: blur(24px); opacity: 0; pointer-events: none; transition: opacity .45s var(--ease-spring); }
+.mob-menu.open { opacity: 1; pointer-events: all; }
+.mob-menu a { font-family: var(--font-display); color: var(--csh-ivory); font-size: 3rem; font-weight: 300; letter-spacing: -0.03em; text-decoration:none; }
+@media (max-width: 900px) { .csh-nav { padding: 24px; } .csh-nav-list { display:none; } .hbr { display: flex; } }
 
-  /* ── BTN WIPE ── */
-  .btn-wipe { position: relative; overflow: hidden; }
-  .btn-wipe::before {
-    content: ''; position: absolute; inset: 0;
-    background: #b8965a;
-    transform: translateX(-101%);
-    transition: transform 0.42s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
-  .btn-wipe:hover::before { transform: translateX(0); }
-  .btn-wipe > span { position: relative; z-index: 1; }
-  .btn-wipe:hover { color: #0a0a09; }
-  .btn-wipe:active { opacity: 0.85; transform: scale(0.99); }
-  .btn-wipe:focus-visible { outline: 2px solid #d4ad72; outline-offset: 3px; }
+/* ========== HERO ========== */
+.hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #1C1917; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-overlay-1 { position:absolute; inset:0; z-index:5; pointer-events:none; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.55) 100%); }
+.hero-overlay-2 { position:absolute; inset:0; z-index:6; pointer-events:none; background: rgba(161,98,7,0.04); mix-blend-mode: multiply; }
+.hero-frame { position: relative; z-index: 20; text-align: center; color: var(--csh-ivory); max-width: 920px; padding: 0 24px; }
+.hero-eyebrow { color: #d4ad72; font-size: 0.62rem; letter-spacing: 0.34em; text-transform: uppercase; font-weight: 600; margin-bottom: 28px; text-shadow: 0 1px 8px rgba(0,0,0,0.6); animation: fadeUp 1.4s var(--ease-spring) 0.1s both; }
+.hero h1 { font-family: var(--font-display); font-weight: 300; line-height: 1.04; margin-bottom: 24px; font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -0.03em; color: var(--csh-ivory); animation: fadeUp 1.4s var(--ease-spring) 0.22s both; text-shadow: 0 4px 40px rgba(0,0,0,0.5); }
+.hero h1 em { font-style: italic; color: var(--csh-gold-lt); font-weight: inherit; }
+.hero-meta { color: rgba(245,242,237,0.78); font-size: 0.68rem; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 40px; text-shadow: 0 1px 6px rgba(0,0,0,0.5); animation: fadeUp 1.4s var(--ease-spring) 0.34s both; }
+.hero-meta .dot { margin: 0 12px; color: rgba(161,98,7,0.7); }
+.hero-cta { animation: fadeUp 1.4s var(--ease-spring) 0.46s both; }
+.hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 20; display:flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
+.hero-scroll span { color: rgba(245,242,237,0.4); font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase; }
+.hero-scroll .line { width: 1px; height: 56px; background: linear-gradient(to bottom, var(--csh-gold), transparent); animation: scrollPulse 2.4s ease-in-out infinite; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scrollPulse { 0%,100% { opacity: .55; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.12); } }
 
-  /* ── HERO ── */
-  .hero-scroll-line {
-    width: 1px; height: 56px;
-    background: linear-gradient(to bottom, #b8965a, transparent);
-    animation: scrollPulse 2.4s ease-in-out infinite;
-  }
-  @keyframes scrollPulse {
-    0%,100% { opacity: 0.55; transform: scaleY(1); }
-    50%      { opacity: 1;    transform: scaleY(1.12); }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(36px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .hero-line-1 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
-  .hero-line-2 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.22s both; }
-  .hero-line-3 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.34s both; }
-  .hero-line-4 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.46s both; }
+/* ========== STATS ========== */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; background: radial-gradient(ellipse 70% 60% at 5% 100%, rgba(161,98,7,0.06) 0%, transparent 65%), radial-gradient(ellipse 70% 60% at 5% 5%, rgba(161,98,7,0.06) 0%, transparent 65%), radial-gradient(ellipse 50% 70% at 95% 95%, rgba(212,173,114,0.04) 0%, transparent 65%), #1C1917; }
+.stats.csh-radial-dark { background: radial-gradient(ellipse 70% 60% at 5% 100%, rgba(161,98,7,0.06) 0%, transparent 65%), radial-gradient(ellipse 70% 60% at 5% 5%, rgba(161,98,7,0.06) 0%, transparent 65%), radial-gradient(ellipse 50% 70% at 95% 95%, rgba(212,173,114,0.04) 0%, transparent 65%), #1C1917; }
+.csh-stat { position: relative; text-align: center; padding: 80px 24px; border-right: 1px solid rgba(161,98,7,0.08); }
+.csh-stat:last-child { border-right: 0; }
+.csh-stat-num { font-family: var(--font-display); font-weight: 300; color: var(--csh-gold-lt); display: block; line-height: 1; margin-bottom: 16px; font-size: clamp(3.4rem, 7vw, 5.6rem); }
+.csh-stat-lbl { display: block; color: rgba(245,242,237,0.55); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; }
+@media (max-width: 700px) { .stats { grid-template-columns: 1fr 1fr; } .csh-stat:nth-child(2) { border-right: 0; } }
 
-  /* ── RADIAL GRADIENT ACCENTS ── */
-  .radial-gold-tl {
-    background:
-      radial-gradient(ellipse 60% 50% at 10% 0%, rgba(184,150,90,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 90% 100%, rgba(184,150,90,0.05) 0%, transparent 70%);
-  }
-  .radial-dark-tl {
-    background:
-      radial-gradient(ellipse 70% 60% at 5% 5%, rgba(184,150,90,0.06) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 70% at 95% 95%, rgba(212,173,114,0.04) 0%, transparent 65%),
-      #1c1c1a;
-  }
+/* ========== PROJECTS ========== */
+.projects { padding-top: 112px; }
+.section-head { padding: 0 64px; margin-bottom: 64px; }
+.section-head h2 { font-size: clamp(2.2rem, 4.5vw, 3.8rem); margin: 0; color: var(--csh-ivory); }
+.section-head.light h2 { color: var(--csh-charcoal); }
+.section-head.center { text-align: center; max-width: 560px; margin-left:auto; margin-right:auto; padding: 0 24px 0; margin-bottom: 64px; }
+.section-head.center .csh-rule { margin-left:auto; margin-right:auto; }
+.proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 0 24px 24px; }
+.proj-card { position: relative; overflow: hidden; cursor: none; outline: none; box-shadow: 0 24px 60px -20px rgba(0,0,0,0.5); transition: box-shadow .5s var(--ease-spring), transform .5s var(--ease-spring); min-height: 380px; }
+.proj-tall { grid-row: span 2; min-height: 763px; }
+.proj-card::after { content:''; position:absolute; inset:14px; z-index:25; border: 1px solid rgba(161,98,7,0); pointer-events:none; transition: border-color .5s var(--ease-spring); }
+.proj-card:hover { box-shadow: 0 36px 80px -16px rgba(0,0,0,0.7), 0 0 0 1px rgba(161,98,7,0.25); transform: translateY(-4px); }
+.proj-card:hover::after { border-color: rgba(161,98,7,0.35); }
+.proj-card .csh-img-wrap { position: absolute; inset: 0; }
+.proj-card img { transition: transform .95s var(--ease-gold); }
+.proj-card:hover img { transform: scale(1.06); }
+.proj-card .overlay { position: absolute; inset: 0; z-index: 10; pointer-events: none; background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, transparent 52%); }
+.proj-card .copy { position: absolute; inset: 0; z-index: 20; display: flex; align-items: flex-end; padding: 40px; color: var(--csh-ivory); }
+.proj-loc { color: var(--csh-gold-lt); font-size: 0.58rem; letter-spacing: 0.26em; text-transform: uppercase; margin: 0 0 8px; font-weight: 500; }
+.proj-title { font-family: var(--font-display); font-weight: 300; font-size: 1.65rem; line-height: 1.2; margin: 0 0 8px; color: var(--csh-ivory); }
+.proj-tall .proj-title { font-size: 1.75rem; }
+.proj-desc { max-height: 0; overflow: hidden; color: transparent; transition: max-height .52s var(--ease-spring), color .4s ease; font-size: 0.7rem; line-height: 1.6; font-weight: 300; margin: 0; }
+.proj-card:hover .proj-desc { max-height: 120px; color: rgba(245,242,237,0.72); }
+.proj-arrow { opacity: 0; transform: translateX(-10px); transition: opacity .38s ease .06s, transform .38s var(--ease-spring) .06s; display:inline-flex; align-items:center; gap: 8px; color: var(--csh-gold); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 16px; font-weight: 600; }
+.proj-card:hover .proj-arrow { opacity: 1; transform: translateX(0); }
+@media (max-width: 900px) { .proj-grid { grid-template-columns: 1fr; } .proj-tall { grid-row: auto; min-height: 460px; } .section-head { padding: 0 24px; } }
 
-  /* ── PROJECT CARD ── */
-  .proj-card { cursor: none; }
-  .proj-desc { max-height: 0; overflow: hidden; color: transparent;
-    transition: max-height 0.52s cubic-bezier(0.16,1,0.3,1),
-                color 0.4s ease; }
-  .proj-card:hover .proj-desc { max-height: 90px; color: rgba(245,242,237,0.72); }
-  .proj-arrow {
-    opacity: 0; transform: translateX(-10px);
-    transition: opacity 0.38s ease 0.06s,
-                transform 0.38s cubic-bezier(0.16,1,0.3,1) 0.06s;
-  }
-  .proj-card:hover .proj-arrow { opacity: 1; transform: translateX(0); }
-  .proj-card img {
-    transition: transform 0.95s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
-  .proj-card:hover img { transform: scale(1.06); }
-  .proj-card:focus-visible { outline: 2px solid #d4ad72; outline-offset: -2px; }
+/* ========== ABOUT ========== */
+.about { display: grid; grid-template-columns: 1fr 1fr; position: relative; background: var(--csh-sand); }
+.about-img-wrap { padding: 64px 0 64px 64px; }
+.about-img-wrap .csh-img-wrap { min-height: 600px; height: 100%; }
+.about-img-wrap .csh-img-wrap::after { display: none; }
+.about-img-wrap img { image-rendering: -webkit-optimize-contrast; transform: translateZ(0); backface-visibility: hidden; filter: url(#csh-sharpen) contrast(1.06) saturate(1.06); }
+.about-panel { background: var(--csh-ivory); padding: 96px 64px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+.about-panel h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
+.about-panel p { color: var(--csh-text-dim); font-size: 0.87rem; line-height: 1.95; font-weight: 300; margin: 0; }
+.about-panel p + p { margin-top: 16px; }
+.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
+.about-stat-num { font-family: var(--font-display); font-weight: 300; color: var(--csh-gold); font-size: 2.8rem; line-height: 1; margin-bottom: 8px; }
+.about-stat-lbl { color: var(--csh-muted); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; }
+@media (max-width: 900px) { .about { grid-template-columns: 1fr; } .about-img-wrap { padding: 48px 24px 0; } .about-panel { padding: 64px 24px; } }
 
-  /* image mix-blend-multiply color treatment */
-  .img-treatment::after {
-    content: ''; position: absolute; inset: 0; z-index: 1;
-    background: rgba(184,150,90,0.07);
-    mix-blend-mode: multiply;
-    pointer-events: none;
-  }
+/* ========== BRAND STATEMENT ========== */
+.brand-statement { position: relative; background: #1C1917; padding: 200px 64px; text-align: center; overflow: hidden; }
+.brand-statement p { font-family: var(--font-display); font-style: italic; font-weight: 300; color: var(--csh-ivory); font-size: clamp(2.25rem, 5.4vw, 4.75rem); letter-spacing: -0.02em; line-height: 1.18; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+.brand-statement span { color: var(--csh-gold-lt); }
+@media (max-width: 700px) { .brand-statement { padding: 120px 24px; } }
 
-  /* ── SERVICE CARD ── */
-  .svc-card { cursor: none; }
-  .svc-text { max-height: 0; overflow: hidden; color: transparent;
-    transition: max-height 0.55s cubic-bezier(0.16,1,0.3,1),
-                color 0.4s ease 0.05s; }
-  .svc-card:hover .svc-text { max-height: 140px; color: rgba(245,242,237,0.7); }
-  .svc-line {
-    width: 0; height: 1px; background: #b8965a; margin-bottom: 1rem;
-    transition: width 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
-  .svc-card:hover .svc-line { width: 44px; }
-  .svc-card img {
-    transition: transform 0.82s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
-  .svc-card:hover img { transform: scale(1.07); }
-  .svc-card:focus-visible { outline: 2px solid #d4ad72; outline-offset: -2px; }
+/* ========== SERVICES ========== */
+.services { background: var(--csh-ivory); padding-top: 112px; }
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 24px; }
+.svc-card { position: relative; overflow: hidden; cursor: none; height: 560px; box-shadow: 0 20px 50px -16px rgba(0,0,0,0.45); transition: box-shadow .5s var(--ease-spring), transform .5s var(--ease-spring); }
+.svc-card:hover { box-shadow: 0 30px 70px -10px rgba(0,0,0,0.65), 0 0 0 1px rgba(161,98,7,0.3); transform: translateY(-6px); }
+.svc-card::before { content:''; position:absolute; inset:18px; z-index:25; pointer-events:none; border: 1px solid rgba(161,98,7,0); transition: border-color .55s var(--ease-spring); }
+.svc-card:hover::before { border-color: rgba(161,98,7,0.4); }
+.svc-card .csh-img-wrap { position: absolute; inset: 0; }
+.svc-card img { transition: transform .82s var(--ease-gold); }
+.svc-card:hover img { transform: scale(1.07); }
+.svc-card .overlay { position: absolute; inset: 0; z-index: 10; pointer-events: none; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.06) 60%); }
+.svc-card .copy { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; color: var(--csh-ivory); }
+.svc-num { font-family: var(--font-display); font-size: 3rem; font-weight: 300; line-height: 1; margin-bottom: 16px; color: rgba(161,98,7,0.28); }
+.svc-line { width: 0; height: 1px; background: var(--csh-gold); margin-bottom: 16px; transition: width .5s var(--ease-gold); }
+.svc-card:hover .svc-line { width: 44px; }
+.svc-title { font-family: var(--font-display); font-weight: 300; font-size: 1.85rem; color: var(--csh-ivory); line-height: 1.2; margin: 0 0 8px; }
+.svc-text { max-height: 0; overflow: hidden; color: transparent; transition: max-height .55s var(--ease-spring), color .4s ease .05s; font-size: 0.72rem; line-height: 1.75; font-weight: 300; margin: 0; }
+.svc-card:hover .svc-text { max-height: 160px; color: rgba(245,242,237,0.7); }
+@media (max-width: 900px) { .svc-grid { grid-template-columns: 1fr; } }
 
-  /* ── GALLERY EXPAND ── */
-  .gal-item {
-    flex: 1; overflow: hidden; position: relative; cursor: none;
-    transition: flex 0.72s cubic-bezier(0.16,1,0.3,1);
-  }
-  .gal-item:hover { flex: 2.6; }
-  .gal-item img {
-    width: 100%; height: 100%; object-fit: cover;
-    filter: brightness(0.68) saturate(0.85);
-    transition: transform 0.72s cubic-bezier(0.16,1,0.3,1),
-                filter 0.55s ease;
-  }
-  .gal-item:hover img { transform: scale(1.04); filter: brightness(0.88) saturate(1); }
-  .gal-lbl {
-    opacity: 0; transform: translateY(5px);
-    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.16,1,0.3,1);
-  }
-  .gal-item:hover .gal-lbl { opacity: 1; transform: translateY(0); }
-  .gal-item:focus-visible { outline: 2px solid #d4ad72; }
+/* ========== GALLERY ========== */
+.gal-section { background: radial-gradient(ellipse 70% 60% at 5% 100%, rgba(161,98,7,0.06) 0%, transparent 65%), #1C1917; padding: 96px 0; }
+.gal-strip { display: flex; overflow: hidden; height: clamp(420px, 60vw, 760px); margin: 0 auto; max-width: 1600px; }
+.gal-item { flex: 1; overflow: hidden; position: relative; cursor: none; transition: flex .72s var(--ease-spring); }
+.gal-item:hover { flex: 2.6; }
+.gal-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.68) saturate(0.85); transition: transform .72s var(--ease-spring), filter .55s; }
+.gal-item:hover img { transform: scale(1.04); filter: brightness(0.88) saturate(1); }
+.gal-lbl { position: absolute; bottom: 0; left: 0; right: 0; z-index: 20; padding: 16px 24px; color: var(--csh-ivory); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0; transform: translateY(5px); transition: opacity .38s, transform .38s var(--ease-spring); }
+.gal-item:hover .gal-lbl { opacity: 1; transform: translateY(0); }
+.gal-item::after { content:''; position:absolute; inset:0; z-index: 10; pointer-events: none; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%); }
 
-  /* ── PROCESS LINE ── */
-  #proc-fill {
-    height: 1px; width: 0%;
-    background: linear-gradient(90deg, #b8965a, #d4ad72);
-    transition: width 1.9s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
-  .step-circle {
-    transition: border-color 0.38s ease,
-                color 0.38s ease,
-                background 0.38s ease,
-                box-shadow 0.38s ease;
-  }
-  .process-step:hover .step-circle {
-    border-color: #b8965a; color: #b8965a;
-    background: rgba(184,150,90,0.07);
-    box-shadow: 0 0 0 1px rgba(184,150,90,0.35), 0 4px 20px rgba(184,150,90,0.15);
-  }
-  .step-title {
-    transition: color 0.3s ease;
-  }
-  .process-step:hover .step-title { color: #d4ad72 !important; }
+/* ========== PROCESS ========== */
+.process { padding: 112px 64px; position: relative; }
+.process .section-head { text-align: center; margin-bottom: 80px; padding: 0; }
+.process .section-head h2 { font-size: clamp(2rem, 4.5vw, 3.8rem); }
+.process .section-head .csh-rule { margin-left:auto; margin-right:auto; }
+.proc-grid { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 56px; }
+.proc-line { position: absolute; top: 44px; left: 10%; right: 10%; height: 1px; background: rgba(161,98,7,0.12); overflow: hidden; }
+.proc-fill { height: 1px; width: 0; background: var(--grad-gold-rule); transition: width 1.9s var(--ease-gold); }
+.proc-step { text-align: center; position: relative; z-index: 2; }
+.step-circle { width: 80px; height: 80px; border: 1px solid rgba(161,98,7,0.3); border-radius: 9999px; display: flex; align-items: center; justify-content: center; margin: 0 auto 32px; font-family: var(--font-display); font-size: 1.25rem; color: rgba(161,98,7,0.5); background: var(--csh-charcoal); position: relative; z-index: 2; transition: border-color .38s, color .38s, background .38s, box-shadow .38s; }
+.proc-step:hover .step-circle { border-color: var(--csh-gold); color: var(--csh-gold); background: rgba(161,98,7,0.07); box-shadow: 0 0 0 1px rgba(161,98,7,0.35), 0 4px 20px rgba(161,98,7,0.15); }
+.step-title { font-family: var(--font-display); font-weight: 400; font-size: 1.1rem; color: rgba(245,242,237,0.85); margin: 0 0 8px; transition: color .3s; }
+.proc-step:hover .step-title { color: var(--csh-gold-lt); }
+.step-desc { font-size: 0.68rem; line-height: 1.75; font-weight: 300; color: rgba(245,242,237,0.38); max-width: 180px; margin: 0 auto; }
+@media (max-width: 900px) { .process { padding: 80px 24px; } .proc-grid { grid-template-columns: 1fr 1fr; gap: 40px; } .proc-line { display: none; } }
 
-  /* ── TESTIMONIALS ── */
-  .t-card {
-    transition: box-shadow 0.32s ease, transform 0.32s cubic-bezier(0.16,1,0.3,1);
-  }
-  .t-card:hover {
-    box-shadow: 0 2px 4px rgba(184,150,90,0.06), 0 8px 32px rgba(0,0,0,0.1);
-    transform: translateY(-3px);
-  }
+/* ========== TESTIMONIALS ========== */
+.testimonials { background: var(--csh-sand); padding: 80px 64px; }
+.testimonials .section-head { text-align: center; margin-bottom: 48px; padding: 0; }
+.testimonials .section-head h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
+.testimonials .section-head .csh-rule { margin-left:auto; margin-right:auto; }
+.t-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding-top: 8px; }
+.t-card { position: relative; background: var(--csh-ivory); padding: 36px 32px; border-left: 2px solid var(--csh-gold); box-shadow: 0 2px 4px rgba(161,98,7,0.08), 0 18px 42px -12px rgba(28,28,26,0.18), 0 36px 72px -24px rgba(28,28,26,0.12); transition: box-shadow .42s var(--ease-spring), transform .42s var(--ease-spring); }
+.t-card::before { content:''; position:absolute; inset:0; background: var(--csh-ivory); border-left: 2px solid rgba(161,98,7,0.4); transform: translate(8px, 8px); z-index: -1; box-shadow: 0 18px 36px -12px rgba(28,28,26,0.15); transition: transform .42s var(--ease-spring), opacity .42s ease; opacity: 0.55; }
+.t-card:hover { box-shadow: 0 4px 8px rgba(161,98,7,0.1), 0 24px 60px -10px rgba(28,28,26,0.28), 0 48px 96px -24px rgba(28,28,26,0.18); transform: translateY(-6px); }
+.t-card:hover::before { transform: translate(12px, 12px); opacity: 0.7; }
+.t-quote { font-family: var(--font-display); color: var(--csh-gold); font-size: 2.25rem; line-height: 0.6; opacity: 0.5; display: block; margin-bottom: 12px; }
+.t-body { font-family: var(--font-display); font-style: italic; font-weight: 300; color: var(--csh-charcoal); line-height: 1.65; font-size: 0.95rem; margin: 0 0 20px; }
+.t-author { color: var(--csh-muted); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin: 0; }
+.t-tag { color: var(--csh-gold); font-size: 0.58rem; letter-spacing: 0.1em; margin: 4px 0 0; }
+@media (max-width: 900px) { .testimonials { padding: 64px 24px; } .t-grid { grid-template-columns: 1fr; } }
 
-  /* ── FORM ── */
-  .field {
-    border: none; border-bottom: 1px solid rgba(184,150,90,0.28);
-    background: transparent;
-    padding: 0.75rem 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.82rem; font-weight: 300; color: #1c1c1a;
-    outline: none; width: 100%;
-    transition: border-color 0.28s ease;
-    cursor: none;
-    -webkit-appearance: none;
-  }
-  .field::placeholder { color: #c9bfaf; }
-  .field:focus { border-color: #b8965a; }
-  .field:focus-visible { outline: none; }
+/* ========== CONTACT ========== */
+.contact { background: var(--csh-ivory); padding: 112px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
+.contact h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
+.contact-info { display: flex; flex-direction: column; gap: 32px; }
+.contact-row { display: flex; gap: 20px; align-items: flex-start; }
+.contact-icon { width: 40px; height: 40px; flex-shrink: 0; border: 1px solid rgba(161,98,7,0.3); display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.contact-label { color: var(--csh-muted); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; margin: 0 0 4px; }
+.contact-value { font-family: var(--font-display); color: var(--csh-charcoal); font-weight: 300; font-size: 1.05rem; text-decoration: none; }
+.csh-form { display: flex; flex-direction: column; gap: 24px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.csh-field-label { display: block; color: var(--csh-muted); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+.csh-field { border: 0; border-bottom: 1px solid rgba(161,98,7,0.28); background: transparent; padding: 12px 0; width: 100%; font-family: var(--font-body); font-size: 0.82rem; font-weight: 300; color: var(--csh-charcoal); outline: none; cursor: none; -webkit-appearance: none; transition: border-color .28s; }
+.csh-field::placeholder { color: var(--csh-sand-mid); }
+.csh-field:focus { border-color: var(--csh-gold); }
+textarea.csh-field { resize: none; height: 96px; }
+.form-success { text-align: center; padding: 40px 0; font-family: var(--font-display); font-style: italic; color: var(--csh-gold); font-size: 1.4rem; }
+@media (max-width: 900px) { .contact { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; } .form-row { grid-template-columns: 1fr; } }
 
-  /* ── STAT BAND ── */
-  .stat-item::before {
-    content: ''; position: absolute; top: 50%; left: 0;
-    height: 1px; width: 0; background: #b8965a;
-    transition: width 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
-    transform: translateY(-50%);
-  }
-  .stat-item.in-view::before { width: 100%; }
+/* ========== CTA ========== */
+.cta { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; height: 65vh; min-height: 500px; }
+.cta-bg { position: absolute; inset: -10% 0; background: url('https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg') center/cover no-repeat, #1C1917; }
+.cta::before { content:''; position:absolute; inset:0; background: linear-gradient(115deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.42) 100%); z-index: 1; }
+.cta::after { content:''; position:absolute; inset:0; background: rgba(161,98,7,0.05); mix-blend-mode: multiply; pointer-events: none; z-index: 2; }
+.cta-inner { position: relative; z-index: 3; text-align: center; color: var(--csh-ivory); padding: 0 32px; max-width: 720px; }
+.cta-inner h2 { font-family: var(--font-display); font-weight: 300; color: var(--csh-ivory); font-size: clamp(2rem, 4.5vw, 3.6rem); letter-spacing: -0.03em; line-height: 1.15; margin: 0; text-shadow: 0 4px 40px rgba(0,0,0,0.5); }
+.cta-inner h2 em { font-style: italic; color: var(--csh-gold-lt); font-weight: inherit; }
+.cta-btns { margin-top: 40px; display: inline-flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
-  /* ── REVEAL ── */
-  .reveal {
-    opacity: 0; transform: translateY(26px);
-    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
-                transform 0.9s cubic-bezier(0.16,1,0.3,1);
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .delay-1 { transition-delay: 0.1s; }
-  .delay-2 { transition-delay: 0.22s; }
-  .delay-3 { transition-delay: 0.34s; }
-  .delay-4 { transition-delay: 0.46s; }
-  .delay-5 { transition-delay: 0.58s; }
-
-  /* ── CTA PARALLAX ── */
-  #cta-bg { will-change: transform; }
-
-  /* contact hover */
-  .contact-link {
-    transition: color 0.22s ease;
-    cursor: none;
-  }
-  .contact-link:hover { color: #b8965a; }
-  .contact-link:focus-visible { outline: 2px solid #d4ad72; outline-offset: 2px; }
-
-  /* footer links */
-  .ft-lnk {
-    transition: color 0.22s ease;
-    cursor: none;
-  }
-  .ft-lnk:hover { color: #d4ad72 !important; }
-  .ft-lnk:focus-visible { outline: 2px solid #d4ad72; outline-offset: 2px; }
-  .ft-social {
-    transition: border-color 0.25s ease, background 0.25s ease;
-    cursor: none;
-  }
-  .ft-social:hover { border-color: #b8965a !important; background: rgba(184,150,90,0.08); }
-  .ft-social:focus-visible { outline: 2px solid #d4ad72; outline-offset: 2px; }
+/* ========== FOOTER ========== */
+.ft { background: var(--csh-ink); color: rgba(245,242,237,0.6); padding: 80px 64px 40px; position: relative; }
+.ft-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(161,98,7,0.12); }
+.ft-brand { font-family: var(--font-display); color: var(--csh-ivory); font-size: 1.4rem; font-weight: 400; letter-spacing: 0.05em; text-decoration: none; }
+.ft-brand span { color: var(--csh-gold-lt); }
+.ft-tag { font-family: var(--font-display); font-style: italic; color: rgba(245,242,237,0.55); font-size: 0.95rem; line-height: 1.6; margin-top: 16px; max-width: 320px; font-weight: 300; }
+.ft-social-row { display: flex; gap: 12px; margin-top: 24px; }
+.ft-social { width: 36px; height: 36px; border: 1px solid rgba(161,98,7,0.25); display: flex; align-items: center; justify-content: center; color: var(--csh-gold); cursor: none; text-decoration: none; transition: border-color .3s, color .3s; }
+.ft-social:hover { border-color: var(--csh-gold); color: var(--csh-gold-lt); }
+.ft-col-h { color: var(--csh-gold); font-size: 0.58rem; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 600; margin: 0 0 16px; }
+.ft-col ul { list-style:none; margin:0; padding:0; display:flex; flex-direction: column; gap: 10px; }
+.ft-col a { color: rgba(245,242,237,0.6); font-size: 0.78rem; font-weight: 300; text-decoration:none; cursor:none; transition: color .25s; }
+.ft-col a:hover { color: var(--csh-gold-lt); }
+.ft-bottom { position: relative; z-index: 1; margin-top: 32px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.62rem; letter-spacing: 0.12em; color: rgba(245,242,237,0.4); }
+@media (max-width: 900px) { .ft { padding: 64px 24px 32px; } .ft-grid { grid-template-columns: 1fr 1fr; gap: 32px; } .ft-bottom { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 540px) { .ft-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
-<body class="bg-ivory text-ink overflow-x-hidden">
+<body>
 
-<!-- CURSOR -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-
-<!-- SCROLL PROGRESS -->
-<div id="prog"></div>
-
-<!-- MOBILE MENU -->
-<div id="mob-menu" class="fixed inset-0 z-[105] flex flex-col items-center justify-center gap-9"
-     style="background: rgba(10,10,9,0.97); backdrop-filter: blur(24px);"
-     role="dialog" aria-label="Navigation">
-  <a href="#projects" onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">Portfolio</a>
-  <a href="#about"    onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">About</a>
-  <a href="#services" onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">Services</a>
-  <a href="#process"  onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">Process</a>
-  <a href="#contact"  onclick="closeMob()" class="font-serif text-ivory text-5xl font-light tracking-tight hover:text-gold-lt no-underline" style="text-decoration:none;">Contact</a>
-  <a href="tel:2395447400" class="text-gold text-xs tracking-[0.28em] uppercase mt-2" style="text-decoration:none;">(239) 544-7400</a>
-</div>
+<!-- Custom cursor -->
+<div id="csh-cursor-ring"></div>
+<div id="csh-cursor-dot"></div>
 
 <!-- NAV -->
-<nav id="nav" class="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center px-16 py-7 transition-[background,padding,border-color] duration-500"
-     style="transition: background 0.5s ease, padding 0.4s ease, border-color 0.5s ease;">
-  <a href="#" class="font-serif text-ivory text-[1.3rem] font-normal tracking-[0.05em] no-underline cursor-none"
-     style="text-decoration:none;">Coastal <span class="text-gold-lt">Signature</span> Homes</a>
-
-  <ul class="hidden md:flex gap-10 list-none items-center m-0 p-0">
-    <li><a href="#projects" class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">Portfolio</a></li>
-    <li><a href="#about"    class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">About</a></li>
-    <li><a href="#services" class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">Services</a></li>
-    <li><a href="#process"  class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">Process</a></li>
-    <li><a href="#contact"  class="nav-lnk text-ivory/70 text-[0.68rem] tracking-[0.2em] uppercase font-medium hover:text-gold-lt no-underline cursor-none transition-colors duration-200" style="text-decoration:none;">Contact</a></li>
-    <li>
-      <a href="tel:2395447400"
-         class="btn-wipe border border-gold text-gold-lt text-[0.62rem] tracking-[0.18em] uppercase px-5 py-[0.6rem] inline-block no-underline cursor-none"
-         style="text-decoration:none; transition: color 0.38s ease;">
-        <span>Call Now</span>
-      </a>
-    </li>
+<nav class="csh-nav" id="csh-nav">
+  <a href="#" class="csh-nav-brand c-link">Coastal <em>Signature</em> Homes</a>
+  <ul class="csh-nav-list">
+    <li><a href="#projects" class="csh-nav-lnk c-link">Portfolio</a></li>
+    <li><a href="#about" class="csh-nav-lnk c-link">About</a></li>
+    <li><a href="#services" class="csh-nav-lnk c-link">Services</a></li>
+    <li><a href="#process" class="csh-nav-lnk c-link">Process</a></li>
+    <li><a href="#contact" class="csh-nav-lnk c-link">Contact</a></li>
+    <li><a href="tel:2395447400" class="btn-wipe btn-nav c-link"><span>Call Now</span></a></li>
   </ul>
-
-  <button id="hbr" class="hbr md:hidden flex flex-col gap-[5px] bg-transparent border-0 p-1 z-[110] cursor-none"
-          aria-label="Open navigation" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hbr" id="hbr" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
-
-<!-- ═══════════════════════════════════════════════════ HERO ═══ -->
-<section id="hero" class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-charcoal grain">
-  <!-- blurred bg video -->
-  <video class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-         style="inset:-20px; width:calc(100% + 40px); height:calc(100% + 40px); filter: blur(30px) brightness(0.55);"
-         autoplay loop muted playsinline preload="auto" aria-hidden="true">
-    <source src="hero-video.mp4" type="video/mp4">
-  </video>
-  <!-- main video -->
-  <video class="absolute inset-0 w-full h-full object-contain z-0 pointer-events-none"
-         autoplay loop muted playsinline preload="auto" aria-hidden="true">
-    <source src="hero-video.mp4" type="video/mp4">
-  </video>
-  <!-- layered gradient overlay -->
-  <div class="absolute inset-0 z-10 pointer-events-none"
-       style="background: linear-gradient(155deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.42) 45%, rgba(0,0,0,0.76) 100%);"></div>
-  <!-- color treatment mix-blend -->
-  <div class="absolute inset-0 z-10 pointer-events-none"
-       style="background: rgba(184,150,90,0.04); mix-blend-mode: multiply;"></div>
-
-  <div class="relative z-20 text-center text-ivory px-8 max-w-5xl mx-auto">
-    <p class="hero-line-1 text-gold-lt text-[0.62rem] tracking-[0.34em] uppercase font-semibold mb-7"
-       style="text-shadow: 0 1px 8px rgba(0,0,0,0.6);">
-      Fort Myers &amp; Southwest Florida
-    </p>
-    <h1 class="hero-line-2 font-serif font-light leading-[1.04] mb-6"
-        style="font-size: clamp(3rem, 7vw, 6rem); letter-spacing: -0.03em; text-shadow: 0 4px 40px rgba(0,0,0,0.65);">
-      Where Vision<br>Becomes <em class="text-gold-lt not-italic">Home</em>
-    </h1>
-    <p class="hero-line-3 text-ivory/78 text-[0.68rem] tracking-[0.26em] uppercase mb-10 font-normal"
-       style="text-shadow: 0 1px 6px rgba(0,0,0,0.5);">
-      New Construction <span class="mx-3 text-gold/70">·</span> Remodeling <span class="mx-3 text-gold/70">·</span> 20+ Years
-    </p>
-    <a href="#projects"
-       class="hero-line-4 btn-wipe border border-gold text-ivory text-[0.62rem] tracking-[0.24em] uppercase font-semibold px-10 py-4 inline-block no-underline cursor-none"
-       style="background: rgba(0,0,0,0.25); text-decoration:none; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: color 0.42s ease, box-shadow 0.38s ease, transform 0.3s ease;">
-      <span>View Our Work</span>
-    </a>
-  </div>
-
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none" aria-hidden="true">
-    <span class="text-ivory/40 text-[0.56rem] tracking-[0.26em] uppercase">Scroll</span>
-    <div class="hero-scroll-line"></div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════ STATS ═══ -->
-<div id="stats" class="radial-dark-tl grid grid-cols-2 md:grid-cols-4 border-y border-gold/10">
-  <div class="stat-item relative text-center py-10 px-6 border-r border-gold/[0.08] reveal">
-    <span class="font-serif text-gold-lt block leading-none mb-2" style="font-size: clamp(2.2rem,4vw,3.4rem); font-weight:300;"
-          data-target="20" data-suffix="+">0</span>
-    <span class="text-ivory/40 text-[0.58rem] tracking-[0.22em] uppercase block">Years of Experience</span>
-  </div>
-  <div class="stat-item relative text-center py-10 px-6 border-r border-gold/[0.08] reveal delay-1">
-    <span class="font-serif text-gold-lt block leading-none mb-2" style="font-size: clamp(2.2rem,4vw,3.4rem); font-weight:300;"
-          data-target="100" data-suffix="%">0</span>
-    <span class="text-ivory/40 text-[0.58rem] tracking-[0.22em] uppercase block">Client Satisfaction</span>
-  </div>
-  <div class="stat-item relative text-center py-10 px-6 border-r border-gold/[0.08] reveal delay-2">
-    <span class="font-serif text-gold-lt block leading-none mb-2" style="font-size: clamp(2.2rem,4vw,3.4rem); font-weight:300;"
-          data-target="5" data-suffix="★">0</span>
-    <span class="text-ivory/40 text-[0.58rem] tracking-[0.22em] uppercase block">Star Reviews</span>
-  </div>
-  <div class="stat-item relative text-center py-10 px-6 reveal delay-3">
-    <span class="font-serif text-gold-lt block leading-none mb-2" style="font-size: clamp(2.2rem,4vw,3.4rem); font-weight:300;"
-          data-text="SWFL">—</span>
-    <span class="text-ivory/40 text-[0.58rem] tracking-[0.22em] uppercase block">Service Coverage</span>
-  </div>
+<div class="mob-menu" id="mobMenu" role="dialog" aria-label="Navigation">
+  <a href="#projects">Portfolio</a>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#process">Process</a>
+  <a href="#contact">Contact</a>
+  <a href="tel:2395447400" style="color:var(--csh-gold); font-size:.72rem; letter-spacing:.28em; text-transform:uppercase; margin-top:8px; font-family:var(--font-body); font-weight:600;">(239) 544-7400</a>
 </div>
 
-<!-- ═════════════════════════════════════════════ PROJECTS ═══ -->
-<section id="projects" class="radial-dark-tl pt-28 pb-0">
-  <div class="px-16 mb-16">
-    <p class="text-gold-lt text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">Featured Work</p>
-    <h2 class="font-serif font-light text-ivory reveal delay-1"
-        style="font-size: clamp(2.2rem,4.5vw,3.8rem); letter-spacing:-0.03em; line-height:1.1;">
-      Exceptional Homes,<br><em class="text-gold">Exceptional Craft</em>
-    </h2>
-    <div class="w-11 h-px mt-8 reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
+<!-- HERO -->
+<section class="hero csh-grain" id="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay-1"></div>
+  <div class="hero-overlay-2"></div>
+  <div class="hero-frame">
+    <p class="hero-eyebrow">Fort Myers &amp; Southwest Florida</p>
+    <h1>Where Vision<br>Becomes <em>Home</em></h1>
+    <p class="hero-meta">New Construction<span class="dot">·</span>Remodeling<span class="dot">·</span>20+ Years</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-wipe btn-hero c-link"><span>View Our Work</span></a>
+    </div>
   </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2" style="gap: 3px;">
-    <!-- tall card -->
-    <div class="proj-card img-treatment relative overflow-hidden" style="grid-row: span 2;" tabindex="0" role="article">
-      <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg"
-           alt="Custom pivot door entry — new construction home, Fort Myers FL"
-           class="w-full h-full object-cover block" style="min-height:763px;" loading="lazy">
-      <!-- gradient overlay -->
-      <div class="absolute inset-0 z-10 pointer-events-none"
-           style="background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, transparent 52%);"></div>
-      <div class="absolute inset-0 z-20 flex items-end p-10">
-        <div class="text-ivory">
-          <p class="text-gold-lt text-[0.58rem] tracking-[0.26em] uppercase mb-2">Fort Myers, FL</p>
-          <h3 class="font-serif font-light text-[1.75rem] leading-tight mb-2">New Construction</h3>
-          <p class="proj-desc text-[0.7rem] leading-relaxed font-light">
-            Custom-built from foundation to finish — managed with precision and the highest quality standards throughout Southwest Florida.
-          </p>
-          <span class="proj-arrow flex items-center gap-2 text-gold text-[0.6rem] tracking-[0.22em] uppercase mt-4">
-            View Project
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </div>
-      </div>
-    </div>
-    <!-- card 2 -->
-    <div class="proj-card img-treatment relative overflow-hidden" tabindex="0" role="article">
-      <img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg"
-           alt="Marble kitchen island remodel, Southwest Florida"
-           class="w-full h-full object-cover block" style="min-height:380px;" loading="lazy">
-      <div class="absolute inset-0 z-10 pointer-events-none"
-           style="background: linear-gradient(to top, rgba(0,0,0,0.84) 0%, transparent 55%);"></div>
-      <div class="absolute inset-0 z-20 flex items-end p-8">
-        <div class="text-ivory">
-          <p class="text-gold-lt text-[0.58rem] tracking-[0.26em] uppercase mb-2">Southwest Florida</p>
-          <h3 class="font-serif font-light text-[1.65rem] leading-tight mb-2">Kitchen Remodel</h3>
-          <p class="proj-desc text-[0.7rem] leading-relaxed font-light">
-            Marble islands, premium cabinetry, and fixtures that make every morning feel like a luxury.
-          </p>
-          <span class="proj-arrow flex items-center gap-2 text-gold text-[0.6rem] tracking-[0.22em] uppercase mt-4">
-            View Project
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </div>
-      </div>
-    </div>
-    <!-- card 3 -->
-    <div class="proj-card img-treatment relative overflow-hidden" tabindex="0" role="article">
-      <img src="https://www.coastalsignaturehomes.net/images/master-bath-transformation.jpeg"
-           alt="Master bathroom transformation, Cape Coral FL"
-           class="w-full h-full object-cover block" style="min-height:380px;" loading="lazy">
-      <div class="absolute inset-0 z-10 pointer-events-none"
-           style="background: linear-gradient(to top, rgba(0,0,0,0.84) 0%, transparent 55%);"></div>
-      <div class="absolute inset-0 z-20 flex items-end p-8">
-        <div class="text-ivory">
-          <p class="text-gold-lt text-[0.58rem] tracking-[0.26em] uppercase mb-2">Cape Coral, FL</p>
-          <h3 class="font-serif font-light text-[1.65rem] leading-tight mb-2">Bathroom Transformation</h3>
-          <p class="proj-desc text-[0.7rem] leading-relaxed font-light">
-            Spa-level finishes and lasting craftsmanship — the "wow factor" our clients always dreamed of.
-          </p>
-          <span class="proj-arrow flex items-center gap-2 text-gold text-[0.6rem] tracking-[0.22em] uppercase mt-4">
-            View Project
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </div>
-      </div>
-    </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="line"></div>
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════ ABOUT ═══ -->
-<section id="about" class="grid grid-cols-1 md:grid-cols-2 p-0">
-  <div class="img-treatment relative overflow-hidden" style="min-height: 680px;">
-    <img src="https://www.coastalsignaturehomes.net/images/white-oak-kitchen.jpeg"
-         alt="White oak kitchen crafted by Coastal Signature Homes"
-         class="w-full h-full object-cover block"
-         style="transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94);"
-         loading="lazy">
-    <div class="absolute inset-0 z-10 pointer-events-none"
-         style="background: linear-gradient(135deg, rgba(184,150,90,0.1) 0%, transparent 50%); mix-blend-mode: multiply;"></div>
-  </div>
-  <div class="radial-gold-tl bg-sand flex flex-col justify-center px-16 py-28">
-    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">Our Story</p>
-    <h2 class="font-serif font-light text-charcoal reveal delay-1"
-        style="font-size: clamp(2rem,4vw,3.4rem); letter-spacing:-0.03em; line-height:1.12;">
-      Built on <em class="text-gold">Craft.</em><br>Proven by Time.
-    </h2>
-    <div class="w-11 h-px my-8 reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
-    <p class="text-[#4a4640] text-[0.87rem] leading-[1.95] font-light reveal delay-2">
-      With over 20 years in the construction industry, Coastal Signature Homes brings deep expertise in residential building, remodeling, and project management across Fort Myers, Cape Coral, and all of Southwest Florida.
-    </p>
-    <p class="text-[#4a4640] text-[0.87rem] leading-[1.95] font-light mt-4 reveal delay-3">
-      From custom new builds to complete home remodels, we approach every project with the same commitment: precision, efficiency, and the highest quality standards — because the homes we build outlast trends.
-    </p>
-    <div class="grid grid-cols-2 gap-8 mt-12 reveal delay-3">
-      <div>
-        <div class="font-serif font-light text-gold leading-none mb-2" style="font-size:2.8rem;">20+</div>
-        <div class="text-muted text-[0.6rem] tracking-[0.2em] uppercase">Years Active</div>
-      </div>
-      <div>
-        <div class="font-serif font-light text-gold leading-none mb-2" style="font-size:2.8rem;">100%</div>
-        <div class="text-muted text-[0.6rem] tracking-[0.2em] uppercase">Satisfaction</div>
-      </div>
-      <div>
-        <div class="font-serif font-light text-gold leading-none mb-2" style="font-size:2.8rem;">5★</div>
-        <div class="text-muted text-[0.6rem] tracking-[0.2em] uppercase">Rated Reviews</div>
-      </div>
-      <div>
-        <div class="font-serif font-light text-gold leading-none mb-2" style="font-size:2.8rem;">SWFL</div>
-        <div class="text-muted text-[0.6rem] tracking-[0.2em] uppercase">Service Area</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════ SERVICES ═══ -->
-<section id="services" class="bg-ivory pt-28 pb-0">
-  <div class="text-center max-w-md mx-auto mb-16 px-6">
-    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">What We Build</p>
-    <h2 class="font-serif font-light text-charcoal reveal delay-1"
-        style="font-size: clamp(2rem,4vw,3.4rem); letter-spacing:-0.03em; line-height:1.12;">
-      Done Right.<br><em class="text-gold">Every Time.</em>
-    </h2>
-    <div class="w-11 h-px my-8 mx-auto reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-3" style="gap: 3px;">
-    <div class="svc-card img-treatment relative overflow-hidden" style="height: 560px;" tabindex="0">
-      <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg"
-           alt="New construction service" class="w-full h-full object-cover block" loading="lazy">
-      <div class="absolute inset-0 z-10 pointer-events-none"
-           style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.06) 60%);"></div>
-      <div class="absolute inset-0 z-20 flex flex-col justify-end p-10">
-        <div class="font-serif text-[3rem] font-light leading-none mb-4" style="color: rgba(184,150,90,0.28);">01</div>
-        <div class="svc-line"></div>
-        <h3 class="font-serif font-light text-ivory leading-tight mb-2" style="font-size:1.85rem;">New Construction</h3>
-        <p class="svc-text text-[0.72rem] leading-[1.75] font-light">
-          Custom homes built from the ground up. Every phase managed with precision — from land prep to final walkthrough — throughout Southwest Florida.
-        </p>
-      </div>
-    </div>
-    <div class="svc-card img-treatment relative overflow-hidden" style="height: 560px;" tabindex="0">
-      <img src="https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg"
-           alt="Kitchen and bath remodeling" class="w-full h-full object-cover block" loading="lazy">
-      <div class="absolute inset-0 z-10 pointer-events-none"
-           style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.06) 60%);"></div>
-      <div class="absolute inset-0 z-20 flex flex-col justify-end p-10">
-        <div class="font-serif text-[3rem] font-light leading-none mb-4" style="color: rgba(184,150,90,0.28);">02</div>
-        <div class="svc-line"></div>
-        <h3 class="font-serif font-light text-ivory leading-tight mb-2" style="font-size:1.85rem;">Kitchen &amp; Bath</h3>
-        <p class="svc-text text-[0.72rem] leading-[1.75] font-light">
-          Transform your most-used spaces with premium cabinets, countertops, tile work, and fixtures — from concept to completion, spaces you love.
-        </p>
-      </div>
-    </div>
-    <div class="svc-card img-treatment relative overflow-hidden" style="height: 560px;" tabindex="0">
-      <img src="https://www.coastalsignaturehomes.net/images/two-story-living-room.jpeg"
-           alt="Full home remodeling" class="w-full h-full object-cover block" loading="lazy">
-      <div class="absolute inset-0 z-10 pointer-events-none"
-           style="background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.06) 60%);"></div>
-      <div class="absolute inset-0 z-20 flex flex-col justify-end p-10">
-        <div class="font-serif text-[3rem] font-light leading-none mb-4" style="color: rgba(184,150,90,0.28);">03</div>
-        <div class="svc-line"></div>
-        <h3 class="font-serif font-light text-ivory leading-tight mb-2" style="font-size:1.85rem;">Full Home Remodel</h3>
-        <p class="svc-text text-[0.72rem] leading-[1.75] font-light">
-          Windows, flooring, living spaces — complete renovations handled with care so your existing home becomes the dream home you always wanted.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════ GALLERY STRIP ═══ -->
-<div id="gallery" class="flex overflow-hidden" style="height: clamp(240px, 34vw, 480px);" role="list" aria-label="Project gallery">
-  <div class="gal-item" role="listitem" tabindex="0" aria-label="Marble kitchen">
-    <img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg" alt="Marble kitchen island detail" loading="lazy">
-    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
-    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">Marble Kitchen</div>
-  </div>
-  <div class="gal-item" role="listitem" tabindex="0" aria-label="Pivot door entry">
-    <img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg" alt="Custom pivot door entry" loading="lazy">
-    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
-    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">Pivot Door Entry</div>
-  </div>
-  <div class="gal-item" role="listitem" tabindex="0" aria-label="Master bath">
-    <img src="https://www.coastalsignaturehomes.net/images/master-bath-transformation.jpeg" alt="Master bath renovation" loading="lazy">
-    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
-    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">Master Bath</div>
-  </div>
-  <div class="gal-item" role="listitem" tabindex="0" aria-label="White oak kitchen">
-    <img src="https://www.coastalsignaturehomes.net/images/white-oak-kitchen.jpeg" alt="White oak kitchen design" loading="lazy">
-    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
-    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">White Oak Kitchen</div>
-  </div>
-  <div class="gal-item" role="listitem" tabindex="0" aria-label="Two-story living room">
-    <img src="https://www.coastalsignaturehomes.net/images/two-story-living-room.jpeg" alt="Two-story living room" loading="lazy">
-    <div class="absolute inset-0 z-10 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);"></div>
-    <div class="gal-lbl absolute bottom-0 left-0 right-0 z-20 px-6 py-4 text-ivory text-[0.6rem] tracking-[0.22em] uppercase">Two-Story Living</div>
-  </div>
+<!-- STATS -->
+<div class="stats csh-grain csh-radial-dark" id="stats">
+  <div class="csh-stat csh-reveal"><span class="csh-stat-num" data-count="20" data-suffix="+">0+</span><span class="csh-stat-lbl">Years of Experience</span></div>
+  <div class="csh-stat csh-reveal csh-delay-1"><span class="csh-stat-num" data-count="100" data-suffix="%">0%</span><span class="csh-stat-lbl">Client Satisfaction</span></div>
+  <div class="csh-stat csh-reveal csh-delay-2"><span class="csh-stat-num" data-count="5" data-suffix="★">0★</span><span class="csh-stat-lbl">Star Reviews</span></div>
+  <div class="csh-stat csh-reveal csh-delay-3"><span class="csh-stat-num">SWFL</span><span class="csh-stat-lbl">Service Coverage</span></div>
 </div>
 
-<!-- ═══════════════════════════════════════════ PROCESS ═══ -->
-<section id="process" class="radial-dark-tl py-28 px-16">
-  <div class="text-center mb-20">
-    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">How We Work</p>
-    <h2 class="font-serif font-light text-ivory reveal delay-1"
-        style="font-size: clamp(2rem,4.5vw,3.8rem); letter-spacing:-0.03em; line-height:1.12;">
-      A White-Glove<br><em class="text-gold">Experience</em>
-    </h2>
-    <div class="w-11 h-px my-8 mx-auto reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
+<!-- PROJECTS -->
+<section class="projects csh-radial-dark" id="projects">
+  <div class="section-head">
+    <p class="csh-eyebrow on-dark csh-reveal">Featured Work</p>
+    <h2 class="csh-reveal csh-delay-1">Exceptional Homes,<br><em class="gold on-dark">Exceptional Craft</em></h2>
+    <hr class="csh-rule">
   </div>
+  <div class="proj-grid">
+    <article class="proj-card proj-tall c-link" tabindex="0">
+      <div class="csh-img-wrap"><img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg" alt="New Construction — Fort Myers, FL" loading="lazy"></div>
+      <div class="overlay"></div>
+      <div class="copy"><div>
+        <p class="proj-loc">Fort Myers, FL</p>
+        <h3 class="proj-title">New Construction</h3>
+        <p class="proj-desc">Custom-built from foundation to finish — managed with precision and the highest quality standards throughout Southwest Florida.</p>
+        <span class="proj-arrow">View Project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div></div>
+    </article>
+    <article class="proj-card c-link" tabindex="0">
+      <div class="csh-img-wrap"><img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg" alt="Kitchen Remodel — Southwest Florida" loading="lazy"></div>
+      <div class="overlay"></div>
+      <div class="copy"><div>
+        <p class="proj-loc">Southwest Florida</p>
+        <h3 class="proj-title">Kitchen Remodel</h3>
+        <p class="proj-desc">Marble islands, premium cabinetry, and fixtures that make every morning feel like a luxury.</p>
+        <span class="proj-arrow">View Project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div></div>
+    </article>
+    <article class="proj-card c-link" tabindex="0">
+      <div class="csh-img-wrap"><img src="https://www.coastalsignaturehomes.net/images/master-bath-transformation.jpeg" alt="Bathroom Transformation — Cape Coral, FL" loading="lazy"></div>
+      <div class="overlay"></div>
+      <div class="copy"><div>
+        <p class="proj-loc">Cape Coral, FL</p>
+        <h3 class="proj-title">Bathroom Transformation</h3>
+        <p class="proj-desc">Spa-level finishes and lasting craftsmanship — the "wow factor" our clients always dreamed of.</p>
+        <span class="proj-arrow">View Project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </div></div>
+    </article>
+  </div>
+</section>
 
-  <div id="proc-wrap" class="relative grid grid-cols-2 md:grid-cols-5 gap-14">
-    <!-- connecting line (desktop) -->
-    <div class="hidden md:block absolute top-[2.75rem] left-[10%] right-[10%] overflow-hidden" style="height:1px; background:rgba(184,150,90,0.12);">
-      <div id="proc-fill"></div>
-    </div>
-
-    <div class="process-step text-center reveal">
-      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">I</div>
-      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Consultation</h4>
-      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">A private meeting to understand your vision, lifestyle, and goals.</p>
-    </div>
-    <div class="process-step text-center reveal delay-1">
-      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">II</div>
-      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Design Collaboration</h4>
-      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">Working with your architect and our team to finalize every detail.</p>
-    </div>
-    <div class="process-step text-center reveal delay-2">
-      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">III</div>
-      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Pre-Construction</h4>
-      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">Permitting, materials, and scheduling — handled with precision.</p>
-    </div>
-    <div class="process-step text-center reveal delay-3">
-      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">IV</div>
-      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Construction</h4>
-      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">Transparent updates, dedicated management, uncompromising quality.</p>
-    </div>
-    <div class="process-step text-center reveal delay-4">
-      <div class="step-circle w-20 h-20 border border-gold/30 rounded-full flex items-center justify-center mx-auto mb-8 font-serif text-[1.25rem] text-gold/50 relative z-10 bg-charcoal">V</div>
-      <h4 class="step-title font-serif text-ivory/85 font-normal text-[1.1rem] mb-2">Final Delivery</h4>
-      <p class="text-ivory/38 text-[0.68rem] leading-[1.75] font-light">A meticulous walkthrough — because the last impression matters most.</p>
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-img-wrap">
+    <div class="csh-img-wrap"><img src="https://www.coastalsignaturehomes.net/images/white-oak-kitchen.jpeg" alt="White oak kitchen by Coastal Signature Homes" decoding="sync" fetchpriority="high"></div>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="csh-sharpen"><feConvolveMatrix order="3" preserveAlpha="true" kernelMatrix="0 -0.6 0 -0.6 3.4 -0.6 0 -0.6 0"/></filter></svg>
+  </div>
+  <div class="about-panel csh-radial-light">
+    <p class="csh-eyebrow csh-reveal">Our Story</p>
+    <h2 class="csh-reveal csh-delay-1">Built on <em class="gold">Craft.</em><br>Proven by Time.</h2>
+    <hr class="csh-rule">
+    <p class="csh-reveal csh-delay-2">With over 20 years in the construction industry, Coastal Signature Homes brings deep expertise in residential building, remodeling, and project management across Fort Myers, Cape Coral, and all of Southwest Florida.</p>
+    <p class="csh-reveal csh-delay-3">From custom new builds to complete home remodels, we approach every project with the same commitment: precision, efficiency, and the highest quality standards — because the homes we build outlast trends.</p>
+    <div class="about-stats csh-reveal csh-delay-3">
+      <div><div class="about-stat-num">20+</div><div class="about-stat-lbl">Years Active</div></div>
+      <div><div class="about-stat-num">100%</div><div class="about-stat-lbl">Satisfaction</div></div>
+      <div><div class="about-stat-num">5★</div><div class="about-stat-lbl">Rated Reviews</div></div>
+      <div><div class="about-stat-num">SWFL</div><div class="about-stat-lbl">Service Area</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════ TESTIMONIALS ═══ -->
-<section id="testimonials" class="bg-sand py-20 px-16">
-  <div class="text-center mb-12">
-    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">Client Stories</p>
-    <h2 class="font-serif font-light text-charcoal reveal delay-1"
-        style="font-size: clamp(2rem,4vw,3.4rem); letter-spacing:-0.03em; line-height:1.12;">
-      Built on <em class="text-gold">Trust</em>
-    </h2>
-    <div class="w-11 h-px my-7 mx-auto reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
-  </div>
+<!-- BRAND STATEMENT -->
+<section class="brand-statement csh-grain csh-radial-dark">
+  <p class="csh-reveal">We strive for <span>perfection</span> so that <span>excellence</span> is always attained.</p>
+</section>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-    <div class="t-card bg-ivory px-7 py-8 reveal" style="border-left: 2px solid #b8965a;">
-      <span class="font-serif text-gold text-4xl leading-none block mb-3" style="opacity:0.5;" aria-hidden="true">&ldquo;</span>
-      <p class="font-serif italic font-light text-charcoal leading-[1.65] text-[0.95rem] mb-5">
-        Scott brought a high level of creativity and elevated the design of our condo remodel. He stayed on schedule and kept the project within budget without compromising quality.
-      </p>
-      <p class="text-muted text-[0.6rem] tracking-[0.2em] uppercase font-semibold">— Missy</p>
-      <p class="text-gold text-[0.58rem] tracking-[0.1em] mt-1">Condo Remodel &middot; Southwest Florida</p>
+<!-- GALLERY (interactive accordion) -->
+<section id="services" class="gal-section">
+  <div class="gal-strip" id="gallery" role="list" aria-label="Project gallery">
+    <div class="gal-item" role="listitem" tabindex="0" aria-label="Marble Kitchen"><img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg" alt="Marble Kitchen" loading="lazy"><div class="gal-lbl">Marble Kitchen</div></div>
+    <div class="gal-item" role="listitem" tabindex="0" aria-label="Pivot Door Entry"><img src="https://www.coastalsignaturehomes.net/images/entry-pivot-door.jpeg" alt="Pivot Door Entry" loading="lazy"><div class="gal-lbl">Pivot Door Entry</div></div>
+    <div class="gal-item" role="listitem" tabindex="0" aria-label="Master Bath"><img src="https://www.coastalsignaturehomes.net/images/master-bath-transformation.jpeg" alt="Master Bath" loading="lazy"><div class="gal-lbl">Master Bath</div></div>
+    <div class="gal-item" role="listitem" tabindex="0" aria-label="White Oak Kitchen"><img src="https://www.coastalsignaturehomes.net/images/white-oak-kitchen.jpeg" alt="White Oak Kitchen" loading="lazy"><div class="gal-lbl">White Oak Kitchen</div></div>
+    <div class="gal-item" role="listitem" tabindex="0" aria-label="Two-Story Living"><img src="https://www.coastalsignaturehomes.net/images/two-story-living-room.jpeg" alt="Two-Story Living" loading="lazy"><div class="gal-lbl">Two-Story Living</div></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process csh-radial-dark csh-grain" id="process">
+  <div class="section-head">
+    <p class="csh-eyebrow on-dark csh-reveal">How We Work</p>
+    <h2 class="csh-reveal csh-delay-1" style="color: var(--csh-ivory)">A White-Glove<br><em class="gold on-dark">Experience</em></h2>
+    <hr class="csh-rule center">
+  </div>
+  <div class="proc-grid" id="procGrid">
+    <div class="proc-line"><div class="proc-fill" id="procFill"></div></div>
+    <div class="proc-step csh-reveal csh-delay-1"><div class="step-circle">I</div><h4 class="step-title">Consultation</h4><p class="step-desc">A private meeting to understand your vision, lifestyle, and goals.</p></div>
+    <div class="proc-step csh-reveal csh-delay-2"><div class="step-circle">II</div><h4 class="step-title">Design Collaboration</h4><p class="step-desc">Working with your architect and our team to finalize every detail.</p></div>
+    <div class="proc-step csh-reveal csh-delay-3"><div class="step-circle">III</div><h4 class="step-title">Pre-Construction</h4><p class="step-desc">Permitting, materials, and scheduling — handled with precision.</p></div>
+    <div class="proc-step csh-reveal csh-delay-4"><div class="step-circle">IV</div><h4 class="step-title">Construction</h4><p class="step-desc">Transparent updates, dedicated management, uncompromising quality.</p></div>
+    <div class="proc-step csh-reveal csh-delay-5"><div class="step-circle">V</div><h4 class="step-title">Final Delivery</h4><p class="step-desc">A meticulous walkthrough — because the last impression matters most.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-head">
+    <p class="csh-eyebrow csh-reveal">Client Stories</p>
+    <h2 class="csh-reveal csh-delay-1">Built on <em class="gold">Trust</em></h2>
+    <hr class="csh-rule center">
+  </div>
+  <div class="t-grid">
+    <div class="t-card csh-reveal csh-delay-1">
+      <span class="t-quote" aria-hidden="true">&ldquo;</span>
+      <p class="t-body">Scott brought a high level of creativity and elevated the design of our condo remodel. He stayed on schedule and kept the project within budget without compromising quality.</p>
+      <p class="t-author">— Missy</p>
+      <p class="t-tag">Condo Remodel · Southwest Florida</p>
     </div>
-    <div class="t-card bg-ivory px-7 py-8 reveal delay-1" style="border-left: 2px solid #b8965a;">
-      <span class="font-serif text-gold text-4xl leading-none block mb-3" style="opacity:0.5;" aria-hidden="true">&ldquo;</span>
-      <p class="font-serif italic font-light text-charcoal leading-[1.65] text-[0.95rem] mb-5">
-        Top quality workmanship. It was a dream come true to have "the wow" factor in our three bathroom renovation. We couldn't be happier with the results.
-      </p>
-      <p class="text-muted text-[0.6rem] tracking-[0.2em] uppercase font-semibold">— Ripperton &amp; Lillian</p>
-      <p class="text-gold text-[0.58rem] tracking-[0.1em] mt-1">Three Bathroom Renovation &middot; Fort Myers</p>
+    <div class="t-card csh-reveal csh-delay-2">
+      <span class="t-quote" aria-hidden="true">&ldquo;</span>
+      <p class="t-body">Top quality workmanship. It was a dream come true to have "the wow" factor in our three bathroom renovation. We couldn't be happier with the results.</p>
+      <p class="t-author">— Ripperton &amp; Lillian</p>
+      <p class="t-tag">Three Bathroom Renovation · Fort Myers</p>
     </div>
-    <div class="t-card bg-ivory px-7 py-8 reveal delay-2" style="border-left: 2px solid #b8965a;">
-      <span class="font-serif text-gold text-4xl leading-none block mb-3" style="opacity:0.5;" aria-hidden="true">&ldquo;</span>
-      <p class="font-serif italic font-light text-charcoal leading-[1.65] text-[0.95rem] mb-5">
-        Professional, fair pricing, outstanding quality, and timely responses. We have been working with Coastal Signature Homes for over 4 years on personal and business projects.
-      </p>
-      <p class="text-muted text-[0.6rem] tracking-[0.2em] uppercase font-semibold">— Carol</p>
-      <p class="text-gold text-[0.58rem] tracking-[0.1em] mt-1">Personal &amp; Business Projects &middot; 4+ Years</p>
+    <div class="t-card csh-reveal csh-delay-3">
+      <span class="t-quote" aria-hidden="true">&ldquo;</span>
+      <p class="t-body">Professional, fair pricing, outstanding quality, and timely responses. We have been working with Coastal Signature Homes for over 4 years on personal and business projects.</p>
+      <p class="t-author">— Carol</p>
+      <p class="t-tag">Personal &amp; Business Projects · 4+ Years</p>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════ CONTACT ═══ -->
-<section id="contact" class="radial-gold-tl bg-ivory py-28 px-16 grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
+<!-- CONTACT -->
+<section class="contact csh-radial-light" id="contact">
   <div>
-    <p class="text-gold text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-3 reveal">Get In Touch</p>
-    <h2 class="font-serif font-light text-charcoal reveal delay-1"
-        style="font-size: clamp(2rem,4vw,3.4rem); letter-spacing:-0.03em; line-height:1.12;">
-      Start Your<br><em class="text-gold">Project Today</em>
-    </h2>
-    <div class="w-11 h-px my-8 reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
-    <div class="flex flex-col gap-8 reveal delay-2">
-      <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center border border-gold/30 mt-0.5">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b8965a" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.2 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
-        </div>
-        <div>
-          <p class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold mb-1">Phone</p>
-          <a href="tel:2395447400" class="contact-link font-serif text-charcoal font-light text-[1.05rem] no-underline" style="text-decoration:none;">(239) 544-7400</a>
-        </div>
+    <p class="csh-eyebrow csh-reveal">Get In Touch</p>
+    <h2 class="csh-reveal csh-delay-1">Start Your<br><em class="gold">Project Today</em></h2>
+    <hr class="csh-rule">
+    <div class="contact-info csh-reveal csh-delay-2">
+      <div class="contact-row">
+        <div class="contact-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.2 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+        <div><p class="contact-label">Phone</p><a href="tel:2395447400" class="contact-value c-link">(239) 544-7400</a></div>
       </div>
-      <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center border border-gold/30 mt-0.5">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b8965a" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <div>
-          <p class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold mb-1">Email</p>
-          <a href="mailto:scott@coastalsignaturehomes.net" class="contact-link font-serif text-charcoal font-light text-[1.05rem] no-underline" style="text-decoration:none;">scott@coastalsignaturehomes.net</a>
-        </div>
+      <div class="contact-row">
+        <div class="contact-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><p class="contact-label">Email</p><a href="mailto:scott@coastalsignaturehomes.net" class="contact-value c-link">scott@coastalsignaturehomes.net</a></div>
       </div>
-      <div class="flex gap-5 items-start">
-        <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center border border-gold/30 mt-0.5">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b8965a" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div>
-          <p class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold mb-1">Service Area</p>
-          <p class="font-serif text-charcoal font-light text-[1.05rem]">Fort Myers · Cape Coral · SW Florida</p>
-        </div>
+      <div class="contact-row">
+        <div class="contact-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><p class="contact-label">Service Area</p><p class="contact-value">Fort Myers · Cape Coral · SW Florida</p></div>
       </div>
     </div>
   </div>
-
-  <div class="reveal delay-1">
-    <form id="contactForm" class="flex flex-col gap-6" novalidate>
-      <div class="grid grid-cols-2 gap-6">
-        <div class="flex flex-col gap-2">
-          <label for="fname" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">First Name</label>
-          <input type="text" id="fname" name="fname" placeholder="Scott" required autocomplete="given-name" class="field">
-        </div>
-        <div class="flex flex-col gap-2">
-          <label for="lname" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Last Name</label>
-          <input type="text" id="lname" name="lname" placeholder="Johnson" required autocomplete="family-name" class="field">
-        </div>
+  <div class="csh-reveal csh-delay-1">
+    <form class="csh-form" id="contactForm" novalidate>
+      <div class="form-row">
+        <div><label for="fname" class="csh-field-label">First Name</label><input id="fname" class="csh-field" placeholder="Scott" autocomplete="given-name" required></div>
+        <div><label for="lname" class="csh-field-label">Last Name</label><input id="lname" class="csh-field" placeholder="Johnson" autocomplete="family-name" required></div>
       </div>
-      <div class="grid grid-cols-2 gap-6">
-        <div class="flex flex-col gap-2">
-          <label for="email" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email" class="field">
-        </div>
-        <div class="flex flex-col gap-2">
-          <label for="phone" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Phone</label>
-          <input type="tel" id="phone" name="phone" placeholder="(239) 000-0000" autocomplete="tel" class="field">
-        </div>
+      <div class="form-row">
+        <div><label for="email" class="csh-field-label">Email</label><input id="email" type="email" class="csh-field" placeholder="you@example.com" autocomplete="email" required></div>
+        <div><label for="phone" class="csh-field-label">Phone</label><input id="phone" type="tel" class="csh-field" placeholder="(239) 000-0000" autocomplete="tel"></div>
       </div>
-      <div class="flex flex-col gap-2">
-        <label for="ptype" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Project Type</label>
-        <select id="ptype" name="ptype" class="field">
+      <div><label for="ptype" class="csh-field-label">Project Type</label>
+        <select id="ptype" class="csh-field">
           <option value="">Select a service...</option>
-          <option value="new-construction">New Construction</option>
-          <option value="kitchen-bath">Kitchen &amp; Bath Remodel</option>
-          <option value="full-remodel">Full Home Remodel</option>
-          <option value="other">Other</option>
+          <option>New Construction</option>
+          <option>Kitchen &amp; Bath Remodel</option>
+          <option>Full Home Remodel</option>
+          <option>Other</option>
         </select>
       </div>
-      <div class="flex flex-col gap-2">
-        <label for="msg" class="text-muted text-[0.58rem] tracking-[0.22em] uppercase font-semibold">Tell Us About Your Project</label>
-        <textarea id="msg" name="msg" placeholder="Share your vision, timeline, and details..." class="field" style="resize:none; height:96px;"></textarea>
+      <div><label for="msg" class="csh-field-label">Tell Us About Your Project</label>
+        <textarea id="msg" class="csh-field" placeholder="Share your vision, timeline, and details..."></textarea>
       </div>
-      <button type="submit"
-              class="btn-wipe border border-charcoal bg-charcoal text-ivory text-[0.62rem] tracking-[0.22em] uppercase font-semibold px-8 py-4 inline-flex items-center gap-3 self-start cursor-none"
-              style="transition: color 0.38s ease, border-color 0.38s ease;">
-        <span>Send Message</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"
-             style="position:relative;z-index:1; transition: transform 0.3s ease;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <button type="submit" class="btn-wipe btn-dark c-link" style="align-self:flex-start;">
+        <span>Send Message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
       </button>
     </form>
-    <div id="form-success" class="hidden text-center py-10 font-serif italic text-gold text-xl">
-      Thank you — we'll be in touch shortly.
+    <div class="form-success" id="formSuccess" style="display:none;">Thank you — we'll be in touch shortly.</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta csh-grain" id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <p class="csh-eyebrow on-dark csh-reveal">Begin Your Journey</p>
+    <h2 class="csh-reveal csh-delay-1">We strive for <em>perfection</em><br>so that <em>excellence</em> is always attained.</h2>
+    <div class="cta-btns csh-reveal csh-delay-2">
+      <a href="#contact" class="btn-wipe btn-hero c-link"><span>Start Your Project</span></a>
+      <a href="tel:2395447400" class="btn-wipe btn-hero c-link"><span>(239) 544-7400</span></a>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════ CTA ═══ -->
-<section id="cta" class="relative flex items-center justify-center overflow-hidden grain" style="height: 65vh; min-height: 500px;">
-  <div id="cta-bg" class="absolute inset-0"
-       style="background: linear-gradient(115deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.42) 100%),
-              url('https://www.coastalsignaturehomes.net/images/modern-dark-kitchen.jpeg') center/cover no-repeat;
-              will-change: transform;">
-  </div>
-  <!-- gold color treatment -->
-  <div class="absolute inset-0 pointer-events-none" style="background: rgba(184,150,90,0.05); mix-blend-mode: multiply;"></div>
-  <div class="relative z-20 text-center text-ivory px-8 max-w-3xl mx-auto">
-    <p class="text-gold-lt text-[0.58rem] tracking-[0.35em] uppercase font-semibold mb-4 reveal">Begin Your Journey</p>
-    <h2 class="font-serif font-light text-ivory reveal delay-1"
-        style="font-size: clamp(2.6rem,5.5vw,4.6rem); letter-spacing:-0.03em; line-height:1.08; text-shadow:0 4px 40px rgba(0,0,0,0.6);">
-      Build Your<br><em class="text-gold-lt">Coastal Legacy</em>
-    </h2>
-    <div class="w-11 h-px my-8 mx-auto reveal delay-2" style="background: linear-gradient(90deg,#b8965a,#d4ad72);"></div>
-    <p class="text-ivory/52 text-[0.75rem] tracking-[0.2em] mb-10 font-serif italic reveal delay-2">
-      "We strive for perfection so that excellence is always attained."
-    </p>
-    <a href="tel:2395447400"
-       class="btn-wipe border border-gold text-ivory text-[0.62rem] tracking-[0.24em] uppercase font-semibold px-10 py-4 inline-block no-underline reveal delay-3 cursor-none"
-       style="background: rgba(0,0,0,0.28); text-decoration:none; box-shadow: 0 4px 20px rgba(0,0,0,0.35); transition: color 0.42s ease, box-shadow 0.38s ease, transform 0.3s ease;">
-      <span>Call (239) 544-7400</span>
-    </a>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════ FOOTER ═══ -->
-<footer class="bg-ink pt-24 pb-10 px-16">
-  <div class="grid grid-cols-2 md:grid-cols-[2.2fr_1fr_1fr_1fr] gap-12 mb-16">
+<!-- FOOTER -->
+<footer class="ft csh-grain">
+  <div class="ft-grid">
     <div>
-      <a href="#" class="font-serif text-ivory text-[1.35rem] font-normal tracking-[0.05em] block mb-4 no-underline cursor-none ft-lnk" style="text-decoration:none;">
-        Coastal <span class="text-gold-lt">Signature</span> Homes
-      </a>
-      <p class="font-serif italic text-ivory/28 text-[0.9rem] leading-[1.7] max-w-[260px]">
-        "We strive for perfection so that excellence is always attained."
-      </p>
-      <div class="w-8 h-px my-5" style="background:#b8965a; opacity:0.45;"></div>
-      <div class="flex gap-2">
-        <a href="#" aria-label="Facebook" class="ft-social w-9 h-9 border border-gold/18 flex items-center justify-center no-underline" style="text-decoration:none;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,242,237,0.45)" stroke-width="1.5" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-        </a>
-        <a href="#" aria-label="Instagram" class="ft-social w-9 h-9 border border-gold/18 flex items-center justify-center no-underline" style="text-decoration:none;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,242,237,0.45)" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="#" aria-label="Houzz" class="ft-social w-9 h-9 border border-gold/18 flex items-center justify-center no-underline" style="text-decoration:none;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,242,237,0.45)" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7v10l10 5 10-5V7z"/></svg>
-        </a>
+      <a href="#" class="ft-brand">Coastal <span>Signature</span> Homes</a>
+      <p class="ft-tag">We strive for perfection so that excellence is always attained.</p>
+      <div class="ft-social-row">
+        <a href="#" class="ft-social c-link" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></a>
+        <a href="#" class="ft-social c-link" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
       </div>
     </div>
-    <div>
-      <h4 class="text-gold text-[0.58rem] tracking-[0.28em] uppercase font-semibold mb-5">Services</h4>
-      <ul class="list-none flex flex-col gap-3">
-        <li><a href="#services" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">New Construction</a></li>
-        <li><a href="#services" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Kitchen &amp; Bath</a></li>
-        <li><a href="#services" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Full Home Remodel</a></li>
-      </ul>
+    <div class="ft-col">
+      <p class="ft-col-h">Explore</p>
+      <ul><li><a href="#projects">Portfolio</a></li><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#process">Process</a></li><li><a href="#contact">Contact</a></li></ul>
     </div>
-    <div>
-      <h4 class="text-gold text-[0.58rem] tracking-[0.28em] uppercase font-semibold mb-5">Company</h4>
-      <ul class="list-none flex flex-col gap-3">
-        <li><a href="#about"    class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">About Us</a></li>
-        <li><a href="#projects" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Portfolio</a></li>
-        <li><a href="#process"  class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Our Process</a></li>
-        <li><a href="#contact"  class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Contact</a></li>
-      </ul>
+    <div class="ft-col">
+      <p class="ft-col-h">Services</p>
+      <ul><li><a href="#services">New Construction</a></li><li><a href="#services">Kitchen &amp; Bath</a></li><li><a href="#services">Full Remodel</a></li></ul>
     </div>
-    <div>
-      <h4 class="text-gold text-[0.58rem] tracking-[0.28em] uppercase font-semibold mb-5">Contact</h4>
-      <ul class="list-none flex flex-col gap-3">
-        <li><a href="#"                  class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">Fort Myers, FL</a></li>
-        <li><a href="tel:2395447400"     class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none;">(239) 544-7400</a></li>
-        <li><a href="mailto:scott@coastalsignaturehomes.net" class="ft-lnk text-ivory/35 text-[0.75rem] no-underline" style="text-decoration:none; word-break:break-all;">scott@coastalsig&shy;naturehomes.net</a></li>
-        <li><span class="text-ivory/35 text-[0.75rem]">Licensed &amp; Insured</span></li>
-      </ul>
+    <div class="ft-col">
+      <p class="ft-col-h">Visit</p>
+      <ul><li><a>Fort Myers, FL</a></li><li><a>Cape Coral, FL</a></li><li><a>All of SW Florida</a></li></ul>
     </div>
   </div>
-  <div class="border-t border-white/[0.05] pt-7 flex flex-col md:flex-row justify-between items-start gap-3">
-    <div>
-      <span class="text-ivory/25 text-[0.62rem] tracking-[0.08em]">© 2026 Coastal Signature Homes. All rights reserved.</span>
-      <div class="text-ivory/15 text-[0.58rem] tracking-[0.12em] mt-1">CGC · Licensed General Contractor · Southwest Florida</div>
-    </div>
-    <span class="text-ivory/22 text-[0.62rem]">
-      <a href="#" class="ft-lnk" style="text-decoration:none;">Privacy Policy</a>
-      <span class="mx-2 opacity-50">·</span>
-      <a href="#" class="ft-lnk" style="text-decoration:none;">Terms</a>
-    </span>
+  <div class="ft-bottom">
+    <span>© <span id="yr"></span> Coastal Signature Homes · Fort Myers, FL</span>
+    <span>(239) 544-7400 · scott@coastalsignaturehomes.net</span>
   </div>
 </footer>
 
 <script>
-(function() {
-  'use strict';
+document.getElementById('yr').textContent = new Date().getFullYear();
 
-  /* ── CURSOR ── */
-  const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let mx = -200, my = -200, rx = -200, ry = -200;
+/* Nav scroll */
+(function(){
+  var nav = document.getElementById('csh-nav');
+  function on(){ nav.classList.toggle('scrolled', window.scrollY > 60); }
+  on(); window.addEventListener('scroll', on, { passive: true });
+})();
 
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+/* Mobile menu */
+(function(){
+  var hbr = document.getElementById('hbr'), mm = document.getElementById('mobMenu');
+  hbr.addEventListener('click', function(){ var open = !hbr.classList.contains('open'); hbr.classList.toggle('open', open); mm.classList.toggle('open', open); hbr.setAttribute('aria-expanded', open); });
+  mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ hbr.classList.remove('open'); mm.classList.remove('open'); hbr.setAttribute('aria-expanded','false'); }); });
+})();
 
-  (function tick() {
-    dot.style.left  = mx + 'px'; dot.style.top  = my + 'px';
-    rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(tick);
-  })();
+/* Reveal on scroll */
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.csh-reveal').forEach(function(el){ io.observe(el); });
+})();
 
-  document.addEventListener('mousedown', () => document.body.classList.add('c-click'));
-  document.addEventListener('mouseup',   () => document.body.classList.remove('c-click'));
-
-  document.querySelectorAll('a,button,.proj-card,.svc-card,.gal-item,.t-dot,input,select,textarea').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('c-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('c-hover'));
-  });
-
-  /* ── SCROLL PROGRESS ── */
-  const prog = document.getElementById('prog');
-  function onScroll() {
-    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-    prog.style.width = pct + '%';
-    /* nav */
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-    /* active link */
-    let cur = '';
-    document.querySelectorAll('section[id],#stats').forEach(s => {
-      if (window.scrollY >= s.offsetTop - 180) cur = s.id;
-    });
-    document.querySelectorAll('.nav-lnk').forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  /* ── NAV ── */
-  const nav = document.getElementById('nav');
-
-  /* ── MOBILE MENU ── */
-  const hbr  = document.getElementById('hbr');
-  const mob  = document.getElementById('mob-menu');
-  hbr.addEventListener('click', () => {
-    const o = mob.classList.toggle('open');
-    hbr.classList.toggle('open', o);
-    hbr.setAttribute('aria-expanded', o);
-    document.body.style.overflow = o ? 'hidden' : '';
-  });
-  window.closeMob = function () {
-    mob.classList.remove('open'); hbr.classList.remove('open');
-    hbr.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  };
-
-  /* ── REVEAL ── */
-  const revObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
-
-  /* ── ANIMATED COUNTERS ── */
-  function countUp(el) {
-    if (el.dataset.text) { el.textContent = el.dataset.text; return; }
-    const target = +el.dataset.target, suffix = el.dataset.suffix || '';
-    const t0 = performance.now();
-    const dur = 1900;
-    (function step(now) {
-      const p = Math.min((now - t0) / dur, 1);
-      const e = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(e * target) + suffix;
-      if (p < 1) requestAnimationFrame(step);
-    })(t0);
-  }
-  const cntObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); cntObs.unobserve(e.target); } });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('[data-target],[data-text]').forEach(el => cntObs.observe(el));
-
-  /* ── PROCESS LINE ── */
-  const fill = document.getElementById('proc-fill');
-  const wrap = document.getElementById('proc-wrap');
-  if (fill && wrap) {
-    new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { fill.style.width = '100%'; } });
-    }, { threshold: 0.4 }).observe(wrap);
-  }
-
-  /* testimonials are a static grid — no slider JS needed */
-
-  /* ── CTA PARALLAX ── */
-  const ctaBg = document.getElementById('cta-bg');
-  if (ctaBg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    window.addEventListener('scroll', () => {
-      const r = ctaBg.parentElement.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0) {
-        const offset = (r.top / window.innerHeight) * 18;
-        ctaBg.style.transform = 'translateY(' + offset + 'px)';
+/* Stat count-up */
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var el = e.target, target = parseInt(el.getAttribute('data-count'), 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      if (isNaN(target)) { io.unobserve(el); return; }
+      var dur = 1800, t0 = performance.now();
+      function tick(t){
+        var p = Math.min(1, (t - t0) / dur), eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
       }
-    }, { passive: true });
-  }
+      requestAnimationFrame(tick);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.csh-stat-num[data-count]').forEach(function(el){ io.observe(el); });
+})();
 
-  /* ── CONTACT FORM ── */
-  const form = document.getElementById('contactForm');
-  const succ = document.getElementById('form-success');
-  form?.addEventListener('submit', e => {
-    e.preventDefault();
-    form.style.display = 'none';
-    succ.classList.remove('hidden');
+/* Process line fill */
+(function(){
+  var fill = document.getElementById('procFill'), grid = document.getElementById('procGrid');
+  if (!fill || !grid) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ fill.style.width = '100%'; io.unobserve(grid); } });
+  }, { threshold: 0.3 });
+  io.observe(grid);
+})();
+
+/* Contact form */
+(function(){
+  var f = document.getElementById('contactForm'), s = document.getElementById('formSuccess');
+  f.addEventListener('submit', function(e){ e.preventDefault(); f.style.display = 'none'; s.style.display = 'block'; });
+})();
+
+/* Custom cursor */
+(function(){
+  if (matchMedia('(pointer: coarse)').matches) return;
+  var dot = document.getElementById('csh-cursor-dot'), ring = document.getElementById('csh-cursor-ring');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  window.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+  function loop(){ rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+  function hoverOn(){ document.body.classList.add('c-hover'); }
+  function hoverOff(){ document.body.classList.remove('c-hover'); }
+  document.querySelectorAll('a, button, .c-link, [tabindex="0"], input, textarea, select').forEach(function(el){
+    el.addEventListener('mouseenter', hoverOn); el.addEventListener('mouseleave', hoverOff);
   });
-
-  /* ── VIDEO AUTOPLAY ── */
-  function forcePlay(v) {
-    if (!v) return;
-    v.muted = true; v.volume = 0; v.defaultMuted = true; v.playsInline = true;
-    v.setAttribute('muted',''); v.setAttribute('playsinline','');
-    if (v.paused) {
-      const p = v.play();
-      if (p) p.catch(() =>
-        ['touchstart','click','scroll'].forEach(ev =>
-          document.addEventListener(ev, () => v.play(), { once: true })));
-    }
-  }
-  function initVid(v) {
-    if (!v) return;
-    v.load();
-    ['loadeddata','canplay','canplaythrough'].forEach(ev => v.addEventListener(ev, () => forcePlay(v)));
-    forcePlay(v);
-    [500,1500,3000].forEach(t => setTimeout(() => forcePlay(v), t));
-  }
-  const mv = document.querySelector('.hero-video');
-  const bv = document.querySelector('.hero-video-bg');
-  const doInit = () => { initVid(mv); initVid(bv); };
-  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', doInit) : doInit();
-  if (mv && bv) {
-    mv.addEventListener('seeked', () => { bv.currentTime = mv.currentTime; });
-    mv.addEventListener('play',  () => bv.play());
-    mv.addEventListener('pause', () => bv.pause());
-  }
-
+  window.addEventListener('mousedown', function(){ document.body.classList.add('c-click'); });
+  window.addEventListener('mouseup', function(){ document.body.classList.remove('c-click'); });
 })();
 </script>
 </body>
