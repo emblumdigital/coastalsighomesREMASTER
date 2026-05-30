@@ -89,7 +89,8 @@ em.gold.on-dark { color: var(--csh-gold-lt); }
 .btn-wipe:focus-visible { outline: 2px solid var(--csh-gold-lt); outline-offset: 3px; }
 .btn-hero { border: 1px solid var(--csh-gold); color: var(--csh-gold-lt); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 16px 40px; }
 .btn-dark { border: 1px solid var(--csh-charcoal); background: var(--csh-charcoal); color: var(--csh-ivory); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 16px 32px; }
-.btn-nav  { border: 1px solid var(--csh-gold); color: var(--csh-gold-lt); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 9.6px 20px; }
+.btn-nav  { border: 1px solid var(--csh-gold); color: var(--csh-gold-lt); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 9.6px 20px; text-align: center; }
+.btn-nav > span { justify-content: center; width: 100%; text-align: center; }
 
 /* ========== REVEAL ========== */
 .csh-reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease-spring), transform .9s var(--ease-spring); }
@@ -116,6 +117,9 @@ em.gold.on-dark { color: var(--csh-gold-lt); }
 .mob-menu { position: fixed; inset: 0; z-index: 105; display:flex; flex-direction: column; align-items:center; justify-content:center; gap: 36px; background: rgba(10,10,9,0.97); backdrop-filter: blur(24px); opacity: 0; pointer-events: none; transition: opacity .45s var(--ease-spring); }
 .mob-menu.open { opacity: 1; pointer-events: all; }
 .mob-menu a { font-family: var(--font-display); color: var(--csh-ivory); font-size: 3rem; font-weight: 300; letter-spacing: -0.03em; text-decoration:none; }
+.mob-close { position: absolute; top: 18px; right: 18px; width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(161,98,7,0.4); color: var(--csh-ivory); cursor: pointer; padding: 0; transition: border-color .25s, color .25s, background .25s; }
+.mob-close:hover { border-color: var(--csh-gold-lt); color: var(--csh-gold-lt); background: rgba(161,98,7,0.08); }
+.mob-close:focus-visible { outline: 2px solid var(--csh-gold-lt); outline-offset: 3px; }
 @media (max-width: 900px) { .csh-nav { padding: 24px; } .csh-nav-list { display:none; } .hbr { display: flex; } }
 
 /* ========== HERO ========== */
@@ -188,7 +192,7 @@ em.gold.on-dark { color: var(--csh-gold-lt); }
 @media (max-width: 900px) { .about { grid-template-columns: 1fr; } .about-img-wrap { padding: 48px 24px 0; } .about-panel { padding: 64px 24px; } }
 
 /* ========== BRAND STATEMENT ========== */
-.brand-statement { position: relative; background: #1C1917; padding: 200px 64px; text-align: center; overflow: hidden; }
+.brand-statement { position: relative; background: #1C1917; padding: 260px 64px 160px; text-align: center; overflow: hidden; }
 .brand-statement p { font-family: var(--font-display); font-style: italic; font-weight: 300; color: var(--csh-ivory); font-size: clamp(2.25rem, 5.4vw, 4.75rem); letter-spacing: -0.02em; line-height: 1.18; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
 .brand-statement span { color: var(--csh-gold-lt); }
 @media (max-width: 700px) { .brand-statement { padding: 120px 24px; } }
@@ -216,13 +220,28 @@ em.gold.on-dark { color: var(--csh-gold-lt); }
 /* ========== GALLERY ========== */
 .gal-section { background: radial-gradient(ellipse 70% 60% at 5% 100%, rgba(161,98,7,0.06) 0%, transparent 65%), #1C1917; padding: 96px 0; }
 .gal-strip { display: flex; overflow: hidden; height: clamp(420px, 60vw, 760px); margin: 0 auto; max-width: 1600px; }
-.gal-item { flex: 1; overflow: hidden; position: relative; cursor: none; transition: flex .65s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: flex-grow; transform: translateZ(0); }
-.gal-item:hover { flex: 2.6; }
-.gal-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.68) saturate(0.85); transition: transform .65s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter .5s ease; will-change: transform, filter; transform: translateZ(0) scale(1); }
-.gal-item:hover img { transform: translateZ(0) scale(1.04); filter: brightness(0.88) saturate(1); }
+button.gal-item { font: inherit; color: inherit; background: transparent; border: 0; padding: 0; text-align: left; }
+.gal-item { flex: 1; overflow: hidden; position: relative; cursor: pointer; transition: flex .65s cubic-bezier(0.25, 0.46, 0.45, 0.94); will-change: flex-grow; transform: translateZ(0); outline: none; }
+.gal-item:focus-visible { box-shadow: inset 0 0 0 2px var(--csh-gold-lt); }
+.gal-item.active { flex: 2.6; }
+.gal-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55) saturate(0.85); transition: transform .65s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter .5s ease; will-change: transform, filter; transform: translateZ(0) scale(1); }
+.gal-item.active img { transform: translateZ(0) scale(1.04); filter: brightness(0.95) saturate(1.02); }
+@media (hover: hover) { .gal-item:hover img { filter: brightness(0.78) saturate(0.95); } }
 .gal-lbl { position: absolute; bottom: 0; left: 0; right: 0; z-index: 20; padding: 16px 24px; color: var(--csh-ivory); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0; transform: translateY(5px); transition: opacity .38s, transform .38s var(--ease-spring); }
-.gal-item:hover .gal-lbl { opacity: 1; transform: translateY(0); }
+.gal-item.active .gal-lbl { opacity: 1; transform: translateY(0); }
 .gal-item::after { content:''; position:absolute; inset:0; z-index: 10; pointer-events: none; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%); }
+/* + cue badge on each item */
+.gal-cue { position: absolute; top: 16px; right: 16px; z-index: 21; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(245,242,237,0.55); color: var(--csh-ivory); background: rgba(10,10,9,0.35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: transform .42s var(--ease-spring), border-color .3s, background .3s, opacity .3s; pointer-events: none; }
+.gal-cue::before, .gal-cue::after { content:''; position: absolute; background: currentColor; transition: transform .42s var(--ease-spring); }
+.gal-cue::before { width: 12px; height: 1px; }
+.gal-cue::after { width: 1px; height: 12px; }
+.gal-item.active .gal-cue { border-color: var(--csh-gold-lt); color: var(--csh-gold-lt); background: rgba(28,25,23,0.55); transform: rotate(45deg); }
+.gal-item:hover .gal-cue { border-color: var(--csh-gold-lt); }
+/* tap hint under gallery */
+.gal-hint { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 28px; color: rgba(245,242,237,0.55); font-family: var(--font-body); font-weight: 600; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; }
+.gal-hint .ln { width: 36px; height: 1px; background: linear-gradient(90deg, transparent, rgba(161,98,7,0.5), transparent); }
+.gal-hint .ic { display: inline-flex; width: 22px; height: 22px; border: 1px solid rgba(161,98,7,0.45); align-items: center; justify-content: center; color: var(--csh-gold-lt); }
+.gal-hint .ic svg { width: 11px; height: 11px; }
 
 /* ========== PROCESS ========== */
 .process { padding: 112px 64px; position: relative; }
@@ -240,43 +259,140 @@ em.gold.on-dark { color: var(--csh-gold-lt); }
 .step-desc { font-size: 0.68rem; line-height: 1.75; font-weight: 300; color: rgba(245,242,237,0.38); max-width: 180px; margin: 0 auto; }
 @media (max-width: 900px) { .process { padding: 80px 24px; } .proc-grid { grid-template-columns: 1fr 1fr; gap: 40px; } .proc-line { display: none; } }
 
-/* ========== TESTIMONIALS ========== */
-.testimonials { background: var(--csh-sand); padding: 80px 64px; }
-.testimonials .section-head { text-align: center; margin-bottom: 48px; padding: 0; }
-.testimonials .section-head h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
-.testimonials .section-head .csh-rule { margin-left:auto; margin-right:auto; }
-.t-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding-top: 8px; }
-.t-card { position: relative; background: var(--csh-ivory); padding: 36px 32px; border-left: 2px solid var(--csh-gold); box-shadow: 0 2px 4px rgba(161,98,7,0.08), 0 18px 42px -12px rgba(28,28,26,0.18), 0 36px 72px -24px rgba(28,28,26,0.12); transition: box-shadow .42s var(--ease-spring), transform .42s var(--ease-spring); }
-.t-card::before { content:''; position:absolute; inset:0; background: var(--csh-ivory); border-left: 2px solid rgba(161,98,7,0.4); transform: translate(8px, 8px); z-index: -1; box-shadow: 0 18px 36px -12px rgba(28,28,26,0.15); transition: transform .42s var(--ease-spring), opacity .42s ease; opacity: 0.55; }
-.t-card:hover { box-shadow: 0 4px 8px rgba(161,98,7,0.1), 0 24px 60px -10px rgba(28,28,26,0.28), 0 48px 96px -24px rgba(28,28,26,0.18); transform: translateY(-6px); }
-.t-card:hover::before { transform: translate(12px, 12px); opacity: 0.7; }
-.t-quote { font-family: var(--font-display); color: var(--csh-gold); font-size: 2.25rem; line-height: 0.6; opacity: 0.5; display: block; margin-bottom: 12px; }
-.t-body { font-family: var(--font-display); font-style: italic; font-weight: 300; color: var(--csh-charcoal); line-height: 1.65; font-size: 0.95rem; margin: 0 0 20px; }
-.t-author { color: var(--csh-muted); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin: 0; }
-.t-tag { color: var(--csh-gold); font-size: 0.58rem; letter-spacing: 0.1em; margin: 4px 0 0; }
-@media (max-width: 900px) { .testimonials { padding: 64px 24px; } .t-grid { grid-template-columns: 1fr; } }
+/* ========== TESTIMONIALS (redesigned) ========== */
+.testimonials {
+  position: relative; overflow: hidden; padding: 96px 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 0% 100%, rgba(161,98,7,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 100% 0%, rgba(161,98,7,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 65% at 50% 50%, #fbf7ec 0%, #f3ead8 60%, transparent 100%),
+    linear-gradient(135deg, #d8c8a3 0%, #ede1c4 30%, #f5edd8 50%, #ede1c4 70%, #d8c8a3 100%);
+}
+.testimonials::before {
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:0.95;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23A16207' stroke-width='1'%3E%3Cg stroke-opacity='0.13'%3E%3Cpath d='M-200,-100 Q200,80 400,180 T800,420 T1200,640 T1600,860'/%3E%3Cpath d='M-200,-40 Q220,140 420,240 T820,480 T1220,700 T1600,920'/%3E%3Cpath d='M-200,20 Q240,200 440,300 T840,540 T1240,760 T1620,980'/%3E%3Cpath d='M-160,80 Q260,260 460,360 T860,600 T1260,820 T1640,1040'/%3E%3Cpath d='M-120,150 Q280,330 480,430 T880,670 T1280,890 T1660,1110'/%3E%3Cpath d='M-80,230 Q300,400 500,500 T900,740 T1300,960 T1680,1180'/%3E%3Cpath d='M-40,320 Q320,470 520,570 T920,810 T1320,1030 T1700,1240'/%3E%3Cpath d='M0,420 Q340,540 540,640 T940,880 T1340,1100 T1720,1300'/%3E%3Cpath d='M60,520 Q360,610 560,710 T960,950 T1360,1170 T1740,1360'/%3E%3Cpath d='M120,620 Q380,680 580,780 T980,1020 T1380,1240 T1760,1420'/%3E%3C/g%3E%3Cg stroke-opacity='0.1'%3E%3Cpath d='M-220,-60 Q210,90 410,200 T810,440 T1210,660 T1610,880'/%3E%3Cpath d='M-180,40 Q250,220 450,320 T850,560 T1250,780 T1630,1000'/%3E%3Cpath d='M-100,180 Q290,340 490,440 T890,680 T1290,900 T1670,1120'/%3E%3Cpath d='M0,360 Q330,500 530,600 T930,840 T1330,1060 T1710,1280'/%3E%3Cpath d='M100,560 Q370,650 570,750 T970,990 T1370,1210 T1750,1390'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.t-header { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; max-width: 1320px; margin: 0 auto 56px; padding: 0 64px; }
+.t-head-left h2 { font-size: clamp(2rem, 4.2vw, 3.4rem); margin: 14px 0 0; }
+.t-subtitle { color: var(--csh-text-dim); font-family: var(--font-body); font-weight: 400; font-size: 0.85rem; line-height: 1.7; max-width: 480px; margin: 20px 0 0; }
+.t-nav { display: flex; gap: 10px; }
+.t-arrow { width: 52px; height: 52px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--csh-ivory); border: 1px solid var(--csh-gold); color: var(--csh-gold); cursor: pointer; padding: 0; transition: background .3s, color .3s, transform .3s var(--ease-spring), box-shadow .3s; }
+.t-arrow:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -8px rgba(161,98,7,0.4); }
+.t-arrow:focus-visible { outline: 2px solid var(--csh-gold-lt); outline-offset: 3px; }
+.t-arrow svg { width: 18px; height: 18px; }
+.t-arrow-on { background: var(--csh-gold); color: var(--csh-ivory); }
+.t-arrow-on:hover { background: var(--csh-gold-lt); color: var(--csh-ink); }
 
-/* ========== CONTACT ========== */
-/* To remove pattern: delete "csh-contact-pattern" class from the section element below */
-.csh-contact-pattern { position: relative; }
-.csh-contact-pattern::before { content:''; position:absolute; inset:0; pointer-events:none; z-index:0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cpath d='M48,32L62,44V64H34V44Z' fill='none' stroke='%23A16207' stroke-width='1' stroke-opacity='0.22' stroke-linejoin='round'/%3E%3Cpath d='M43,52H53V64H43Z' fill='none' stroke='%23A16207' stroke-width='1' stroke-opacity='0.22'/%3E%3C/svg%3E"); background-size: 96px 96px; background-repeat: repeat; }
-.csh-contact-pattern > * { position: relative; z-index: 1; }
-.contact { background: var(--csh-ivory); padding: 112px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
-.contact h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
-.contact-info { display: flex; flex-direction: column; gap: 32px; }
-.contact-row { display: flex; gap: 20px; align-items: flex-start; }
-.contact-icon { width: 40px; height: 40px; flex-shrink: 0; border: 1px solid rgba(161,98,7,0.3); display: flex; align-items: center; justify-content: center; margin-top: 2px; }
-.contact-label { color: var(--csh-muted); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; margin: 0 0 4px; }
-.contact-value { font-family: var(--font-display); color: var(--csh-charcoal); font-weight: 300; font-size: 1.05rem; text-decoration: none; }
-.csh-form { display: flex; flex-direction: column; gap: 24px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.csh-field-label { display: block; color: var(--csh-muted); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
-.csh-field { border: 0; border-bottom: 1px solid rgba(161,98,7,0.28); background: transparent; padding: 12px 0; width: 100%; font-family: var(--font-body); font-size: 0.82rem; font-weight: 300; color: var(--csh-charcoal); outline: none; cursor: none; -webkit-appearance: none; transition: border-color .28s; }
-.csh-field::placeholder { color: var(--csh-sand-mid); }
-.csh-field:focus { border-color: var(--csh-gold); }
-textarea.csh-field { resize: none; height: 96px; }
-.form-success { text-align: center; padding: 40px 0; font-family: var(--font-display); font-style: italic; color: var(--csh-gold); font-size: 1.4rem; }
-@media (max-width: 900px) { .contact { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; } .form-row { grid-template-columns: 1fr; } }
+.t-viewport { position: relative; z-index: 2; margin: 0 auto; padding: 0; overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.t-viewport::-webkit-scrollbar { display: none; }
+.t-track { display: flex; gap: 28px; padding: 16px 64px; }
+.t-card2 { flex: 0 0 420px; min-width: 420px; scroll-snap-align: start; position: relative; background: var(--csh-ivory); padding: 32px 30px 28px; border-radius: 20px; box-shadow: 0 2px 6px rgba(28,25,23,0.06), 0 18px 48px -14px rgba(28,25,23,0.18); transition: transform .42s var(--ease-spring), box-shadow .42s var(--ease-spring); display: flex; flex-direction: column; gap: 16px; min-height: 360px; }
+.t-card2:hover { transform: translateY(-6px); box-shadow: 0 4px 10px rgba(161,98,7,0.1), 0 28px 64px -12px rgba(28,25,23,0.3); }
+.t-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.t-bigquote { font-family: var(--font-display); color: var(--csh-gold); font-size: 3.4rem; line-height: 0.7; opacity: 0.55; }
+.t-stars { color: var(--csh-gold); font-size: 0.95rem; letter-spacing: 0.18em; }
+.t-card2 .t-body { font-family: var(--font-display); font-style: italic; font-weight: 400; color: var(--csh-charcoal); line-height: 1.7; font-size: 0.98rem; margin: 0; flex: 1; }
+.t-foot { display: flex; align-items: center; gap: 14px; padding-top: 18px; border-top: 1px solid rgba(28,25,23,0.08); }
+.t-avatar { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--csh-sand); border: 1px solid var(--csh-gold); font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; color: var(--csh-gold); }
+.t-name { font-family: var(--font-display); font-weight: 500; color: var(--csh-charcoal); font-size: 1.02rem; margin: 0; letter-spacing: 0; }
+.t-role { color: var(--csh-muted); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; margin: 4px 0 0; }
+
+.t-dots { display: none; gap: 8px; justify-content: center; margin-top: 36px; padding: 0 20px; position: relative; z-index: 2; }
+.t-dot { width: 9px; height: 9px; border-radius: 50%; padding: 0; background: rgba(161,98,7,0.28); border: 0; cursor: pointer; transition: background .3s, width .3s, border-radius .3s; }
+.t-dot.active { background: var(--csh-gold); width: 28px; border-radius: 6px; }
+.t-dot:focus-visible { outline: 2px solid var(--csh-gold-lt); outline-offset: 3px; }
+
+@media (max-width: 1100px) {
+  .t-header { padding: 0 32px; }
+  .t-viewport { padding: 0 32px; }
+}
+@media (max-width: 900px) {
+  .testimonials { padding: 72px 0; }
+  .t-header { padding: 0 20px; margin-bottom: 36px; }
+  .t-viewport { padding: 0; -webkit-mask-image: none; mask-image: none; }
+  .t-track { padding: 8px 20px; gap: 16px; }
+  .t-card2 { flex: 0 0 calc(100% - 40px); min-width: calc(100% - 40px); padding: 28px 22px 24px; min-height: 320px; border-radius: 18px; }
+  .t-dots { display: flex; }
+  .t-arrow { width: 46px; height: 46px; }
+}
+@media (max-width: 540px) {
+  .t-header { grid-template-columns: 1fr; align-items: start; gap: 24px; }
+  .t-nav { justify-content: flex-start; }
+  .t-head-left h2 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+}
+
+/* ========== CONTACT (full-bleed map + dark form, redesigned) ========== */
+.contact-v2 { display: grid; grid-template-columns: 1fr 1fr; min-height: 720px; background: var(--csh-charcoal); position: relative; overflow: hidden; }
+
+/* Full-bleed map background */
+.contact-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #0a0908; }
+.contact-map { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; filter: grayscale(1) brightness(0.32) contrast(1.7) saturate(0); }
+.contact-bg-fade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(28,25,23,0) 0%, rgba(28,25,23,0) 28%, rgba(28,25,23,0.55) 48%, rgba(28,25,23,0.92) 65%, var(--csh-charcoal) 80%, var(--csh-charcoal) 100%); }
+
+/* Pin marker — sits on the actual map at the geographic point (25% from left) */
+/* Pin tip is at exactly the geographic point of the lat/lng (25.1% from left, 54.4% from top — the centroid of the OSM bbox where the original marker sat) */
+/* Pin anchored at the actual geographic point of the OSM bbox (25.1% × 54.3%). Lives inside .contact-bg so it always tracks the map. */
+.map-pin-marker { position: absolute; left: 25.1%; top: 54.3%; transform: translate(-50%, -100%); z-index: 3; width: 44px; height: 60px; color: var(--csh-gold); pointer-events: none; filter: drop-shadow(0 10px 16px rgba(0,0,0,0.6)); animation: pinDrop 0.7s var(--ease-spring) both; }
+.map-pin-marker svg { width: 100%; height: 100%; }
+@keyframes pinDrop { 0% { transform: translate(-50%, -180%); opacity: 0; } 60% { transform: translate(-50%, -90%); opacity: 1; } 100% { transform: translate(-50%, -100%); opacity: 1; } }
+
+/* Card — anchored at the same geographic point, sitting to the right of the pin, vertically centered with pin tip. Lives inside .contact-bg. */
+.map-pin-card { position: absolute; left: calc(25.1% + 18px); top: 54.3%; transform: translateY(-50%); z-index: 2; display: flex; align-items: center; padding: 18px 24px; background: var(--csh-ivory); border-radius: 8px; box-shadow: 0 24px 48px -16px rgba(0,0,0,0.6), 0 8px 18px -6px rgba(0,0,0,0.5); max-width: 320px; min-width: 240px; text-decoration: none; transition: transform .35s var(--ease-spring), box-shadow .35s; cursor: pointer; pointer-events: auto; }
+.map-pin-card:hover { transform: translateY(-54%); box-shadow: 0 32px 64px -16px rgba(0,0,0,0.7); }
+.map-pin-body { display: flex; flex-direction: column; gap: 8px; }
+.map-pin-addr { color: var(--csh-gold); font-family: var(--font-body); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; margin: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(161,98,7,0.4); }
+.map-pin-line { display: inline-flex; align-items: center; gap: 8px; color: var(--csh-charcoal); font-family: var(--font-body); font-weight: 400; font-size: 0.78rem; margin: 0; }
+.map-pin-line svg { width: 14px; height: 14px; stroke: var(--csh-gold); flex-shrink: 0; }
+
+/* Form column */
+.contact-form-wrap { grid-column: 2; background: transparent; padding: 88px 72px; display: flex; flex-direction: column; gap: 24px; position: relative; z-index: 2; }
+.contact-form-wrap::before { content:''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 70% 60% at 95% 5%, rgba(161,98,7,0.08), transparent 70%); }
+.contact-pre { color: rgba(245,242,237,0.55); font-family: var(--font-body); font-weight: 400; font-size: 0.92rem; margin: 0; position: relative; }
+.contact-h { font-family: var(--font-display); font-weight: 300; color: var(--csh-ivory); font-size: clamp(2rem, 3.4vw, 3rem); letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 18px; position: relative; }
+.contact-h em.gold { color: var(--csh-gold-lt); font-weight: 600; font-style: normal; }
+.csh-form-v2 { display: flex; flex-direction: column; gap: 16px; position: relative; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.csh-field-v2 { border: 1px solid rgba(245,242,237,0.12); background: rgba(245,242,237,0.04); padding: 16px 18px; width: 100%; font-family: var(--font-body); font-size: 0.85rem; font-weight: 400; color: var(--csh-ivory); outline: none; border-radius: 10px; -webkit-appearance: none; transition: border-color .25s, background .25s; }
+.csh-field-v2::placeholder { color: rgba(245,242,237,0.42); }
+.csh-field-v2:hover { border-color: rgba(161,98,7,0.4); }
+.csh-field-v2:focus { border-color: var(--csh-gold); background: rgba(245,242,237,0.06); }
+textarea.csh-field-v2 { resize: vertical; min-height: 130px; font-family: var(--font-body); }
+.csh-select-v2 { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4ad72' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; background-size: 14px; padding-right: 44px; }
+.csh-select-v2 option { background: var(--csh-charcoal); color: var(--csh-ivory); }
+.form-actions { display: flex; justify-content: flex-end; margin-top: 8px; position: relative; }
+.send-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 28px; background: var(--csh-ivory); color: var(--csh-charcoal); border: 1px solid var(--csh-ivory); border-radius: 12px; font-family: var(--font-body); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; transition: background .3s, color .3s, transform .3s var(--ease-spring), box-shadow .3s; }
+.send-btn:hover { background: var(--csh-gold); color: var(--csh-ivory); border-color: var(--csh-gold); transform: translateY(-2px); box-shadow: 0 14px 32px -10px rgba(161,98,7,0.5); }
+.send-btn:active { transform: translateY(0); }
+.send-btn:focus-visible { outline: 2px solid var(--csh-gold-lt); outline-offset: 3px; }
+.send-btn svg { width: 16px; height: 16px; }
+.form-success { display: none; text-align: center; padding: 40px 0; font-family: var(--font-display); font-style: italic; color: var(--csh-gold-lt); font-size: 1.4rem; }
+.form-success.show { display: block; }
+
+@media (max-width: 1100px) {
+  .contact-form-wrap { padding: 72px 48px; }
+  .map-pin-card { max-width: 260px; min-width: 220px; padding: 14px 18px; }
+}
+@media (max-width: 900px) {
+  .contact-v2 { grid-template-columns: 1fr; min-height: 0; }
+  .contact-bg-fade { background: linear-gradient(180deg, rgba(28,25,23,0) 0%, rgba(28,25,23,0) 18%, rgba(28,25,23,0.6) 30%, rgba(28,25,23,0.95) 42%, var(--csh-charcoal) 50%, var(--csh-charcoal) 100%); }
+  /* Constrain map area to a fixed height on mobile so the geographic point (54.3% of contact-bg) stays in the visible map portion */
+  .contact-bg { inset: auto 0 auto 0; top: 0; height: 420px; }
+  .contact-form-wrap { background: var(--csh-charcoal); }
+  /* Pin and card stay at the same geographic spot (25.1%, 54.3% of contact-bg) — but at this scale 54.3% × 420 = 228px down */
+  .map-pin-marker { width: 32px; height: 44px; }
+  .map-pin-card { max-width: 62vw; min-width: 0; padding: 10px 14px; gap: 6px; }
+  .map-pin-card .map-pin-body { gap: 4px; }
+  .map-pin-card .map-pin-addr { font-size: 0.58rem; letter-spacing: 0.12em; }
+  .map-pin-card .map-pin-line { font-size: 0.68rem; gap: 6px; }
+  .map-pin-card .map-pin-line svg { width: 11px; height: 11px; }
+  .map-pin-card:hover { transform: translateY(-54%); }
+  .contact-form-wrap { grid-column: 1; padding: 56px 24px 56px; margin-top: 420px; }
+  .form-row { grid-template-columns: 1fr; }
+  .form-actions { justify-content: stretch; }
+  .send-btn { width: 100%; justify-content: center; }
+}
 
 /* ========== CTA ========== */
 .cta { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; height: 65vh; min-height: 500px; }
@@ -366,8 +482,6 @@ textarea.csh-field { resize: none; height: 96px; }
   .proj-arrow { opacity: 1; transform: none; }
   .svc-text { max-height: 160px; color: rgba(245,242,237,0.7); }
   .svc-line { width: 32px; }
-  .gal-lbl { opacity: 1; transform: none; }
-  .gal-item { flex: 1 !important; }
 }
 
 /* === MOBILE-FIRST FIXES === */
@@ -390,17 +504,19 @@ textarea.csh-field { resize: none; height: 96px; }
   .brand-statement { padding: 96px 24px; }
   .brand-statement p { font-size: clamp(1.7rem, 7vw, 2.5rem); line-height: 1.22; }
   .gal-section { padding: 56px 0; }
-  .gal-strip { height: clamp(380px, 75vw, 540px); flex-direction: column; }
-  .gal-item { flex: 1; min-height: 90px; }
-  .gal-item:hover { flex: 1; }
+  .gal-strip { height: auto; flex-direction: column; }
+  .gal-item { flex: 0 0 96px; min-height: 96px; }
+  .gal-item.active { flex: 0 0 360px; }
+  .gal-cue { width: 32px; height: 32px; top: 12px; right: 12px; }
   .process { padding: 80px 20px; }
   .proc-grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
+  .proc-grid .proc-step:last-child { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; }
   .step-circle { width: 64px; height: 64px; margin-bottom: 20px; font-size: 1.1rem; }
   .step-desc { font-size: 0.66rem; }
   .testimonials { padding: 64px 20px; }
   .t-card { padding: 28px 22px; }
   .t-body { font-size: 0.92rem; }
-  .contact { padding: 80px 20px; gap: 56px; }
+  .contact-form-wrap { padding: 48px 20px; }
   .contact h2 { font-size: clamp(2rem, 7vw, 2.6rem); }
   .cta { min-height: 440px; height: auto; padding: 96px 20px; }
   .cta-btns { flex-direction: column; gap: 12px; width: 100%; }
@@ -455,11 +571,15 @@ textarea.csh-field { resize: none; height: 96px; }
     <li><a href="#services" class="csh-nav-lnk c-link">Services</a></li>
     <li><a href="#process" class="csh-nav-lnk c-link">Process</a></li>
     <li><a href="#contact" class="csh-nav-lnk c-link">Contact</a></li>
-    <li><a href="tel:2395447400" class="btn-wipe btn-nav c-link"><span>Call Now</span></a></li>
+    <li><a href="#contact" class="btn-wipe btn-nav c-link"><span>Free Consultation</span></a></li>
   </ul>
   <button class="hbr" id="hbr" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
-<div class="mob-menu" id="mobMenu" role="dialog" aria-label="Navigation">
+<div class="mob-menu" id="mobMenu" role="dialog" aria-label="Navigation" aria-modal="true">
+  <button class="mob-close" id="mobClose" aria-label="Close menu" type="button">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#hero">Home</a>
   <a href="#projects">Portfolio</a>
   <a href="#about">About</a>
   <a href="#services">Services</a>
@@ -483,13 +603,6 @@ textarea.csh-field { resize: none; height: 96px; }
       <a href="#contact" class="btn-wipe btn-hero c-link"><span>Start Your Project</span></a>
       <a href="#projects" class="btn-wipe btn-hero-ghost c-link"><span>View Our Work</span></a>
     </div>
-    <div class="hero-trust" aria-label="Trust indicators">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>5★ Reviewed</span>
-      <span class="dot"></span>
-      <span>20+ Years</span>
-      <span class="dot"></span>
-      <span>Family-Owned</span>
-    </div>
   </div>
   <div class="hero-scroll" aria-hidden="true">
     <span>Scroll</span>
@@ -508,7 +621,7 @@ textarea.csh-field { resize: none; height: 96px; }
 <!-- PROJECTS -->
 <section class="projects csh-radial-dark" id="projects">
   <div class="section-head">
-    <p class="csh-eyebrow on-dark csh-reveal">Featured Work</p>
+    <p class="csh-eyebrow on-dark csh-reveal">Featured Services</p>
     <h2 class="csh-reveal csh-delay-1">Exceptional Homes,<br><em class="gold on-dark">Exceptional Craft</em></h2>
     <hr class="csh-rule">
   </div>
@@ -574,13 +687,24 @@ textarea.csh-field { resize: none; height: 96px; }
 
 <!-- GALLERY (interactive accordion) -->
 <section id="services" class="gal-section">
-  <div class="gal-strip" id="gallery" role="list" aria-label="Project gallery">
-    <div class="gal-item" role="listitem" tabindex="0" aria-label="Marble Kitchen"><img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg" alt="Marble Kitchen" loading="lazy"><div class="gal-lbl">Marble Kitchen</div></div>
-    <div class="gal-item" role="listitem" tabindex="0" aria-label="Master Bath"><img src="images/gallery-2.jpeg" alt="Master Bath Renovation" loading="lazy"><div class="gal-lbl">Master Bath</div></div>
-    <div class="gal-item" role="listitem" tabindex="0" aria-label="Luxury Kitchen"><img src="images/kitchen-other-house.jpeg" alt="Luxury Kitchen Remodel" loading="lazy"><div class="gal-lbl">Luxury Kitchen</div></div>
-    <div class="gal-item" role="listitem" tabindex="0" aria-label="Custom Interior"><img src="images/gallery-4.jpeg" alt="Custom Home Interior" loading="lazy"><div class="gal-lbl">Custom Interior</div></div>
-    <div class="gal-item" role="listitem" tabindex="0" aria-label="Designer Kitchen"><img src="images/white-kitchen-chandelier.jpeg" alt="Designer Kitchen with Crystal Chandelier" loading="lazy"><div class="gal-lbl">Designer Kitchen</div></div>
+  <div class="section-head">
+    <p class="csh-eyebrow on-dark csh-reveal">Portfolio</p>
+    <h2 class="csh-reveal csh-delay-1">A Curated <em class="gold on-dark">Portfolio</em></h2>
+    <hr class="csh-rule">
   </div>
+  <div class="gal-strip" id="gallery" role="list" aria-label="Project gallery">
+    <button class="gal-item active" role="listitem" type="button" aria-label="Marble Kitchen — expand"><img src="https://www.coastalsignaturehomes.net/images/marble-kitchen-island.jpeg" alt="Marble Kitchen" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Marble Kitchen</div></button>
+    <button class="gal-item" role="listitem" type="button" aria-label="Master Bath — expand"><img src="images/gallery-2.jpeg" alt="Master Bath Renovation" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Master Bath</div></button>
+    <button class="gal-item" role="listitem" type="button" aria-label="Luxury Kitchen — expand"><img src="images/kitchen-other-house.jpeg" alt="Luxury Kitchen Remodel" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Luxury Kitchen</div></button>
+    <button class="gal-item" role="listitem" type="button" aria-label="Custom Interior — expand"><img src="images/gallery-4.jpeg" alt="Custom Home Interior" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Custom Interior</div></button>
+    <button class="gal-item" role="listitem" type="button" aria-label="Designer Kitchen — expand"><img src="images/white-kitchen-chandelier.jpeg" alt="Designer Kitchen with Crystal Chandelier" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Designer Kitchen</div></button>
+  </div>
+  <p class="gal-hint" aria-hidden="true">
+    <span class="ln"></span>
+    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+    Tap to Explore
+    <span class="ln"></span>
+  </p>
 </section>
 
 <!-- PROCESS -->
@@ -602,81 +726,139 @@ textarea.csh-field { resize: none; height: 96px; }
 
 <!-- TESTIMONIALS -->
 <section class="testimonials" id="testimonials">
-  <div class="section-head">
-    <p class="csh-eyebrow csh-reveal">Client Stories</p>
-    <h2 class="csh-reveal csh-delay-1">Built on <em class="gold">Trust</em></h2>
-    <hr class="csh-rule center">
+  <div class="t-header">
+    <div class="t-head-left">
+      <p class="csh-eyebrow csh-reveal">Client Stories</p>
+      <h2 class="csh-reveal csh-delay-1">Built on <em class="gold">Trust</em></h2>
+      <p class="t-subtitle csh-reveal csh-delay-2">Hear directly from the clients we've built and remodeled with — across Fort Myers, Cape Coral, and Southwest Florida.</p>
+    </div>
+    <div class="t-nav csh-reveal csh-delay-2" aria-label="Testimonial controls">
+      <button class="t-arrow" id="tPrev" aria-label="Previous testimonial" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      </button>
+      <button class="t-arrow t-arrow-on" id="tNext" aria-label="Next testimonial" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
   </div>
-  <div class="t-grid">
-    <div class="t-card csh-reveal csh-delay-1">
-      <span class="t-quote" aria-hidden="true">&ldquo;</span>
-      <p class="t-body">Scott brought a high level of creativity and elevated the design of our condo remodel. He stayed on schedule and kept the project within budget without compromising quality.</p>
-      <p class="t-author">— Missy</p>
-      <p class="t-tag">Condo Remodel · Southwest Florida</p>
+  <div class="t-viewport">
+    <div class="t-track" id="tTrack">
+      <article class="t-card2">
+        <div class="t-top">
+          <span class="t-bigquote" aria-hidden="true">&ldquo;</span>
+          <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        </div>
+        <p class="t-body">Scott brought a high level of creativity and elevated the design of our condo remodel. He stayed on schedule and kept the project within budget without compromising quality.</p>
+        <div class="t-foot">
+          <span class="t-avatar" aria-hidden="true">M</span>
+          <div>
+            <p class="t-name">Missy</p>
+            <p class="t-role">Condo Remodel · Southwest Florida</p>
+          </div>
+        </div>
+      </article>
+      <article class="t-card2">
+        <div class="t-top">
+          <span class="t-bigquote" aria-hidden="true">&ldquo;</span>
+          <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        </div>
+        <p class="t-body">Top quality workmanship. It was a dream come true to have "the wow" factor in our three bathroom renovation. We couldn't be happier with the results.</p>
+        <div class="t-foot">
+          <span class="t-avatar" aria-hidden="true">R</span>
+          <div>
+            <p class="t-name">Ripperton &amp; Lillian</p>
+            <p class="t-role">Three Bathroom Renovation · Fort Myers</p>
+          </div>
+        </div>
+      </article>
+      <article class="t-card2">
+        <div class="t-top">
+          <span class="t-bigquote" aria-hidden="true">&ldquo;</span>
+          <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        </div>
+        <p class="t-body">Professional, fair pricing, outstanding quality, and timely responses. We have been working with Coastal Signature Homes for over 4 years on personal and business projects.</p>
+        <div class="t-foot">
+          <span class="t-avatar" aria-hidden="true">C</span>
+          <div>
+            <p class="t-name">Carol</p>
+            <p class="t-role">Personal &amp; Business Projects · 4+ Years</p>
+          </div>
+        </div>
+      </article>
+      <!-- duplicates for seamless infinite marquee -->
+      <article class="t-card2" aria-hidden="true">
+        <div class="t-top"><span class="t-bigquote" aria-hidden="true">&ldquo;</span><div class="t-stars">★★★★★</div></div>
+        <p class="t-body">Scott brought a high level of creativity and elevated the design of our condo remodel. He stayed on schedule and kept the project within budget without compromising quality.</p>
+        <div class="t-foot"><span class="t-avatar" aria-hidden="true">M</span><div><p class="t-name">Missy</p><p class="t-role">Condo Remodel · Southwest Florida</p></div></div>
+      </article>
+      <article class="t-card2" aria-hidden="true">
+        <div class="t-top"><span class="t-bigquote" aria-hidden="true">&ldquo;</span><div class="t-stars">★★★★★</div></div>
+        <p class="t-body">Top quality workmanship. It was a dream come true to have "the wow" factor in our three bathroom renovation. We couldn't be happier with the results.</p>
+        <div class="t-foot"><span class="t-avatar" aria-hidden="true">R</span><div><p class="t-name">Ripperton &amp; Lillian</p><p class="t-role">Three Bathroom Renovation · Fort Myers</p></div></div>
+      </article>
+      <article class="t-card2" aria-hidden="true">
+        <div class="t-top"><span class="t-bigquote" aria-hidden="true">&ldquo;</span><div class="t-stars">★★★★★</div></div>
+        <p class="t-body">Professional, fair pricing, outstanding quality, and timely responses. We have been working with Coastal Signature Homes for over 4 years on personal and business projects.</p>
+        <div class="t-foot"><span class="t-avatar" aria-hidden="true">C</span><div><p class="t-name">Carol</p><p class="t-role">Personal &amp; Business Projects · 4+ Years</p></div></div>
+      </article>
     </div>
-    <div class="t-card csh-reveal csh-delay-2">
-      <span class="t-quote" aria-hidden="true">&ldquo;</span>
-      <p class="t-body">Top quality workmanship. It was a dream come true to have "the wow" factor in our three bathroom renovation. We couldn't be happier with the results.</p>
-      <p class="t-author">— Ripperton &amp; Lillian</p>
-      <p class="t-tag">Three Bathroom Renovation · Fort Myers</p>
-    </div>
-    <div class="t-card csh-reveal csh-delay-3">
-      <span class="t-quote" aria-hidden="true">&ldquo;</span>
-      <p class="t-body">Professional, fair pricing, outstanding quality, and timely responses. We have been working with Coastal Signature Homes for over 4 years on personal and business projects.</p>
-      <p class="t-author">— Carol</p>
-      <p class="t-tag">Personal &amp; Business Projects · 4+ Years</p>
-    </div>
+  </div>
+  <div class="t-dots" id="tDots" role="tablist" aria-label="Testimonial slides">
+    <button class="t-dot active" type="button" aria-label="Slide 1"></button>
+    <button class="t-dot" type="button" aria-label="Slide 2"></button>
+    <button class="t-dot" type="button" aria-label="Slide 3"></button>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact csh-radial-light csh-contact-pattern" id="contact">
-  <div>
-    <p class="csh-eyebrow csh-reveal">Get In Touch</p>
-    <h2 class="csh-reveal csh-delay-1">Start Your<br><em class="gold">Project Today</em></h2>
-    <hr class="csh-rule">
-    <div class="contact-info csh-reveal csh-delay-2">
-      <div class="contact-row">
-        <div class="contact-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.2 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
-        <div><p class="contact-label">Phone</p><a href="tel:2395447400" class="contact-value c-link">(239) 544-7400</a></div>
+<section class="contact-v2" id="contact" aria-label="Contact">
+  <!-- Full-bleed map background (with pin + card anchored at the geographic point) -->
+  <div class="contact-bg" aria-hidden="true">
+    <iframe class="contact-map" src="https://www.openstreetmap.org/export/embed.html?bbox=-81.8826,26.626,-81.8416,26.658&amp;layer=mapnik" loading="lazy" title="Coastal Signature Homes — Fort Myers, Florida" referrerpolicy="no-referrer-when-downgrade" tabindex="-1"></iframe>
+    <div class="contact-bg-fade"></div>
+
+    <!-- Pin + card live INSIDE the map container so they always sit on the same geographic point (25.1%, 54.3% of the iframe) -->
+    <span class="map-pin-marker" aria-hidden="true">
+      <svg viewBox="0 0 32 44" fill="currentColor" stroke="none"><path d="M16 0C7.16 0 0 7.16 0 16c0 11.2 13.6 26 14.18 26.6a2.5 2.5 0 0 0 3.64 0C18.4 42 32 27.2 32 16 32 7.16 24.84 0 16 0z"/><circle cx="16" cy="16" r="6" fill="#FAFAF9"/></svg>
+    </span>
+    <a class="map-pin-card" href="https://maps.google.com/?q=Fort+Myers+FL" target="_blank" rel="noopener" aria-hidden="false">
+      <div class="map-pin-body">
+        <p class="map-pin-addr">Fort Myers · Cape Coral · SW&nbsp;Florida</p>
+        <p class="map-pin-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>scott@coastalsignaturehomes.net</p>
+        <p class="map-pin-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.2 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>(239) 544-7400</p>
       </div>
-      <div class="contact-row">
-        <div class="contact-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-        <div><p class="contact-label">Email</p><a href="mailto:scott@coastalsignaturehomes.net" class="contact-value c-link">scott@coastalsignaturehomes.net</a></div>
-      </div>
-      <div class="contact-row">
-        <div class="contact-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A16207" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <div><p class="contact-label">Service Area</p><p class="contact-value">Fort Myers · Cape Coral · SW Florida</p></div>
-      </div>
-    </div>
+    </a>
   </div>
-  <div class="csh-reveal csh-delay-1">
-    <form class="csh-form" id="contactForm" novalidate>
+
+  <!-- Form column -->
+  <div class="contact-form-wrap">
+    <p class="contact-pre csh-reveal">Have we piqued your interest?</p>
+    <h2 class="contact-h csh-reveal csh-delay-1">Let's build <em class="gold on-dark">together.</em></h2>
+    <form class="csh-form-v2" id="contactForm" novalidate>
       <div class="form-row">
-        <div><label for="fname" class="csh-field-label">First Name</label><input id="fname" class="csh-field" placeholder="Scott" autocomplete="given-name" required></div>
-        <div><label for="lname" class="csh-field-label">Last Name</label><input id="lname" class="csh-field" placeholder="Johnson" autocomplete="family-name" required></div>
+        <input id="fname" class="csh-field-v2" placeholder="First name*" autocomplete="given-name" required>
+        <input id="lname" class="csh-field-v2" placeholder="Last name*" autocomplete="family-name" required>
       </div>
       <div class="form-row">
-        <div><label for="email" class="csh-field-label">Email</label><input id="email" type="email" class="csh-field" placeholder="you@example.com" autocomplete="email" required></div>
-        <div><label for="phone" class="csh-field-label">Phone</label><input id="phone" type="tel" class="csh-field" placeholder="(239) 000-0000" autocomplete="tel"></div>
+        <input id="email" type="email" class="csh-field-v2" placeholder="E-mail address*" autocomplete="email" required>
+        <input id="phone" type="tel" class="csh-field-v2" placeholder="Phone" autocomplete="tel">
       </div>
-      <div><label for="ptype" class="csh-field-label">Project Type</label>
-        <select id="ptype" class="csh-field">
-          <option value="">Select a service...</option>
-          <option>New Construction</option>
-          <option>Kitchen &amp; Bath Remodel</option>
-          <option>Full Home Remodel</option>
-          <option>Other</option>
-        </select>
+      <select id="ptype" class="csh-field-v2 csh-select-v2" aria-label="Project type">
+        <option value="">Project type*</option>
+        <option>New Construction</option>
+        <option>Kitchen &amp; Bath Remodel</option>
+        <option>Full Home Remodel</option>
+        <option>Other</option>
+      </select>
+      <textarea id="msg" class="csh-field-v2" placeholder="Tell us about your project — vision, timeline, details..."></textarea>
+      <div class="form-actions">
+        <button type="submit" class="send-btn">
+          <span>SEND</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
       </div>
-      <div><label for="msg" class="csh-field-label">Tell Us About Your Project</label>
-        <textarea id="msg" class="csh-field" placeholder="Share your vision, timeline, and details..."></textarea>
-      </div>
-      <button type="submit" class="btn-wipe btn-dark c-link" style="align-self:flex-start;">
-        <span>Send Message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-      </button>
     </form>
-    <div class="form-success" id="formSuccess" style="display:none;">Thank you — we'll be in touch shortly.</div>
+    <div class="form-success" id="formSuccess">Thank you — we'll be in touch shortly.</div>
   </div>
 </section>
 
@@ -775,9 +957,17 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 
 /* Mobile menu */
 (function(){
-  var hbr = document.getElementById('hbr'), mm = document.getElementById('mobMenu');
-  hbr.addEventListener('click', function(){ var open = !hbr.classList.contains('open'); hbr.classList.toggle('open', open); mm.classList.toggle('open', open); hbr.setAttribute('aria-expanded', open); });
-  mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ hbr.classList.remove('open'); mm.classList.remove('open'); hbr.setAttribute('aria-expanded','false'); }); });
+  var hbr = document.getElementById('hbr'), mm = document.getElementById('mobMenu'), cls = document.getElementById('mobClose');
+  function setOpen(open){
+    hbr.classList.toggle('open', open);
+    mm.classList.toggle('open', open);
+    hbr.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hbr.addEventListener('click', function(){ setOpen(!hbr.classList.contains('open')); });
+  if (cls) cls.addEventListener('click', function(){ setOpen(false); });
+  mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && mm.classList.contains('open')) setOpen(false); });
 })();
 
 /* Reveal on scroll */
@@ -822,7 +1012,100 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 /* Contact form */
 (function(){
   var f = document.getElementById('contactForm'), s = document.getElementById('formSuccess');
-  f.addEventListener('submit', function(e){ e.preventDefault(); f.style.display = 'none'; s.style.display = 'block'; });
+  f.addEventListener('submit', function(e){ e.preventDefault(); f.style.display = 'none'; s.classList.add('show'); });
+})();
+
+/* Testimonials — infinite scroll-snap carousel with working arrows */
+(function(){
+  var track = document.getElementById('tTrack'); if (!track) return;
+  var viewport = track.parentElement;
+  var prev = document.getElementById('tPrev'), next = document.getElementById('tNext');
+  var dots = document.querySelectorAll('#tDots .t-dot');
+  var cards = track.querySelectorAll('.t-card2');
+  var origN = dots.length;            // 3 originals; rest are clones
+  var cardStep = 0, halfWidth = 0, timer = null, paused = false;
+  function measure(){
+    if (cards.length < 2) return;
+    var a = cards[0].getBoundingClientRect();
+    var b = cards[1].getBoundingClientRect();
+    cardStep = Math.round(b.left - a.left);
+    halfWidth = cardStep * origN;
+  }
+  function updateDots(){
+    if (!cardStep) return;
+    var i = Math.round(viewport.scrollLeft / cardStep) % origN;
+    if (i < 0) i += origN;
+    dots.forEach(function(d, k){ d.classList.toggle('active', k === i); });
+  }
+  function wrap(){
+    if (!halfWidth) return;
+    if (viewport.scrollLeft >= halfWidth - 4) {
+      var prevBehavior = viewport.style.scrollBehavior;
+      viewport.style.scrollBehavior = 'auto';
+      viewport.scrollLeft -= halfWidth;
+      viewport.style.scrollBehavior = prevBehavior || '';
+    } else if (viewport.scrollLeft < 0) {
+      var pb = viewport.style.scrollBehavior;
+      viewport.style.scrollBehavior = 'auto';
+      viewport.scrollLeft += halfWidth;
+      viewport.style.scrollBehavior = pb || '';
+    }
+  }
+  function step(dir){
+    measure();
+    // pre-wrap if we'd cross the boundary
+    if (dir > 0 && viewport.scrollLeft + cardStep >= halfWidth - 4) {
+      var b = viewport.style.scrollBehavior;
+      viewport.style.scrollBehavior = 'auto';
+      viewport.scrollLeft -= halfWidth;
+      viewport.style.scrollBehavior = b || '';
+    } else if (dir < 0 && viewport.scrollLeft - cardStep < 0) {
+      var b2 = viewport.style.scrollBehavior;
+      viewport.style.scrollBehavior = 'auto';
+      viewport.scrollLeft += halfWidth;
+      viewport.style.scrollBehavior = b2 || '';
+    }
+    viewport.scrollBy({ left: dir * cardStep, behavior: 'smooth' });
+    setTimeout(updateDots, 420);
+  }
+  function goTo(idx){
+    measure();
+    var current = Math.round(viewport.scrollLeft / cardStep) % origN;
+    if (current < 0) current += origN;
+    var diff = idx - current;
+    if (diff !== 0) step(diff > 0 ? 1 : -1);
+    if (Math.abs(diff) > 1) {
+      // multi-step
+      var remaining = Math.abs(diff) - 1, sign = diff > 0 ? 1 : -1;
+      for (var i = 0; i < remaining; i++) setTimeout(function(){ step(sign); }, 480 * (i + 1));
+    }
+  }
+  function startAuto(){ stopAuto(); timer = setInterval(function(){ if (!paused) step(1); }, 5000); }
+  function stopAuto(){ if (timer) { clearInterval(timer); timer = null; } }
+  prev && prev.addEventListener('click', function(){ step(-1); startAuto(); });
+  next && next.addEventListener('click', function(){ step(1); startAuto(); });
+  dots.forEach(function(d, k){ d.addEventListener('click', function(){ goTo(k); startAuto(); }); });
+  viewport.addEventListener('mouseenter', function(){ paused = true; });
+  viewport.addEventListener('mouseleave', function(){ paused = false; });
+  viewport.addEventListener('scroll', function(){ wrap(); updateDots(); }, { passive: true });
+  document.addEventListener('visibilitychange', function(){ document.hidden ? stopAuto() : startAuto(); });
+  var rT; window.addEventListener('resize', function(){ clearTimeout(rT); rT = setTimeout(function(){ measure(); updateDots(); }, 120); });
+  // init
+  function init(){ measure(); updateDots(); startAuto(); }
+  if (document.readyState === 'complete') init(); else window.addEventListener('load', init);
+})();
+
+/* Gallery — click/keyboard to expand */
+(function(){
+  var items = document.querySelectorAll('#gallery .gal-item');
+  if (!items.length) return;
+  function activate(target){
+    items.forEach(function(it){ it.classList.toggle('active', it === target); });
+  }
+  items.forEach(function(it){
+    it.addEventListener('click', function(){ activate(it); });
+    it.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(it); } });
+  });
 })();
 
 /* Custom cursor */
