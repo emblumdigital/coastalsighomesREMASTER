@@ -127,7 +127,36 @@
   </div>
 </section>
 
-<section class="sub-section">
+<style>
+  .sub-section.has-map{ position: relative; overflow: hidden; isolation: isolate; }
+  .sub-section.has-map::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      url("https://a.basemaps.cartocdn.com/dark_nolabels/12/1116/1733@2x.png"),
+      url("https://b.basemaps.cartocdn.com/dark_nolabels/12/1117/1733@2x.png"),
+      url("https://c.basemaps.cartocdn.com/dark_nolabels/12/1116/1734@2x.png"),
+      url("https://d.basemaps.cartocdn.com/dark_nolabels/12/1117/1734@2x.png");
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
+    background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%;
+    filter: contrast(1.1) brightness(1.1);
+    opacity: 0.75;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .sub-section.has-map::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 70% 90% at 30% 50%, rgba(10,10,9,0) 0%, rgba(10,10,9,0.35) 65%, rgba(10,10,9,0.55) 100%),
+      linear-gradient(180deg, rgba(10,10,9,0.15) 0%, rgba(10,10,9,0.3) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .sub-section.has-map > .sub-inner{ position: relative; z-index: 1; }
+</style>
+<section class="sub-section has-map">
   <div class="sub-inner contact-grid">
     <form class="form csh-reveal" onsubmit="event.preventDefault(); this.querySelector('.form-submit').textContent='Thank you — we\'ll be in touch.';">
       <h2 class="sub-h2">Start a <em>conversation.</em></h2>

@@ -64,10 +64,65 @@
   <a href="tel:2395447400" style="color:var(--csh-gold); font-size:.72rem; letter-spacing:.28em; text-transform:uppercase; margin-top:8px; font-family:var(--font-body); font-weight:600;">(239) 544-7400</a>
 </div>
 
+<style>
+  /* Animated hero "Start Your Project" — pulse + shimmer */
+  .hero-cta .btn-hero{
+    position: relative;
+    animation: hero-cta-pulse 2.4s var(--ease-gold, cubic-bezier(.25,.46,.45,.94)) infinite;
+    box-shadow: 0 0 0 0 rgba(212,173,114,0.55), 0 14px 32px -10px rgba(161,98,7,0.45);
+  }
+  .hero-cta .btn-hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,235,200,0.45) 50%, transparent 70%);
+    transform: translateX(-120%);
+    animation: hero-cta-shimmer 3.6s var(--ease-gold, cubic-bezier(.25,.46,.45,.94)) infinite;
+    pointer-events:none;
+    z-index: 2;
+    mix-blend-mode: screen;
+  }
+  .hero-cta .btn-hero:hover{ animation-play-state: paused; }
+  .hero-cta .btn-hero:hover::after{ animation-play-state: paused; opacity: 0; }
+  @keyframes hero-cta-pulse{
+    0%   { box-shadow: 0 0 0 0 rgba(212,173,114,0.55), 0 14px 32px -10px rgba(161,98,7,0.45); transform: translateY(0); }
+    55%  { box-shadow: 0 0 0 14px rgba(212,173,114,0), 0 18px 40px -12px rgba(161,98,7,0.6); transform: translateY(-2px); }
+    100% { box-shadow: 0 0 0 0 rgba(212,173,114,0), 0 14px 32px -10px rgba(161,98,7,0.45); transform: translateY(0); }
+  }
+  @keyframes hero-cta-shimmer{
+    0%   { transform: translateX(-120%); }
+    55%  { transform: translateX(120%); }
+    100% { transform: translateX(120%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-cta .btn-hero, .hero-cta .btn-hero::after{ animation: none; }
+  }
+
+  /* Nav "Free Consultation" — shimmer only, no pulse */
+  #csh-nav .btn-nav{ position: relative; overflow: hidden; }
+  #csh-nav .btn-nav::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,235,200,0.4) 50%, transparent 70%);
+    transform: translateX(-120%);
+    animation: nav-cta-shimmer 3.6s var(--ease-gold, cubic-bezier(.25,.46,.45,.94)) infinite;
+    pointer-events:none;
+    z-index: 2;
+    mix-blend-mode: screen;
+  }
+  #csh-nav .btn-nav:hover::after{ animation-play-state: paused; opacity: 0; }
+  @keyframes nav-cta-shimmer{
+    0%   { transform: translateX(-120%); }
+    55%  { transform: translateX(120%); }
+    100% { transform: translateX(120%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    #csh-nav .btn-nav::after{ animation: none; }
+  }
+</style>
 <!-- HERO -->
 <section class="hero csh-grain" id="hero">
   <video class="hero-video" autoplay muted loop playsinline preload="auto">
-    <source src="hero-video.mp4" type="video/mp4">
+    <source src="ace23e6e-791b-48f5-be4a-047598c6014a.MP4" type="video/mp4">
   </video>
   <div class="hero-overlay-1"></div>
   <div class="hero-overlay-2"></div>
@@ -86,12 +141,106 @@
   </div>
 </section>
 
+<!-- SERVICES MARQUEE -->
+<div class="svc-marquee" aria-label="Our services">
+  <div class="svc-marquee-track">
+    <ul class="svc-marquee-group" aria-hidden="false">
+      <li>New Construction</li><li class="sep">✦</li>
+      <li>Whole-Home Remodeling</li><li class="sep">✦</li>
+      <li>Kitchen &amp; Bath</li><li class="sep">✦</li>
+      <li>Custom Cabinetry</li><li class="sep">✦</li>
+      <li>Luxury Interiors</li><li class="sep">✦</li>
+      <li>Design–Build</li><li class="sep">✦</li>
+      <li>Outdoor Living</li><li class="sep">✦</li>
+      <li>Coastal Architecture</li><li class="sep">✦</li>
+    </ul>
+    <ul class="svc-marquee-group" aria-hidden="true">
+      <li>New Construction</li><li class="sep">✦</li>
+      <li>Whole-Home Remodeling</li><li class="sep">✦</li>
+      <li>Kitchen &amp; Bath</li><li class="sep">✦</li>
+      <li>Custom Cabinetry</li><li class="sep">✦</li>
+      <li>Luxury Interiors</li><li class="sep">✦</li>
+      <li>Design–Build</li><li class="sep">✦</li>
+      <li>Outdoor Living</li><li class="sep">✦</li>
+      <li>Coastal Architecture</li><li class="sep">✦</li>
+    </ul>
+  </div>
+</div>
+<style>
+.svc-marquee{
+  position:relative; overflow:hidden;
+  background:var(--csh-ink, #0C0A09);
+  border-top:1px solid rgba(212,173,114,.18);
+  border-bottom:1px solid rgba(212,173,114,.18);
+  padding:14px 0;
+}
+.svc-marquee::before,.svc-marquee::after{
+  content:""; position:absolute; top:0; bottom:0; width:120px; z-index:2; pointer-events:none;
+}
+.svc-marquee::before{ left:0; background:linear-gradient(90deg, var(--csh-ink,#0C0A09), transparent); }
+.svc-marquee::after{ right:0; background:linear-gradient(-90deg, var(--csh-ink,#0C0A09), transparent); }
+.svc-marquee-track{ display:flex; width:max-content; animation:svc-marquee 38s linear infinite; }
+.svc-marquee-group{
+  display:flex; align-items:center; gap:42px;
+  list-style:none; margin:0; padding:0 21px;
+  font-family: var(--font-serif, Georgia, 'Times New Roman', serif);
+  font-size:14px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--csh-sand,#e8e0d3); white-space:nowrap;
+}
+.svc-marquee-group .sep{ color:var(--csh-gold-lt,#d4ad72); font-size:10px; letter-spacing:0; }
+.svc-marquee:hover .svc-marquee-track{ animation-play-state:paused; }
+@keyframes svc-marquee{ from{ transform:translate3d(0,0,0); } to{ transform:translate3d(-50%,0,0); } }
+@media (prefers-reduced-motion: reduce){ .svc-marquee-track{ animation:none; } }
+</style>
+
 <!-- STATS -->
+<style>
+  .stats-projects-wrap{
+    background:
+      radial-gradient(ellipse 70% 60% at 5% 100%, rgba(161,98,7,0.06) 0%, transparent 65%),
+      radial-gradient(ellipse 70% 60% at 5% 5%, rgba(161,98,7,0.06) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 70% at 95% 95%, rgba(212,173,114,0.04) 0%, transparent 65%),
+      #1C1917;
+  }
+  .stats-projects-wrap > .stats-wrap{
+    padding: 56px clamp(20px, 5vw, 64px) 24px;
+    background: transparent;
+  }
+  .stats-projects-wrap > .projects{
+    background: transparent !important;
+    padding-top: 64px;
+  }
+  .stats-wrap > .stats{
+    background: transparent !important;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .stats-wrap > .stats > .csh-stat{
+    border-right: 0 !important;
+    padding: 56px 24px;
+    background: rgba(12,10,9,0.55);
+    border: 1px solid rgba(212,173,114,0.18);
+    border-radius: 14px;
+    box-shadow: 0 18px 40px -24px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.025);
+    transition: transform .4s var(--ease-gold, cubic-bezier(.25,.46,.45,.94)), border-color .4s, box-shadow .4s;
+  }
+  .stats-wrap > .stats > .csh-stat:hover{
+    transform: translateY(-3px);
+    border-color: rgba(212,173,114,0.36);
+    box-shadow: 0 28px 60px -28px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  @media (max-width: 900px){ .stats-wrap > .stats{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px){ .stats-wrap{ padding: 36px 16px; } .stats-wrap > .stats{ gap: 14px; } .stats-wrap > .stats > .csh-stat{ padding: 40px 18px; border-radius: 12px; } }
+</style>
+<div class="stats-projects-wrap">
+<div class="stats-wrap">
 <div class="stats csh-grain csh-radial-dark" id="stats">
   <div class="csh-stat csh-reveal"><span class="csh-stat-num" data-count="20" data-suffix="+">0+</span><span class="csh-stat-lbl">Years of Experience</span></div>
   <div class="csh-stat csh-reveal csh-delay-1"><span class="csh-stat-num" data-count="100" data-suffix="%">0%</span><span class="csh-stat-lbl">Client Satisfaction</span></div>
   <div class="csh-stat csh-reveal csh-delay-2"><span class="csh-stat-num" data-count="5" data-suffix="★">0★</span><span class="csh-stat-lbl">Star Reviews</span></div>
   <div class="csh-stat csh-reveal csh-delay-3"><span class="csh-stat-num">SWFL</span><span class="csh-stat-lbl">Service Coverage</span></div>
+</div>
 </div>
 
 <!-- PROJECTS -->
@@ -134,6 +283,7 @@
     </article>
   </div>
 </section>
+</div>
 
 
 <!-- ABOUT -->
@@ -176,12 +326,6 @@
     <button class="gal-item" role="listitem" type="button" aria-label="Custom Interior — expand"><img src="images/gallery-4.jpeg" alt="Custom Home Interior" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Custom Interior</div></button>
     <button class="gal-item" role="listitem" type="button" aria-label="Designer Kitchen — expand"><img src="images/white-kitchen-chandelier.jpeg" alt="Designer Kitchen with Crystal Chandelier" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Designer Kitchen</div></button>
   </div>
-  <p class="gal-hint" aria-hidden="true">
-    <span class="ln"></span>
-    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-    Tap to Explore
-    <span class="ln"></span>
-  </p>
 </section>
 
 <!-- PROCESS -->
@@ -339,6 +483,18 @@
   </div>
 </section>
 
+<style>
+  #cta .btn-hero{
+    background: #7a4a08;
+    border-color: #7a4a08;
+    color: var(--csh-ivory, #FAFAF9);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.18), 0 14px 32px -10px rgba(122,74,8,0.55);
+  }
+  #cta .btn-hero > span{ color: var(--csh-ivory, #FAFAF9); font-weight: 700; }
+  #cta .btn-hero::before{ background: #4a2c04; }
+  #cta .btn-hero:hover{ border-color: #4a2c04; box-shadow: 0 1px 0 rgba(0,0,0,0.22), 0 22px 44px -10px rgba(74,44,4,0.7); }
+  #cta .btn-hero:hover > span{ color: var(--csh-ivory, #FAFAF9); }
+</style>
 <!-- CTA -->
 <section class="cta csh-grain" id="cta">
   <div class="cta-bg"></div>
@@ -572,14 +728,19 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   if (document.readyState === 'complete') init(); else window.addEventListener('load', init);
 })();
 
-/* Gallery — click/keyboard to expand */
+/* Gallery — hover to expand (click/keyboard still supported) */
 (function(){
   var items = document.querySelectorAll('#gallery .gal-item');
   if (!items.length) return;
+  var isCoarse = matchMedia('(pointer: coarse)').matches;
   function activate(target){
     items.forEach(function(it){ it.classList.toggle('active', it === target); });
   }
   items.forEach(function(it){
+    if (!isCoarse) {
+      it.addEventListener('mouseenter', function(){ activate(it); });
+      it.addEventListener('focus', function(){ activate(it); });
+    }
     it.addEventListener('click', function(){ activate(it); });
     it.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(it); } });
   });
