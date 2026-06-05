@@ -133,7 +133,7 @@ em.gold.on-dark { color: var(--csh-gold-lt); }
 .csh-stat { position: relative; text-align: center; padding: 80px 24px; border-right: 1px solid rgba(161,98,7,0.08); }
 .csh-stat:last-child { border-right: 0; }
 .csh-stat-num { font-family: var(--font-display); font-weight: 300; color: var(--csh-gold-lt); display: block; line-height: 1; margin-bottom: 16px; font-size: clamp(3.4rem, 7vw, 5.6rem); }
-.csh-stat-num::after { content: ""; display: block; width: 96px; height: 2px; margin: 14px auto 0; background: linear-gradient(90deg, rgba(234,88,12,0) 0%, rgba(234,88,12,0.85) 50%, rgba(234,88,12,0) 100%); border-radius: 2px; opacity: 0.9; }
+.csh-stat-num::after { display: none; }
 .csh-stat-lbl { display: block; color: rgba(245,242,237,0.55); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; }
 @media (max-width: 700px) { .stats { grid-template-columns: 1fr 1fr; } .csh-stat:nth-child(2) { border-right: 0; } }
 
@@ -160,14 +160,14 @@ em.gold.on-dark { color: var(--csh-gold-lt); }
 .proj-tall .proj-title { font-size: 1.75rem; }
 .proj-desc { max-height: 0; overflow: hidden; color: transparent; transition: max-height .52s var(--ease-spring), color .4s ease; font-size: 0.7rem; line-height: 1.6; font-weight: 300; margin: 0; }
 .proj-card:hover .proj-desc { max-height: 120px; color: rgba(245,242,237,0.72); }
-.proj-arrow { opacity: 0; transform: translateX(-10px); transition: opacity .38s ease .06s, transform .38s var(--ease-spring) .06s; display:inline-flex; align-items:center; gap: 8px; color: var(--csh-gold); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 16px; font-weight: 600; }
-.proj-card:hover .proj-arrow { opacity: 1; transform: translateX(0); }
+.proj-arrow { display: none !important; }
 @media (max-width: 900px) { .proj-grid { grid-template-columns: 1fr; } .proj-tall { grid-row: auto; min-height: 460px; } .section-head { padding: 0 24px; } }
 
 /* ========== ABOUT ========== */
 .about { display: grid; grid-template-columns: 1fr 1fr; position: relative; background: var(--csh-sand); }
-.about-img-wrap { padding: 64px 0 64px 64px; }
+.about-img-wrap { padding: 0; height: 100%; }
 .about-img-wrap .csh-img-wrap { min-height: 600px; height: 100%; }
+.about-img-wrap .csh-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .about-img-wrap .csh-img-wrap::after { display: none; }
 .about-img-wrap img { transform: translateZ(0); backface-visibility: hidden; }
 .about-panel { background: var(--csh-ivory); padding: 96px 64px; display: flex; flex-direction: column; justify-content: center; position: relative; }
@@ -251,11 +251,14 @@ button.gal-item { font: inherit; color: inherit; background: transparent; border
 .testimonials {
   position: relative; overflow: hidden; padding: 96px 0;
   background:
-    radial-gradient(ellipse 50% 60% at 0% 100%, rgba(161,98,7,0.22) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 60% at 100% 0%, rgba(161,98,7,0.18) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 65% at 50% 50%, #fbf7ec 0%, #f3ead8 60%, transparent 100%),
-    linear-gradient(135deg, #d8c8a3 0%, #ede1c4 30%, #f5edd8 50%, #ede1c4 70%, #d8c8a3 100%);
+    radial-gradient(ellipse 70% 60% at 5% 100%, rgba(161,98,7,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 60% at 5% 5%, rgba(161,98,7,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 70% at 95% 95%, rgba(212,173,114,0.04) 0%, transparent 65%),
+    #1C1917;
 }
+.testimonials .t-head-left h2{ color: var(--csh-ivory); }
+.testimonials .csh-eyebrow{ color: var(--csh-gold-lt); }
+.testimonials .t-subtitle{ color: rgba(245,242,237,0.55); }
 .testimonials::before {
   content:''; position:absolute; inset:0; pointer-events:none; opacity:0.95;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23A16207' stroke-width='1'%3E%3Cg stroke-opacity='0.13'%3E%3Cpath d='M-200,-100 Q200,80 400,180 T800,420 T1200,640 T1600,860'/%3E%3Cpath d='M-200,-40 Q220,140 420,240 T820,480 T1220,700 T1600,920'/%3E%3Cpath d='M-200,20 Q240,200 440,300 T840,540 T1240,760 T1620,980'/%3E%3Cpath d='M-160,80 Q260,260 460,360 T860,600 T1260,820 T1640,1040'/%3E%3Cpath d='M-120,150 Q280,330 480,430 T880,670 T1280,890 T1660,1110'/%3E%3Cpath d='M-80,230 Q300,400 500,500 T900,740 T1300,960 T1680,1180'/%3E%3Cpath d='M-40,320 Q320,470 520,570 T920,810 T1320,1030 T1700,1240'/%3E%3Cpath d='M0,420 Q340,540 540,640 T940,880 T1340,1100 T1720,1300'/%3E%3Cpath d='M60,520 Q360,610 560,710 T960,950 T1360,1170 T1740,1360'/%3E%3Cpath d='M120,620 Q380,680 580,780 T980,1020 T1380,1240 T1760,1420'/%3E%3C/g%3E%3Cg stroke-opacity='0.1'%3E%3Cpath d='M-220,-60 Q210,90 410,200 T810,440 T1210,660 T1610,880'/%3E%3Cpath d='M-180,40 Q250,220 450,320 T850,560 T1250,780 T1630,1000'/%3E%3Cpath d='M-100,180 Q290,340 490,440 T890,680 T1290,900 T1670,1120'/%3E%3Cpath d='M0,360 Q330,500 530,600 T930,840 T1330,1060 T1710,1280'/%3E%3Cpath d='M100,560 Q370,650 570,750 T970,990 T1370,1210 T1750,1390'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
@@ -328,7 +331,7 @@ button.gal-item { font: inherit; color: inherit; background: transparent; border
 @keyframes pinDrop { 0% { transform: translate(-50%, -180%); opacity: 0; } 60% { transform: translate(-50%, -90%); opacity: 1; } 100% { transform: translate(-50%, -100%); opacity: 1; } }
 
 /* Card — anchored at the same geographic point, sitting to the right of the pin, vertically centered with pin tip. Lives inside .contact-bg. */
-.map-pin-card { position: absolute; left: calc(25.1% + 18px); top: 54.3%; transform: translateY(-50%); z-index: 2; display: flex; align-items: center; padding: 18px 24px; background: var(--csh-ivory); border-radius: 8px; box-shadow: 0 24px 48px -16px rgba(0,0,0,0.6), 0 8px 18px -6px rgba(0,0,0,0.5); max-width: 320px; min-width: 240px; text-decoration: none; transition: transform .35s var(--ease-spring), box-shadow .35s; cursor: pointer; pointer-events: auto; }
+.map-pin-card { position: absolute; left: calc(25.1% + 42px); top: 54.3%; transform: translateY(-50%); z-index: 2; display: flex; align-items: center; padding: 18px 24px; background: var(--csh-ivory); border-radius: 8px; box-shadow: 0 24px 48px -16px rgba(0,0,0,0.6), 0 8px 18px -6px rgba(0,0,0,0.5); max-width: 320px; min-width: 240px; text-decoration: none; transition: transform .35s var(--ease-spring), box-shadow .35s; cursor: pointer; pointer-events: auto; }
 .map-pin-card:hover { transform: translateY(-54%); box-shadow: 0 32px 64px -16px rgba(0,0,0,0.7); }
 .map-pin-body { display: flex; flex-direction: column; gap: 8px; }
 .map-pin-addr { color: var(--csh-gold); font-family: var(--font-body); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; margin: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(161,98,7,0.4); }
@@ -365,9 +368,9 @@ textarea.csh-field-v2 { resize: vertical; min-height: 130px; font-family: var(--
 }
 @media (max-width: 900px) {
   .contact-v2 { grid-template-columns: 1fr; min-height: 0; }
+  /* Hide the map background entirely on mobile — form-only layout. */
+  .contact-bg { display: none !important; }
   .contact-bg-fade { background: linear-gradient(180deg, rgba(28,25,23,0) 0%, rgba(28,25,23,0) 18%, rgba(28,25,23,0.6) 30%, rgba(28,25,23,0.95) 42%, var(--csh-charcoal) 50%, var(--csh-charcoal) 100%); }
-  /* Constrain map area to a fixed height on mobile so the geographic point (54.3% of contact-bg) stays in the visible map portion */
-  .contact-bg { inset: auto 0 auto 0; top: 0; height: 420px; }
   .contact-form-wrap { background: var(--csh-charcoal); }
   /* Pin and card stay at the same geographic spot (25.1%, 54.3% of contact-bg) — but at this scale 54.3% × 420 = 228px down */
   .map-pin-marker { width: 32px; height: 44px; }
@@ -377,7 +380,7 @@ textarea.csh-field-v2 { resize: vertical; min-height: 130px; font-family: var(--
   .map-pin-card .map-pin-line { font-size: 0.68rem; gap: 6px; }
   .map-pin-card .map-pin-line svg { width: 11px; height: 11px; }
   .map-pin-card:hover { transform: translateY(-54%); }
-  .contact-form-wrap { grid-column: 1; padding: 56px 24px 56px; margin-top: 420px; }
+  .contact-form-wrap { grid-column: 1; padding: 56px 24px 56px; margin-top: 0; }
   .form-row { grid-template-columns: 1fr; }
   .form-actions { justify-content: stretch; }
   .send-btn { width: 100%; justify-content: center; }
@@ -524,3 +527,215 @@ textarea.csh-field-v2 { resize: vertical; min-height: 130px; font-family: var(--
   .form-row { grid-template-columns: 1fr; }
 }
 
+
+/* ========== GLOBAL FLOWING GOLD CURVES (home + subpages) ========== */
+body.home-curves{ position: relative; }
+body.home-curves::before,
+body.home-curves::after{
+  content: ""; position: fixed; inset: -8vh -8vw;
+  pointer-events: none; z-index: 1;
+  transform-origin: 0% 50%;
+  background-repeat: no-repeat; background-size: 100% 100%;
+  mix-blend-mode: screen; opacity: 1; will-change: transform;
+}
+body.home-curves::before{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23A16207' stroke-width='1'%3E%3Cg stroke-opacity='0.13'%3E%3Cpath d='M-200,-100 Q200,80 400,180 T800,420 T1200,640 T1600,860'/%3E%3Cpath d='M-200,-40 Q220,140 420,240 T820,480 T1220,700 T1600,920'/%3E%3Cpath d='M-200,20 Q240,200 440,300 T840,540 T1240,760 T1620,980'/%3E%3Cpath d='M-160,80 Q260,260 460,360 T860,600 T1260,820 T1640,1040'/%3E%3Cpath d='M-120,150 Q280,330 480,430 T880,670 T1280,890 T1660,1110'/%3E%3Cpath d='M-80,230 Q300,400 500,500 T900,740 T1300,960 T1680,1180'/%3E%3Cpath d='M-40,320 Q320,470 520,570 T920,810 T1320,1030 T1700,1240'/%3E%3Cpath d='M0,420 Q340,540 540,640 T940,880 T1340,1100 T1720,1300'/%3E%3Cpath d='M60,520 Q360,610 560,710 T960,950 T1360,1170 T1740,1360'/%3E%3Cpath d='M120,620 Q380,680 580,780 T980,1020 T1380,1240 T1760,1420'/%3E%3C/g%3E%3Cg stroke-opacity='0.1'%3E%3Cpath d='M-220,-60 Q210,90 410,200 T810,440 T1210,660 T1610,880'/%3E%3Cpath d='M-180,40 Q250,220 450,320 T850,560 T1250,780 T1630,1000'/%3E%3Cpath d='M-100,180 Q290,340 490,440 T890,680 T1290,900 T1670,1120'/%3E%3Cpath d='M0,360 Q330,500 530,600 T930,840 T1330,1060 T1710,1280'/%3E%3Cpath d='M100,560 Q370,650 570,750 T970,990 T1370,1210 T1750,1390'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  animation: curves-A 22s linear infinite;
+}
+body.home-curves::after{
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23A16207' stroke-width='1'%3E%3Cg stroke-opacity='0.18'%3E%3Cpath d='M-200,-100 Q200,80 400,180 T800,420 T1200,640 T1600,860'/%3E%3Cpath d='M-200,-40 Q220,140 420,240 T820,480 T1220,700 T1600,920'/%3E%3Cpath d='M-200,20 Q240,200 440,300 T840,540 T1240,760 T1620,980'/%3E%3Cpath d='M-160,80 Q260,260 460,360 T860,600 T1260,820 T1640,1040'/%3E%3Cpath d='M-120,150 Q280,330 480,430 T880,670 T1280,890 T1660,1110'/%3E%3Cpath d='M-80,230 Q300,400 500,500 T900,740 T1300,960 T1680,1180'/%3E%3Cpath d='M-40,320 Q320,470 520,570 T920,810 T1320,1030 T1700,1240'/%3E%3Cpath d='M0,420 Q340,540 540,640 T940,880 T1340,1100 T1720,1300'/%3E%3Cpath d='M60,520 Q360,610 560,710 T960,950 T1360,1170 T1740,1360'/%3E%3Cpath d='M120,620 Q380,680 580,780 T980,1020 T1380,1240 T1760,1420'/%3E%3C/g%3E%3Cg stroke-opacity='0.13'%3E%3Cpath d='M-220,-60 Q210,90 410,200 T810,440 T1210,660 T1610,880'/%3E%3Cpath d='M-180,40 Q250,220 450,320 T850,560 T1250,780 T1630,1000'/%3E%3Cpath d='M-100,180 Q290,340 490,440 T890,680 T1290,900 T1670,1120'/%3E%3Cpath d='M0,360 Q330,500 530,600 T930,840 T1330,1060 T1710,1280'/%3E%3Cpath d='M100,560 Q370,650 570,750 T970,990 T1370,1210 T1750,1390'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  animation: curves-B 28s linear infinite;
+}
+@keyframes curves-A{
+  0%   { transform: translate3d(0,0,0)        scale(1.05) skewY(0.4deg); }
+  20%  { transform: translate3d(-1.6vw,-0.8vh,0) scale(1.30) skewY(-0.3deg); }
+  40%  { transform: translate3d(-3.2vw, 0.6vh,0) scale(1.10) skewY(0.5deg); }
+  60%  { transform: translate3d(-4.8vw,-0.4vh,0) scale(1.40) skewY(-0.4deg); }
+  80%  { transform: translate3d(-6.4vw, 0.8vh,0) scale(1.15) skewY(0.3deg); }
+  100% { transform: translate3d(-8vw,   0,    0) scale(1.05) skewY(0.4deg); }
+}
+@keyframes curves-B{
+  0%   { transform: translate3d(0,0,0)        scale(1.35) skewX(-0.3deg); }
+  25%  { transform: translate3d(-1.4vw, 0.6vh,0) scale(1.08) skewX(0.4deg); }
+  50%  { transform: translate3d(-2.8vw,-0.7vh,0) scale(1.45) skewX(-0.5deg); }
+  75%  { transform: translate3d(-4.2vw, 0.5vh,0) scale(1.10) skewX(0.4deg); }
+  100% { transform: translate3d(-5.6vw, 0,   0) scale(1.35) skewX(-0.3deg); }
+}
+@media (prefers-reduced-motion: reduce){
+  body.home-curves::before, body.home-curves::after{ animation: none; }
+}
+/* Lift content with images/photo backgrounds above the curves layer. */
+body.home-curves .proj-card,
+body.home-curves .t-card2,
+body.home-curves .about-img-wrap,
+body.home-curves .about-portrait,
+body.home-curves .gal-item,
+body.home-curves .svc-card,
+body.home-curves .stats-wrap > .stats > .csh-stat,
+body.home-curves .hero,
+body.home-curves .sub-hero,
+body.home-curves .proj-media,
+body.home-curves .proc-step,
+body.home-curves .svc-row,
+body.home-curves .t-avatar{
+  position: relative; z-index: 5; isolation: isolate;
+}
+/* Catch-all: every image/picture sits above the curves layer so stripes never overlap visual content.
+   (Excludes <video>/<iframe>, which are positioned by their owning sections — the .hero / .contact-v2 / #cta lifts already cover those.) */
+body.home-curves img:not(.hero-video):not(.contact-map),
+body.home-curves picture{
+  position: relative; z-index: 5; isolation: isolate;
+}
+/* Section-level opt-out for sections with map/photo backgrounds. */
+body.home-curves .contact-v2,
+body.home-curves #cta,
+body.home-curves .sub-section.has-map{
+  position: relative; z-index: 6; isolation: isolate;
+}
+/* Portfolio project rows: lift each row above the curves so stripes never overlap the photos,
+   but keep the section background transparent so curves still flow behind/between rows. */
+body.home-curves .proj-row,
+body.home-curves .proj-row > .proj-media,
+body.home-curves .proj-row > .proj-info{
+  position: relative !important;
+  z-index: 5 !important;
+  isolation: isolate;
+}
+body.home-curves #cta{ background: var(--csh-ink); }
+
+/* ============================================================
+   MOBILE AUDIT FIXES — tap targets, safe-area, type scale, CLS
+   ============================================================ */
+
+/* 1) Safe-area for fixed nav + bottom dock (iPhone notch / home-bar) */
+.csh-nav{
+  padding-top: max(28px, env(safe-area-inset-top));
+  padding-left: max(64px, env(safe-area-inset-left));
+  padding-right: max(64px, env(safe-area-inset-right));
+}
+.csh-nav.scrolled{ padding-top: max(18px, env(safe-area-inset-top)); }
+.mobile-cta-dock{ padding-bottom: max(0px, env(safe-area-inset-bottom)); }
+.mob-menu{
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 2) Bigger hero meta + eyebrow (was 8.8–9.3 px) */
+.hero-eyebrow{ font-size: clamp(0.7rem, 2.6vw, 0.85rem) !important; }
+.hero-meta{ font-size: clamp(0.7rem, 2.6vw, 0.85rem) !important; }
+
+/* 3) Tap targets — minimum 44×44 on touch */
+@media (pointer: coarse), (max-width: 900px){
+  /* Hamburger button — enlarge hit area without changing the bar visuals */
+  .hbr{ padding: 12px !important; min-width: 44px; min-height: 44px; }
+  /* Mobile menu close — already 48×48 in CSS, keep */
+  /* Mobile menu links */
+  .mob-menu a{ padding: 14px 12px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+  /* Top-nav links when scrolled — increase touch padding */
+  .csh-nav-lnk{ padding: 14px 14px; line-height: 1.2; min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .csh-nav-list li{ display: inline-flex; align-items: center; }
+  /* Testimonial slide dots — 16 visual, 44 hit-area via padding */
+  .t-dot{ width: 44px !important; height: 44px !important; padding: 0; background-clip: content-box; box-sizing: border-box; border: 13px solid transparent !important; border-radius: 50% !important; background-color: rgba(255,255,255,0.45) !important; }
+  .t-dot.active{ width: 44px !important; border: 17px solid transparent !important; border-radius: 50% !important; background-clip: content-box !important; background-color: var(--csh-gold-lt) !important; }
+  /* Footer social icons */
+  .ft-social{ width: 44px !important; height: 44px !important; }
+  /* Footer column links — taller hit area */
+  .ft-col a{ padding: 12px 8px; display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; line-height: 1.4; }
+  /* Project arrow already display:none */
+}
+
+/* 4) Prevent layout shift on photos — explicit aspect ratios */
+.proj-card .csh-img-wrap,
+.proj-card img{ aspect-ratio: 4 / 3; }
+.proj-tall .csh-img-wrap,
+.proj-tall img{ aspect-ratio: 3 / 4; }
+.gal-item img{ aspect-ratio: 4 / 3; }
+.t-avatar{ aspect-ratio: 1 / 1; }
+.about-img-wrap .csh-img-wrap img{ aspect-ratio: 4 / 5; }
+
+/* 5) iOS 16px input min to stop auto-zoom on focus */
+@media (pointer: coarse){
+  input, textarea, select{ font-size: max(16px, 0.95rem) !important; }
+}
+
+/* Glossy shimmer sweep on the mobile dock "Free Consult" button */
+.mobile-cta-dock .cta-contact{ position: relative; overflow: hidden; isolation: isolate; }
+.mobile-cta-dock .cta-contact::before{
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: -60%;
+  width: 50%;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,235,200,0.55) 50%, transparent 80%);
+  transform: skewX(-18deg);
+  animation: dock-cta-shine 3.4s cubic-bezier(.4,0,.2,1) infinite;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+}
+.mobile-cta-dock .cta-contact > *{ position: relative; z-index: 2; }
+@keyframes dock-cta-shine{
+  0%   { left: -60%; }
+  55%  { left: 130%; }
+  100% { left: 130%; }
+}
+@media (prefers-reduced-motion: reduce){
+  .mobile-cta-dock .cta-contact::before{ animation: none; }
+}
+
+/* Process step circles — glow on scroll-into-view (MOBILE only) */
+@media (max-width: 900px){
+  .step-circle.lit{
+    border-color: var(--csh-gold) !important;
+    color: var(--csh-gold-lt) !important;
+    background: radial-gradient(circle at 50% 50%, rgba(212,173,114,0.18), rgba(161,98,7,0.05) 70%, var(--csh-charcoal) 100%) !important;
+    box-shadow:
+      0 0 0 1px rgba(212,173,114,0.4),
+      0 0 24px rgba(212,173,114,0.35),
+      0 0 56px rgba(161,98,7,0.28),
+      inset 0 0 18px rgba(212,173,114,0.18);
+    animation: step-pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes step-pulse{
+    0%, 100% { box-shadow: 0 0 0 1px rgba(212,173,114,0.4), 0 0 24px rgba(212,173,114,0.35), 0 0 56px rgba(161,98,7,0.28), inset 0 0 18px rgba(212,173,114,0.18); }
+    50%      { box-shadow: 0 0 0 1px rgba(212,173,114,0.55), 0 0 36px rgba(212,173,114,0.55), 0 0 80px rgba(161,98,7,0.4), inset 0 0 24px rgba(212,173,114,0.28); }
+  }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: reduce){
+  .step-circle.lit{ animation: none; }
+}
+
+/* Contact form — remove translucent/blurry backgrounds */
+.contact-form-wrap::before{ display: none !important; }
+.csh-field-v2{ background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.csh-field-v2:focus{ background: transparent !important; }
+
+/* Mobile only: contact is now inside the process-testi-wrap canvas (HTML restructure),
+   so its own background can stay transparent — the wrap's radial dark + body's flowing
+   stripes give the same look as the testimonials above. */
+@media (max-width: 900px){
+  body.home-curves .contact-v2{ isolation: auto !important; z-index: auto !important; }
+  body.home-curves .contact-form-wrap{ background: transparent !important; position: relative; z-index: 2; }
+}
+
+/* Remove the testimonials section's static curve overlay (keep only the global flowing curves on the body) */
+.testimonials::before{ display: none !important; }
+
+/* Remove subtle grain overlay edges that read as faint horizontal section dividers on dark canvas */
+.brand-statement.csh-grain::before,
+.process.csh-grain::before,
+.cta.csh-grain::before,
+.ft.csh-grain::before,
+.hero.csh-grain::before{ display: none !important; }
+
+/* Belt-and-suspenders: zero any incidental borders between adjacent sections */
+section + section,
+section,
+.stats-projects-wrap,
+.process-testi-wrap{ border: 0 !important; box-shadow: none !important; }
+
+/* Subpixel-gap fix: dark sections that butt up directly should overlap by 1px so the ivory body bg never bleeds through */
+.gal-section,
+.brand-statement,
+.process-testi-wrap,
+.stats-projects-wrap,
+#cta{ margin-top: -1px; position: relative; }

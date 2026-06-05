@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /coastal-preview/
+Disallow: /temporary screenshots/
+
+Sitemap: https://coastalsignaturehomes.net/sitemap.xml

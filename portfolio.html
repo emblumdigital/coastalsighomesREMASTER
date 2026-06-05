@@ -2,13 +2,59 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="description" content="Selected residential projects by Coastal Signature Homes across Fort Myers, Cape Coral, and Southwest Florida." />
 <title>Portfolio — Coastal Signature Homes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+
+<!-- SEO -->
+<link rel="canonical" href="https://coastalsignaturehomes.net/portfolio.html" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="theme-color" content="#1C1917" />
+<meta name="geo.region" content="US-FL" /><meta name="geo.placename" content="Fort Myers" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Coastal Signature Homes" />
+<meta property="og:title" content="Portfolio — Selected Residential Projects · Coastal Signature Homes" />
+<meta property="og:description" content="Selected residential builds and remodels across Fort Myers, Cape Coral, and Southwest Florida." />
+<meta property="og:url" content="https://coastalsignaturehomes.net/portfolio.html" />
+<meta property="og:image" content="https://coastalsignaturehomes.net/images/gallery-2.jpeg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Portfolio — Coastal Signature Homes" />
+<meta name="twitter:description" content="Selected residential builds and remodels across Southwest Florida." />
+<meta name="twitter:image" content="https://coastalsignaturehomes.net/images/gallery-2.jpeg" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231C1917'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' fill='%23d4ad72' font-family='Georgia,serif' font-size='18' font-weight='600'%3ECS%3C/text%3E%3C/svg%3E" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://coastalsignaturehomes.net/portfolio.html#webpage",
+      "url": "https://coastalsignaturehomes.net/portfolio.html",
+      "name": "Portfolio — Coastal Signature Homes",
+      "isPartOf": { "@id": "https://coastalsignaturehomes.net/#website" },
+      "about": { "@id": "https://coastalsignaturehomes.net/#business" },
+      "breadcrumb": { "@id": "https://coastalsignaturehomes.net/portfolio.html#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://coastalsignaturehomes.net/portfolio.html#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://coastalsignaturehomes.net/" },
+        { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://coastalsignaturehomes.net/portfolio.html" }
+      ]
+    },
+    {
+      "@type": "ImageGallery",
+      "name": "Coastal Signature Homes Portfolio",
+      "creator": { "@id": "https://coastalsignaturehomes.net/#business" }
+    }
+  ]
+}
+</script>
 <style>
 /* ---- Subpage scaffolding ---- */
 .sub-hero { position: relative; padding: 220px 64px 120px; background:
@@ -66,10 +112,16 @@
 .proj-specs { display:grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; padding-top: 24px; border-top: 1px solid rgba(161,98,7,0.18); max-width: 460px; }
 .proj-specs span { font-family: var(--font-body); font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(245,242,237,0.42); }
 .proj-specs span strong { display:block; color: var(--csh-ivory); font-weight: 400; font-family: var(--font-display); font-size: 1rem; letter-spacing: 0.02em; margin-top: 6px; text-transform: none; }
-@media (max-width: 900px){ .proj-row, .proj-row.flip { grid-template-columns: 1fr; gap: 36px; } .proj-row.flip .proj-media{order:1} .proj-row.flip .proj-info{order:2} }
+@media (max-width: 900px){
+  .proj-row, .proj-row.flip { grid-template-columns: 1fr; gap: 36px; }
+  .proj-row.flip .proj-media{order:1} .proj-row.flip .proj-info{order:2}
+  /* Mobile: keep the gold frame fully inside the viewport with comfortable inset around the content. */
+  .proj-row{ padding: 18px; }
+  .proj-frame{ left: 0; top: 0; width: 100%; height: 100%; }
+}
 
 </style>
-</head><body>
+</head><body class="home-curves">
 <div id="scroll-progress" aria-hidden="true"></div>
 <div id="csh-cursor-ring"></div>
 <div id="csh-cursor-dot"></div>
