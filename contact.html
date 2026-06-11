@@ -187,7 +187,10 @@
 
 <section class="sub-section">
   <div class="sub-inner contact-grid">
-    <form class="form csh-reveal" onsubmit="event.preventDefault(); var b=this.querySelector('.form-submit'); var s=b.querySelector('span')||b; var orig=s.textContent; s.textContent='Thank you — we\'ll be in touch.'; this.reset(); if(document.activeElement&&document.activeElement.blur)document.activeElement.blur(); setTimeout(function(){s.textContent=orig;},3500);">
+    <form class="form csh-reveal" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact">
+      <input type="hidden" name="subject" value="New Inquiry — Coastal Signature Homes">
+      <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
       <h2 class="sub-h2">Start a <em>conversation.</em></h2>
       <hr class="sub-rule">
       <p style="color: rgba(245,242,237,0.62); font-size: 1rem; line-height: 1.75; max-width: 520px; margin: 0 0 18px;">Tell us a little about the project. We respond personally to every inquiry within two business days.</p>
