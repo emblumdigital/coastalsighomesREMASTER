@@ -104,12 +104,12 @@
 .proc-rail-fill { position: absolute; left: 22px; top: 0; width: 1px; height: 0; background: linear-gradient(180deg, rgba(212,173,114,0) 0%, var(--csh-gold-lt) 14%, var(--csh-gold) 100%); box-shadow: 0 0 14px rgba(212,173,114,0.45); pointer-events:none; }
 .proc-rail-dot { position: absolute; left: 15px; width: 15px; height: 15px; border-radius: 50%; border: 1px solid rgba(161,98,7,0.4); background: #0A0A09; transition: border-color .4s, background .4s, box-shadow .4s, transform .4s; }
 .proc-rail-dot.lit { border-color: var(--csh-gold-lt); background: var(--csh-gold); box-shadow: 0 0 0 4px rgba(161,98,7,0.18), 0 0 22px rgba(212,173,114,0.6); transform: scale(1.06); }
-.proc-step { display:grid; grid-template-columns: 80px 1.2fr 1fr; gap: 60px; padding: 90px 0; border-top: 1px solid rgba(161,98,7,0.12); align-items: start; position: relative; }
+.proc-step { display:grid; grid-template-columns: 80px 1fr; gap: 60px; padding: 72px 0; border-top: 1px solid rgba(161,98,7,0.12); align-items: start; position: relative; }
 .proc-step:last-child { border-bottom: 1px solid rgba(161,98,7,0.12); }
 .proc-num { font-family: var(--font-display); font-style: italic; color: var(--csh-gold); font-size: 2.6rem; line-height: 1; font-weight: 300; }
 .proc-step h3 { font-family: var(--font-display); font-weight: 300; color: var(--csh-ivory); font-size: clamp(1.8rem, 3vw, 2.3rem); margin: 0 0 16px; letter-spacing: -0.02em; line-height: 1.1; }
 .proc-step h3 em { color: var(--csh-gold-lt); font-style: italic; font-weight: 400; }
-.proc-step p { color: rgba(245,242,237,0.62); font-size: 1rem; line-height: 1.8; margin: 0; max-width: 460px; font-weight: 300; }
+.proc-step p { color: rgba(245,242,237,0.62); font-size: 1rem; line-height: 1.8; margin: 0; max-width: 620px; font-weight: 300; }
 .proc-aside { display: flex; flex-direction: column; gap: 18px; }
 .proc-aside .lbl { font-family: var(--font-body); font-size: 0.62rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(245,242,237,0.42); }
 .proc-aside .lbl strong { display:block; color: var(--csh-gold-lt); font-weight: 500; margin-bottom: 5px; }
@@ -166,7 +166,6 @@
     <p class="sub-eyebrow">How we work</p>
     <h1 class="sub-title">Five steps, <em>nothing</em> rushed.</h1>
     <p class="sub-lede">Our process is short on stages and long on each one. The goal isn't a fast build — it's a build with no Friday surprises and no decisions made under pressure.</p>
-    <div class="sub-meta"><span><strong>Stages</strong>5</span><span><strong>Avg. timeline</strong>9 — 14 mo.</span><span><strong>Updates</strong>Weekly</span></div>
   </div>
 </section>
 <section class="sub-section"><div class="sub-inner"><div class="proc"><div class="proc-rail"></div><div class="proc-rail-fill" id="procFill"></div>
@@ -176,20 +175,12 @@
         <h3>Conversation <em>& Site Walk</em></h3>
         <p>We meet on site — at the lot or the home — and listen first. The first hour is always free of measurements; it is about understanding how you live and what you want this house to make possible.</p>
       </div>
-      <div class="proc-aside">
-        <span class="lbl"><strong>Outcome</strong></span>
-        <ul><li>Aligned scope brief</li><li>Honest budget range</li><li>Decision: do we fit?</li></ul>
-      </div>
     </div>
     <div class="proc-step csh-reveal">
       <div class="proc-num">02</div>
       <div>
         <h3>Design <em>Coordination</em></h3>
         <p>We coordinate with your architect (or recommend one) and translate the design into a buildable, costed plan. You see real material samples, real shop drawings — no renderings dressed up to sell.</p>
-      </div>
-      <div class="proc-aside">
-        <span class="lbl"><strong>You see</strong></span>
-        <ul><li>Floor plans & elevations</li><li>Material boards</li><li>Open-book budget</li></ul>
       </div>
     </div>
     <div class="proc-step csh-reveal">
@@ -198,10 +189,6 @@
         <h3>Pre-Construction <em>Lockdown</em></h3>
         <p>Permits, engineering, trade contracts, and selections close out before a wall comes down. We trade speed at this stage for certainty during the build.</p>
       </div>
-      <div class="proc-aside">
-        <span class="lbl"><strong>We close out</strong></span>
-        <ul><li>Permits & engineering</li><li>Vendor & trade contracts</li><li>Selections schedule</li></ul>
-      </div>
     </div>
     <div class="proc-step csh-reveal">
       <div class="proc-num">04</div>
@@ -209,20 +196,12 @@
         <h3>Build <em>Phase</em></h3>
         <p>Construction runs on a published weekly schedule. You receive a Monday update with photos and a clear list of decisions due — never any surprises arriving by Friday.</p>
       </div>
-      <div class="proc-aside">
-        <span class="lbl"><strong>You receive</strong></span>
-        <ul><li>Weekly photo report</li><li>Decisions-due list</li><li>Site walk-through invites</li></ul>
-      </div>
     </div>
     <div class="proc-step csh-reveal">
       <div class="proc-num">05</div>
       <div>
         <h3>Walk-Through <em>& Warranty</em></h3>
         <p>A full punch walk-through, a clean handover binder, and a return visit at 30, 90, and 365 days to address anything that settled, shifted, or needs a tighter screw.</p>
-      </div>
-      <div class="proc-aside">
-        <span class="lbl"><strong>After handover</strong></span>
-        <ul><li>30-day check-in</li><li>90-day adjustment</li><li>1-year warranty walk</li></ul>
       </div>
     </div></div></div></section>
 <script>
