@@ -64,7 +64,7 @@
 </script>
 <style>
 /* ---- Subpage scaffolding ---- */
-.sub-hero { position: relative; padding: 220px 64px 120px; background:
+.sub-hero { position: relative; padding: 220px 64px 140px; background:
     radial-gradient(ellipse 80% 60% at 12% 0%, rgba(161,98,7,0.12) 0%, transparent 55%),
     radial-gradient(ellipse 60% 80% at 100% 100%, rgba(212,173,114,0.06) 0%, transparent 60%),
     #0A0A09;
@@ -111,6 +111,37 @@
 .value .v-num { font-family: var(--font-display); font-style: italic; color: var(--csh-gold); font-size: 2.4rem; line-height: 1; }
 .value::after { content:''; display:block; width:28px; height:1px; background: var(--csh-gold); margin-top: 24px; opacity: .5; }
 @media (max-width: 900px){ .about-grid{ grid-template-columns: 1fr; gap: 48px; } .values{ grid-template-columns: 1fr; gap: 40px; } }
+
+/* ---- Florida map section ---- */
+.map-section { padding: 140px 64px; background: #0A0A09; position: relative; overflow: hidden; }
+.map-section::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 50% 70% at 80% 50%, rgba(161,98,7,0.07) 0%, transparent 65%); pointer-events:none; }
+.map-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.map-copy .sub-h2 { color: var(--csh-ivory); }
+.map-copy p { color: rgba(245,242,237,0.66); font-size: 1.02rem; line-height: 1.85; font-weight: 300; margin: 0 0 20px; }
+.map-areas { margin-top: 40px; display: flex; flex-direction: column; gap: 14px; }
+.map-area-item { display: flex; align-items: center; gap: 14px; font-family: var(--font-body); font-size: 0.64rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(245,242,237,0.5); }
+.map-area-item::before { content:''; width: 6px; height: 6px; border-radius: 50%; background: var(--csh-gold); flex-shrink: 0; }
+.map-area-item.primary { color: var(--csh-gold-lt); }
+.map-area-item.primary::before { background: var(--csh-gold-lt); box-shadow: 0 0 8px rgba(212,173,114,0.6); }
+.map-visual { display: flex; align-items: flex-start; justify-content: center; padding-top: 20px; }
+.map-svg-wrap { width: 100%; max-width: 320px; margin: 0 auto; }
+.map-svg-wrap svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 40px rgba(161,98,7,0.12)); }
+.fl-body { fill: rgba(161,98,7,0.18); stroke: rgba(212,173,114,0.75); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.fl-service { fill: rgba(161,98,7,0.22); stroke: rgba(212,173,114,0.55); stroke-width: 1.2; }
+.fm-pin-ring { fill: none; stroke: var(--csh-gold-lt); stroke-width: 1.5; opacity: 0; animation: pingRing 2.4s ease-out infinite; }
+.fm-pin-ring-2 { animation-delay: 0.8s; }
+.fm-pin-ring-3 { animation-delay: 1.6s; }
+.fm-pin-dot { fill: var(--csh-gold-lt); filter: drop-shadow(0 0 4px rgba(212,173,114,0.8)); }
+@keyframes pingRing { 0% { r: 5; opacity: 0.8; } 100% { r: 20; opacity: 0; } }
+.fm-label-city { font-family: var(--font-display); font-style: italic; font-size: 12px; fill: var(--csh-ivory); }
+.map-grid-line { stroke: rgba(212,173,114,0.06); stroke-width: 1; stroke-dasharray: 3 6; }
+.map-coord { font-family: var(--font-body); font-size: 7px; letter-spacing: 0.12em; fill: rgba(212,173,114,0.22); }
+@media (max-width: 900px) {
+  .map-section { padding: 90px 24px; }
+  .map-inner { grid-template-columns: 1fr; gap: 56px; }
+  .map-visual { order: -1; }
+  .map-svg-wrap { max-width: 260px; }
+}
 
 </style>
 </head><body class="home-curves">
@@ -160,21 +191,6 @@
     <p class="sub-eyebrow">Our Story</p>
     <h1 class="sub-title">Built by <em>hand.</em><br>Run by the builder.</h1>
     <p class="sub-lede">Coastal Signature Homes is a small, builder-led practice based in Fort Myers. We design and construct a handful of residential projects each year — and we stay personally involved in every one of them, from the first sketch to the final walk-through.</p>
-    <div class="sub-meta"><span><strong>Founded</strong>2008</span><span><strong>Team</strong>Builder-led</span><span><strong>Projects / Year</strong>≤ 8</span></div>
-  </div>
-</section>
-
-<section class="sub-section">
-  <div class="sub-inner about-grid">
-    <div class="about-portrait csh-reveal"><img src="images/about-kitchen.jpeg" alt="Scott, founder of Coastal Signature Homes"></div>
-    <div class="about-copy csh-reveal csh-delay-1">
-      <h2 class="sub-h2">A builder's <em>life,</em><br>not a builder's brand.</h2>
-      <hr class="sub-rule">
-      <p>Coastal Signature Homes was founded by Scott — a builder who came up on Southwest Florida job sites and never left them. After two decades of framing, finishing, and finally leading projects from concept to keys, he started CSH to do the work the way he always thought it should be done: slowly, honestly, and at a scale where his own hands stay in the build.</p>
-      <p>We are deliberately small. Most years we take on fewer than eight projects so we can be on site, not on calls. That ratio is non-negotiable — it is what allows us to promise the level of craft we do.</p>
-      <div class="about-sig">Scott Wallace</div>
-      <span>Founder · Lead Builder</span>
-    </div>
   </div>
 </section>
 <section class="sub-section light">
@@ -197,6 +213,64 @@
         <div class="v-num">iii.</div>
         <h3>One project at a pace.</h3>
         <p>Fewer jobs, fewer crews, fewer surprises. Our schedules look slower on paper and feel faster in practice — because nothing waits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="map-section">
+  <div class="map-inner">
+    <div class="map-copy csh-reveal">
+      <p class="sub-eyebrow" style="color:var(--csh-gold-lt);">Where we build</p>
+      <h2 class="sub-h2">Rooted in<br><em>Lee County.</em></h2>
+      <hr class="sub-rule">
+      <p>Every project we take on is within driving distance of our Fort Myers home base. We don't subcontract across the state — we stay close to the site, the materials, and the client.</p>
+      <p>Our service area is Lee County — the stretch of coast we know best, from the barrier islands to the inland communities.</p>
+      <div class="map-areas">
+        <div class="map-area-item primary">Fort Myers — Home Base</div>
+        <div class="map-area-item">Cape Coral</div>
+        <div class="map-area-item">Estero &amp; Bonita Springs</div>
+        <div class="map-area-item">Sanibel &amp; Captiva Islands</div>
+        <div class="map-area-item">Fort Myers Beach</div>
+      </div>
+    </div>
+    <div class="map-visual csh-reveal csh-delay-1">
+      <div class="map-svg-wrap">
+        <svg viewBox="-6 -6 286 362" xmlns="http://www.w3.org/2000/svg" aria-label="Map of Florida with Fort Myers marked">
+          <!--
+            Projection: x = (lon + 87.6) * 35.5
+                        y = (31.0 - lat) * 56.9
+            ~55 real coordinate points traced clockwise from NE corner.
+          -->
+          <path class="fl-body" d="
+            M 218,19
+            L 220,40  L 218,64  L 222,82  L 228,104
+            L 238,132 L 251,145 L 250,162 L 254,188
+            L 260,202 L 264,218 L 268,246 L 268,272
+            L 264,294 L 258,316 L 248,332 L 236,344
+            L 220,344 L 216,336
+            L 206,322 L 196,308 L 192,290 L 190,272
+            L 192,258 L 188,245 L 184,232 L 180,220
+            L 176,208 L 172,198 L 170,186 L 169,172
+            L 170,160 L 172,148 L 174,130 L 177,120
+            L 174,113 L 163,107 L 159,94  L 155,88
+            L 150,75  L 143,66  L 143,57
+            L 128,53  L 104,65  L 92,73
+            L 80,76   L 82,67   L 64,47
+            L 35,34   L 14,33   L 2,41
+            L 0,28    L 7,17    L 21,11
+            L 39,0    L 57,6    L 75,3
+            L 96,0    L 114,11  L 135,17
+            L 153,23  L 171,23  L 192,17
+            L 206,11  L 218,19 Z
+          "/>
+
+          <!-- Fort Myers pin (26.64N, 81.87W → x=203, y=248) -->
+          <circle class="fm-pin-ring"               cx="203" cy="248" r="5"/>
+          <circle class="fm-pin-ring fm-pin-ring-2" cx="203" cy="248" r="5"/>
+          <circle class="fm-pin-ring fm-pin-ring-3" cx="203" cy="248" r="5"/>
+          <circle class="fm-pin-dot"                cx="203" cy="248" r="4"/>
+          <text class="fm-label-city"               x="212" y="244">Fort Myers</text>
+        </svg>
       </div>
     </div>
   </div>
