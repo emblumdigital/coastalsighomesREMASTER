@@ -87,12 +87,6 @@
       "founder": { "@type": "Person", "name": "Scott" },
       "foundingDate": "2004",
       "knowsAbout": ["Custom Home Construction","Whole-Home Remodeling","Kitchen Remodeling","Bath Remodeling","Custom Cabinetry","Luxury Interiors","Design-Build"],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "bestRating": "5",
-        "ratingCount": "3"
-      },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Services",
@@ -437,7 +431,7 @@
 <div class="stats-wrap">
 <div class="stats csh-grain csh-radial-dark" id="stats">
   <div class="csh-stat csh-reveal"><span class="csh-stat-num" data-count="20" data-suffix="+">0+</span><span class="csh-stat-lbl">Years of Experience</span></div>
-  <div class="csh-stat csh-reveal csh-delay-1"><span class="csh-stat-num" data-count="100" data-suffix="%">0%</span><span class="csh-stat-lbl">Client Satisfaction</span></div>
+  <div class="csh-stat csh-reveal csh-delay-1"><span class="csh-stat-num" data-count="8" data-suffix="">0</span><span class="csh-stat-lbl">Projects Per Year</span></div>
   <div class="csh-stat csh-reveal csh-delay-2"><span class="csh-stat-num" data-count="5" data-suffix="★">0★</span><span class="csh-stat-lbl">Star Reviews</span></div>
   <div class="csh-stat csh-reveal csh-delay-3"><span class="csh-stat-num">SWFL</span><span class="csh-stat-lbl">Service Coverage</span></div>
 </div>
@@ -526,7 +520,7 @@
     <p class="csh-reveal csh-delay-3">From custom new builds to complete home remodels, we approach every project with the same commitment: precision, efficiency, and the highest quality standards — because the homes we build outlast trends.</p>
     <div class="about-stats csh-reveal csh-delay-3">
       <div><div class="about-stat-num">20+</div><div class="about-stat-lbl">Years Active</div></div>
-      <div><div class="about-stat-num">100%</div><div class="about-stat-lbl">Satisfaction</div></div>
+      <div><div class="about-stat-num">≤ 8</div><div class="about-stat-lbl">Projects / Year</div></div>
       <div><div class="about-stat-num">5★</div><div class="about-stat-lbl">Rated Reviews</div></div>
       <div><div class="about-stat-num">SWFL</div><div class="about-stat-lbl">Service Area</div></div>
     </div>
@@ -552,11 +546,11 @@
     <hr class="csh-rule">
   </div>
   <div class="gal-strip" id="gallery" role="list" aria-label="Project gallery">
-    <button class="gal-item active" role="listitem" type="button" aria-label="Marble Kitchen — expand"><img src="images/kitchen-other-house.jpeg" alt="Marble Kitchen" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Marble Kitchen</div></button>
-    <button class="gal-item" role="listitem" type="button" aria-label="Master Bath — expand"><img src="images/gallery-2.jpeg" alt="Master Bath Renovation" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Master Bath</div></button>
-    <button class="gal-item" role="listitem" type="button" aria-label="Luxury Kitchen — expand"><img src="images/kitchen-other-house.jpeg" alt="Luxury Kitchen Remodel" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Luxury Kitchen</div></button>
-    <button class="gal-item" role="listitem" type="button" aria-label="Custom Interior — expand"><img src="images/gallery-4.jpeg" alt="Custom Home Interior" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Custom Interior</div></button>
-    <button class="gal-item" role="listitem" type="button" aria-label="Designer Kitchen — expand"><img src="images/white-kitchen-chandelier.jpeg" alt="Designer Kitchen with Crystal Chandelier" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Designer Kitchen</div></button>
+    <button class="gal-item active" type="button" aria-label="Marble Kitchen — expand"><img src="images/kitchen-other-house.jpeg" alt="Marble Kitchen" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Marble Kitchen</div></button>
+    <button class="gal-item" type="button" aria-label="Master Bath — expand"><img src="images/gallery-2.jpeg" alt="Master Bath Renovation" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Master Bath</div></button>
+    <button class="gal-item" type="button" aria-label="Luxury Kitchen — expand"><img src="images/kitchen-other-house.jpeg" alt="Luxury Kitchen Remodel" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Luxury Kitchen</div></button>
+    <button class="gal-item" type="button" aria-label="Custom Interior — expand"><img src="images/gallery-4.jpeg" alt="Custom Home Interior" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Custom Interior</div></button>
+    <button class="gal-item" type="button" aria-label="Designer Kitchen — expand"><img src="images/white-kitchen-chandelier.jpeg" alt="Designer Kitchen with Crystal Chandelier" loading="lazy"><span class="gal-cue" aria-hidden="true"></span><div class="gal-lbl">Designer Kitchen</div></button>
   </div>
   <div class="section-cta-wrap">
     <a href="portfolio.html" class="section-cta-link c-link">
@@ -712,21 +706,28 @@
     <h2 class="contact-h csh-reveal csh-delay-1">Let's build <em class="gold on-dark">together.</em></h2>
     <form class="csh-form-v2" id="contactForm" novalidate>
       <div class="form-row">
-        <input id="fname" class="csh-field-v2" placeholder="First name*" autocomplete="given-name" required>
-        <input id="lname" class="csh-field-v2" placeholder="Last name*" autocomplete="family-name" required>
+        <label for="fname" class="sr-only">First name</label>
+        <input id="fname" name="fname" class="csh-field-v2" placeholder="First name*" autocomplete="given-name" required>
+        <label for="lname" class="sr-only">Last name</label>
+        <input id="lname" name="lname" class="csh-field-v2" placeholder="Last name*" autocomplete="family-name" required>
       </div>
       <div class="form-row">
-        <input id="email" type="email" class="csh-field-v2" placeholder="E-mail address*" autocomplete="email" required>
-        <input id="phone" type="tel" class="csh-field-v2" placeholder="Phone" autocomplete="tel">
+        <label for="email" class="sr-only">Email address</label>
+        <input id="email" name="email" type="email" class="csh-field-v2" placeholder="E-mail address*" autocomplete="email" required>
+        <label for="phone" class="sr-only">Phone number</label>
+        <input id="phone" name="phone" type="tel" class="csh-field-v2" placeholder="Phone" autocomplete="tel">
       </div>
-      <select id="ptype" class="csh-field-v2 csh-select-v2" aria-label="Project type">
+      <label for="ptype" class="sr-only">Project type</label>
+      <select id="ptype" name="ptype" class="csh-field-v2 csh-select-v2">
         <option value="">Project type*</option>
         <option>New Construction</option>
         <option>Kitchen &amp; Bath Remodel</option>
         <option>Full Home Remodel</option>
         <option>Other</option>
       </select>
-      <textarea id="msg" class="csh-field-v2" placeholder="Tell us about your project — vision, timeline, details..."></textarea>
+      <label for="msg" class="sr-only">Project details</label>
+      <textarea id="msg" name="msg" class="csh-field-v2" placeholder="Tell us about your project — vision, timeline, details..."></textarea>
+      <p style="font-family:var(--font-body);font-size:0.65rem;color:rgba(245,242,237,0.35);letter-spacing:0.12em;margin:0 0 16px;">Submitting this form starts a conversation — it is not a contract or commitment.</p>
       <div class="form-actions">
         <button type="submit" class="send-btn">
           <span>SEND</span>
@@ -791,7 +792,7 @@
     </div>
   </div>
   <div class="ft-bottom">
-    <span>© <span id="yr"></span> Coastal Signature Homes · Fort Myers, FL</span>
+    <span>© <span id="yr"></span> Coastal Signature Homes · Fort Myers, FL · Lic. CBC1269984</span>
     <span><a href="privacy.html" style="color:inherit;opacity:.6;text-decoration:none;">Privacy</a> · <a href="terms.html" style="color:inherit;opacity:.6;text-decoration:none;">Terms</a></span>
     <span>(239) 544-7400 · scott@coastalsignaturehomes.net</span>
   </div>
