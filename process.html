@@ -107,9 +107,10 @@
 .proc-step { display:grid; grid-template-columns: 80px 1fr; gap: 60px; padding: 72px 0; border-top: 1px solid rgba(161,98,7,0.12); align-items: start; position: relative; }
 .proc-step:last-child { border-bottom: 1px solid rgba(161,98,7,0.12); }
 .proc-num { font-family: var(--font-display); font-style: italic; color: var(--csh-gold); font-size: 2.6rem; line-height: 1; font-weight: 300; }
+.proc-step > div:last-child { text-align: center; }
 .proc-step h3 { font-family: var(--font-display); font-weight: 300; color: var(--csh-ivory); font-size: clamp(1.8rem, 3vw, 2.3rem); margin: 0 0 16px; letter-spacing: -0.02em; line-height: 1.1; }
 .proc-step h3 em { color: var(--csh-gold-lt); font-style: italic; font-weight: 400; }
-.proc-step p { color: rgba(245,242,237,0.62); font-size: 1rem; line-height: 1.8; margin: 0; max-width: 620px; font-weight: 300; }
+.proc-step p { color: rgba(245,242,237,0.62); font-size: 1rem; line-height: 1.8; margin: 0 auto; max-width: 620px; font-weight: 300; }
 .proc-aside { display: flex; flex-direction: column; gap: 18px; }
 .proc-aside .lbl { font-family: var(--font-body); font-size: 0.62rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(245,242,237,0.42); }
 .proc-aside .lbl strong { display:block; color: var(--csh-gold-lt); font-weight: 500; margin-bottom: 5px; }
