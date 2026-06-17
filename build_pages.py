@@ -69,7 +69,7 @@ BODY_PRE = """<body>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.2 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
     Call Now
   </a>
-  <a class="cta-contact" href="contact.html" aria-label="Get a free consultation">
+  <a class="cta-contact" href="/contact" aria-label="Get a free consultation">
     Free Consult
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
   </a>
@@ -79,20 +79,20 @@ BODY_PRE = """<body>
 
 def nav(active):
     items = [
-        ('portfolio', 'Portfolio', 'portfolio.html'),
-        ('about', 'About', 'about.html'),
-        ('services', 'Services', 'services.html'),
-        ('process', 'Process', 'process.html'),
-        ('contact', 'Contact', 'contact.html'),
+        ('portfolio', 'Portfolio', '/portfolio'),
+        ('about', 'About', '/about'),
+        ('services', 'Services', '/services'),
+        ('process', 'Process', '/process'),
+        ('contact', 'Contact', '/contact'),
     ]
     lis = []
     for key, label, href in items:
         cls = 'csh-nav-lnk c-link' + (' is-active' if key == active else '')
         lis.append(f'<li><a href="{href}" class="{cls}">{label}</a></li>')
-    lis.append('<li><a href="contact.html" class="btn-wipe btn-nav c-link"><span>Free Consultation</span></a></li>')
+    lis.append('<li><a href="/contact" class="btn-wipe btn-nav c-link"><span>Free Consultation</span></a></li>')
     mob_links = '\n  '.join(f'<a href="{href}">{label}</a>' for _, label, href in items)
     return f"""<nav class="csh-nav scrolled" id="csh-nav">
-  <a href="index.html" class="csh-nav-brand c-link">Coastal <em>Signature</em> Homes</a>
+  <a href="/" class="csh-nav-brand c-link">Coastal <em>Signature</em> Homes</a>
   <ul class="csh-nav-list">
     {chr(10).join('    ' + l for l in lis).strip()}
   </ul>
@@ -102,7 +102,7 @@ def nav(active):
   <button class="mob-close" id="mobClose" aria-label="Close menu" type="button">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
-  <a href="index.html">Home</a>
+  <a href="/">Home</a>
   {mob_links}
   <a href="tel:2395447400" style="color:var(--csh-gold); font-size:.72rem; letter-spacing:.28em; text-transform:uppercase; margin-top:8px; font-family:var(--font-body); font-weight:600;">(239) 544-7400</a>
 </div>"""
@@ -110,7 +110,7 @@ def nav(active):
 FOOTER = """<footer class="ft csh-grain">
   <div class="ft-grid">
     <div>
-      <a href="index.html" class="ft-brand">Coastal <span>Signature</span> Homes</a>
+      <a href="/" class="ft-brand">Coastal <span>Signature</span> Homes</a>
       <p class="ft-tag">We strive for perfection so that excellence is always attained.</p>
       <div class="ft-social-row">
         <a href="#" class="ft-social c-link" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></a>
@@ -119,11 +119,11 @@ FOOTER = """<footer class="ft csh-grain">
     </div>
     <div class="ft-col">
       <p class="ft-col-h">Explore</p>
-      <ul><li><a href="portfolio.html">Portfolio</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="process.html">Process</a></li><li><a href="contact.html">Contact</a></li></ul>
+      <ul><li><a href="/portfolio">Portfolio</a></li><li><a href="/about">About</a></li><li><a href="/services">Services</a></li><li><a href="/process">Process</a></li><li><a href="/contact">Contact</a></li></ul>
     </div>
     <div class="ft-col">
       <p class="ft-col-h">Services</p>
-      <ul><li><a href="services.html">New Construction</a></li><li><a href="services.html">Kitchen &amp; Bath</a></li><li><a href="services.html">Full Remodel</a></li></ul>
+      <ul><li><a href="/services">New Construction</a></li><li><a href="/services">Kitchen &amp; Bath</a></li><li><a href="/services">Full Remodel</a></li></ul>
     </div>
     <div class="ft-col">
       <p class="ft-col-h">Visit</p>
